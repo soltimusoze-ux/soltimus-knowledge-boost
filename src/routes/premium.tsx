@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -94,10 +94,19 @@ function useInView<T extends HTMLElement>(threshold = 0.3) {
 
 /* ------------------------------ COMPONENT ------------------------------ */
 function PremiumHome() {
+  // Smooth scroll site-wide
+  useEffect(() => {
+    const prev = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => { document.documentElement.style.scrollBehavior = prev; };
+  }, []);
   return (
     <div className="min-h-screen bg-white text-[#0E0E10] antialiased selection:bg-[#F5B800] selection:text-black">
+      <ScrollProgress />
+      <GrainOverlay />
       <Nav />
       <Hero />
+      <PartnerTicker />
       <ComfortStrip />
       <ModernLivingManifesto />
       <SocialProofStats />
@@ -120,6 +129,69 @@ function PremiumHome() {
       <Footer />
       <StickyMobileCTA />
     </div>
+  );
+}
+
+/* ----------------------------- SCROLL PROGRESS ----------------------------- */
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 });
+  return (
+    <motion.div
+      style={{ scaleX, transformOrigin: "0% 50%", background: `linear-gradient(90deg, ${GOLD}, ${BLUE})` }}
+      className="fixed inset-x-0 top-0 z-[60] h-[2px]"
+      aria-hidden
+    />
+  );
+}
+
+/* ------------------------------- GRAIN OVERLAY ------------------------------- */
+function GrainOverlay() {
+  // Subtle film grain — adds cinematic texture without distracting
+  const svg =
+    "data:image/svg+xml;utf8," +
+    encodeURIComponent(
+      `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>`,
+    );
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[55] opacity-[0.06] mix-blend-overlay"
+      style={{ backgroundImage: `url("${svg}")`, backgroundSize: "160px 160px" }}
+    />
+  );
+}
+
+/* ------------------------------ PARTNER TICKER ------------------------------ */
+function PartnerTicker() {
+  const items = [
+    "Autoryzowany Partner Daikin D1+",
+    "Certyfikat UDT",
+    "Uprawnienia F-Gazy",
+    "Mój Prąd · Czyste Powietrze",
+    "1000+ Realizacji",
+    "4.9 ★ Google Reviews",
+    "15 lat doświadczenia",
+    "Inżynierski projekt indywidualny",
+  ];
+  const row = [...items, ...items];
+  return (
+    <section aria-label="Zaufali nam" className="relative overflow-hidden border-y border-black/5 bg-white py-5">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+      <motion.div
+        className="flex gap-12 whitespace-nowrap text-[11px] uppercase tracking-[0.25em] text-black/55"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 50, ease: "linear", repeat: Infinity }}
+      >
+        {row.map((t, i) => (
+          <span key={i} className="flex items-center gap-3">
+            <span className="inline-block h-1 w-1 rounded-full" style={{ background: GOLD }} />
+            {t}
+          </span>
+        ))}
+      </motion.div>
+    </section>
   );
 }
 
@@ -208,6 +280,24 @@ function Hero() {
         />
       </motion.div>
 
+      {/* Ambient floating orbs */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 top-1/3 h-[420px] w-[420px] rounded-full blur-3xl"
+        style={{ background: `radial-gradient(circle, ${GOLD}40, transparent 70%)` }}
+        animate={{ y: [0, -30, 0], x: [0, 12, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 bottom-0 h-[520px] w-[520px] rounded-full blur-3xl"
+        style={{ background: `radial-gradient(circle, ${BLUE}33, transparent 70%)` }}
+        animate={{ y: [0, 24, 0], x: [0, -16, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Vignette for cinematic depth */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
+
       <motion.div
         style={{ opacity }}
         className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-5 pb-20 pt-32 md:px-8 md:pb-28"
@@ -222,16 +312,31 @@ function Hero() {
           Autoryzowany Partner Daikin · 1000+ domów
         </motion.span>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-5xl text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-tight text-white"
-        >
-          Ciepły dom.
+        <h1 className="mt-6 max-w-5xl text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-tight text-white">
+          {["Ciepły", "dom."].map((w, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.35 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="mr-3 inline-block"
+            >
+              {w}
+            </motion.span>
+          ))}
           <br />
-          <span className="italic font-light text-white/90">Spokojna głowa.</span>
-        </motion.h1>
+          {["Spokojna", "głowa."].map((w, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.7 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="mr-3 inline-block italic font-light text-white/90"
+            >
+              {w}
+            </motion.span>
+          ))}
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -1264,30 +1369,42 @@ function Footer() {
 
 /* ----------------------------- STICKY MOBILE ----------------------------- */
 function StickyMobileCTA() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.6);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <div className="fixed inset-x-3 bottom-3 z-40 flex gap-2 md:hidden">
+    <motion.div
+      initial={false}
+      animate={{ y: show ? 0 : 120, opacity: show ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-x-3 bottom-3 z-40 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 p-1.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden"
+    >
       <a
         href="tel:+48000000000"
-        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-black text-white shadow-lg"
+        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
         aria-label="Zadzwoń"
       >
         <Phone className="h-4 w-4" />
       </a>
       <a
         href="https://wa.me/48000000000"
-        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white"
         aria-label="WhatsApp"
       >
         <MessageCircle className="h-4 w-4" />
       </a>
       <a
         href="#kontakt"
-        className="flex flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold text-black shadow-[0_10px_30px_-10px_rgba(245,184,0,0.7)]"
-        style={{ background: GOLD }}
+        className="flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold text-black"
+        style={{ background: `linear-gradient(135deg, ${GOLD}, #FFD24A)` }}
       >
         Darmowa konsultacja <ArrowRight className="h-4 w-4" />
       </a>
-    </div>
+    </motion.div>
   );
 }
 
