@@ -280,6 +280,24 @@ function Hero() {
         />
       </motion.div>
 
+      {/* Ambient floating orbs */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -left-24 top-1/3 h-[420px] w-[420px] rounded-full blur-3xl"
+        style={{ background: `radial-gradient(circle, ${GOLD}40, transparent 70%)` }}
+        animate={{ y: [0, -30, 0], x: [0, 12, 0] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute -right-32 bottom-0 h-[520px] w-[520px] rounded-full blur-3xl"
+        style={{ background: `radial-gradient(circle, ${BLUE}33, transparent 70%)` }}
+        animate={{ y: [0, 24, 0], x: [0, -16, 0] }}
+        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      />
+      {/* Vignette for cinematic depth */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
+
       <motion.div
         style={{ opacity }}
         className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-5 pb-20 pt-32 md:px-8 md:pb-28"
