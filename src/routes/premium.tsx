@@ -170,7 +170,7 @@ function PartnerTicker() {
     "Uprawnienia F-Gazy",
     "Mój Prąd · Czyste Powietrze",
     "1000+ Realizacji",
-    "4.9 ★ Google Reviews",
+    "5.0 ★ · 263+ opinii Google",
     "15 lat doświadczenia",
     "Inżynierski projekt indywidualny",
   ];
