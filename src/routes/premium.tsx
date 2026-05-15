@@ -1092,14 +1092,14 @@ function VideoHub() {
 /* ----------------------------- KNOWLEDGE HUB ----------------------------- */
 function KnowledgeHub() {
   const cats = [
-    { name: "Pompy ciepła", icon: Thermometer, count: "42 materiały" },
-    { name: "Fotowoltaika", icon: Sun, count: "38 materiałów" },
-    { name: "Magazyny energii", icon: Battery, count: "21 materiałów" },
-    { name: "Dotacje", icon: Banknote, count: "17 materiałów" },
-    { name: "Case studies", icon: Building2, count: "29 realizacji" },
-    { name: "FAQ", icon: HelpCircle, count: "60+ pytań" },
-    { name: "Porównania", icon: GitCompare, count: "12 zestawień" },
-    { name: "Poradniki", icon: BookOpen, count: "34 poradniki" },
+    { slug: "pompy-ciepla", name: "Pompy ciepła", icon: Thermometer, count: "42 materiały" },
+    { slug: "fotowoltaika", name: "Fotowoltaika", icon: Sun, count: "38 materiałów" },
+    { slug: "magazyny-energii", name: "Magazyny energii", icon: Battery, count: "21 materiałów" },
+    { slug: "dotacje", name: "Dotacje", icon: Banknote, count: "17 materiałów" },
+    { slug: "case-studies", name: "Case studies", icon: Building2, count: "29 realizacji" },
+    { slug: "faq", name: "FAQ", icon: HelpCircle, count: "60+ pytań" },
+    { slug: "porownania", name: "Porównania", icon: GitCompare, count: "12 zestawień" },
+    { slug: "engineering-lab", name: "Engineering Lab", icon: BookOpen, count: "Pogłębione analizy" },
   ];
 
   const fetchArticles = useServerFn(fetchPublicArticles);
