@@ -99,11 +99,19 @@ function PremiumHome() {
       <Nav />
       <Hero />
       <ComfortStrip />
+      <ModernLivingManifesto />
       <SocialProofStats />
+      <LifestyleGallery />
       <Team />
       <HowWeWork />
+      <CinematicQuote
+        image="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2000&q=85"
+        quote="Dom nie powinien być projektem. Powinien być spokojem."
+        author="Filozofia Soltimus"
+      />
       <WhySoltimus />
       <CaseStudies />
+      <BehindTheScenes />
       <TrustAwards />
       <VideoHub />
       <KnowledgeHub />
