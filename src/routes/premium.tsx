@@ -1240,45 +1240,49 @@ function KnowledgeHub() {
           {aLoading && !lead ? (
             <div className="h-[560px] animate-pulse rounded-3xl bg-black/5 lg:col-span-7" />
           ) : lead ? (
-            <motion.a
-              href={lead.link}
-              target="_blank"
-              rel="noopener"
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="group relative col-span-1 flex flex-col overflow-hidden rounded-3xl bg-black lg:col-span-7"
+              className="col-span-1 lg:col-span-7"
             >
-              <div className="relative aspect-[16/10] overflow-hidden lg:aspect-[16/11]">
-                <img
-                  src={lead.image ?? fallbackImg}
-                  alt={lead.title}
-                  className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-                <span
-                  className="absolute left-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white backdrop-blur"
-                >
-                  <Sparkles className="h-3 w-3" style={{ color: GOLD }} />
-                  Materiał redakcyjny
-                </span>
-                <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
-                  <h3 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl">
-                    {lead.title}
-                  </h3>
-                  {lead.excerpt && (
-                    <p className="mt-3 max-w-xl text-sm text-white/70 line-clamp-2 md:text-base">
-                      {lead.excerpt}
-                    </p>
-                  )}
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white">
-                    Czytaj pełny artykuł
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              <Link
+                to="/wiedza/$category/$slug"
+                params={{
+                  category: matchCategory(`${lead.title} ${lead.excerpt}`),
+                  slug: lead.slug,
+                }}
+                className="group relative flex flex-col overflow-hidden rounded-3xl bg-black"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden lg:aspect-[16/11]">
+                  <img
+                    src={lead.image ?? fallbackImg}
+                    alt={lead.title}
+                    className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                  <span className="absolute left-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white backdrop-blur">
+                    <Sparkles className="h-3 w-3" style={{ color: GOLD }} />
+                    Materiał redakcyjny
+                  </span>
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
+                    <h3 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl">
+                      {lead.title}
+                    </h3>
+                    {lead.excerpt && (
+                      <p className="mt-3 max-w-xl text-sm text-white/70 line-clamp-2 md:text-base">
+                        {lead.excerpt}
+                      </p>
+                    )}
+                    <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white">
+                      Czytaj pełny artykuł
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.a>
+              </Link>
+            </motion.div>
           ) : null}
 
           {/* Secondary stack */}
@@ -1286,37 +1290,47 @@ function KnowledgeHub() {
             {(aLoading && secondary.length === 0
               ? Array.from({ length: 3 }).map((_, i) => ({ id: i, loading: true } as any))
               : secondary
-            ).map((s: any, i: number) => (
-              <motion.a
-                key={s.id}
-                href={s.link ?? "#"}
-                target="_blank"
-                rel="noopener"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className={`group flex gap-4 rounded-2xl border border-black/5 bg-white p-4 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] ${s.loading ? "animate-pulse" : ""}`}
-              >
-                <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-black/5 md:h-28 md:w-28">
-                  {!s.loading && (
-                    <img
-                      src={s.image ?? fallbackImg}
-                      alt={s.title ?? ""}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  )}
-                </div>
-                <div className="flex flex-1 flex-col justify-center gap-1.5">
-                  <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
-                    {s.loading ? "—" : "Poradnik"}
-                  </span>
-                  <h4 className="text-sm font-semibold leading-snug tracking-tight line-clamp-3 md:text-base">
-                    {s.title ?? ""}
-                  </h4>
-                </div>
-              </motion.a>
-            ))}
+            ).map((s: any, i: number) =>
+              s.loading ? (
+                <div
+                  key={s.id}
+                  className="h-32 animate-pulse rounded-2xl border border-black/5 bg-white p-4"
+                />
+              ) : (
+                <motion.div
+                  key={s.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                >
+                  <Link
+                    to="/wiedza/$category/$slug"
+                    params={{
+                      category: matchCategory(`${s.title} ${s.excerpt}`),
+                      slug: s.slug,
+                    }}
+                    className="group flex gap-4 rounded-2xl border border-black/5 bg-white p-4 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
+                  >
+                    <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-black/5 md:h-28 md:w-28">
+                      <img
+                        src={s.image ?? fallbackImg}
+                        alt={s.title ?? ""}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col justify-center gap-1.5">
+                      <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
+                        Poradnik · {s.readingTime ?? 5} min
+                      </span>
+                      <h4 className="text-sm font-semibold leading-snug tracking-tight line-clamp-3 md:text-base">
+                        {s.title ?? ""}
+                      </h4>
+                    </div>
+                  </Link>
+                </motion.div>
+              )
+            )}
           </div>
         </div>
 
