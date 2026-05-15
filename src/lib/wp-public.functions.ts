@@ -1,5 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
-import { CATEGORY_IDS } from "./wp.server";
+const CATEGORY_IDS = { artykul: 12, wideo: 14 } as const;
 
 const WP_SITE = "https://soltimus.pl";
 
