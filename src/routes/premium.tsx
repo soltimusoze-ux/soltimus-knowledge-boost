@@ -1192,15 +1192,13 @@ function KnowledgeHub() {
               nie copywriterów. Bez marketingowych obietnic, z liczbami z realnych instalacji.
             </p>
           </div>
-          <a
-            href="https://soltimus.pl/strefa-wiedzy/artykuly/"
-            target="_blank"
-            rel="noopener"
+          <Link
+            to="/wiedza"
             className="group inline-flex items-center gap-2 self-start rounded-full border border-black/15 px-5 py-2.5 text-sm font-medium transition-all hover:border-black hover:bg-black hover:text-white"
           >
             Cała baza wiedzy
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          </Link>
         </div>
 
         {/* ---------- CATEGORY GRID ---------- */}
