@@ -32,6 +32,13 @@ import {
   Building2,
   Sparkles,
   Quote,
+  Plus,
+  Minus,
+  BookOpen,
+  HelpCircle,
+  GitCompare,
+  Layers,
+  FileText,
 } from "lucide-react";
 
 export const Route = createFileRoute("/premium")({
