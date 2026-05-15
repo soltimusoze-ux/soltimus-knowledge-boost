@@ -9,38 +9,128 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
+import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
+import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
+import { Route as AuthenticatedAdminNewArticleRouteImport } from './routes/_authenticated.admin.new-article'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedAdminNewVideoRoute =
+  AuthenticatedAdminNewVideoRouteImport.update({
+    id: '/admin/new-video',
+    path: '/admin/new-video',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminNewPdfRoute =
+  AuthenticatedAdminNewPdfRouteImport.update({
+    id: '/admin/new-pdf',
+    path: '/admin/new-pdf',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminNewArticleRoute =
+  AuthenticatedAdminNewArticleRouteImport.update({
+    id: '/admin/new-article',
+    path: '/admin/new-article',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
+  '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
+  '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
+  '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
+  '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
+  '/_authenticated/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
+  '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/admin/new-article'
+    | '/admin/new-pdf'
+    | '/admin/new-video'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/admin/new-article'
+    | '/admin/new-pdf'
+    | '/admin/new-video'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/login'
+    | '/_authenticated/admin/new-article'
+    | '/_authenticated/admin/new-pdf'
+    | '/_authenticated/admin/new-video'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +138,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/new-video': {
+      id: '/_authenticated/admin/new-video'
+      path: '/admin/new-video'
+      fullPath: '/admin/new-video'
+      preLoaderRoute: typeof AuthenticatedAdminNewVideoRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/new-pdf': {
+      id: '/_authenticated/admin/new-pdf'
+      path: '/admin/new-pdf'
+      fullPath: '/admin/new-pdf'
+      preLoaderRoute: typeof AuthenticatedAdminNewPdfRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/new-article': {
+      id: '/_authenticated/admin/new-article'
+      path: '/admin/new-article'
+      fullPath: '/admin/new-article'
+      preLoaderRoute: typeof AuthenticatedAdminNewArticleRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedAdminNewArticleRoute: typeof AuthenticatedAdminNewArticleRoute
+  AuthenticatedAdminNewPdfRoute: typeof AuthenticatedAdminNewPdfRoute
+  AuthenticatedAdminNewVideoRoute: typeof AuthenticatedAdminNewVideoRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminNewArticleRoute: AuthenticatedAdminNewArticleRoute,
+  AuthenticatedAdminNewPdfRoute: AuthenticatedAdminNewPdfRoute,
+  AuthenticatedAdminNewVideoRoute: AuthenticatedAdminNewVideoRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
