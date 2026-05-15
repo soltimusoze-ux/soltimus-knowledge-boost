@@ -8,6 +8,7 @@ import {
   GitCompare,
   Building2,
   FlaskConical,
+  type LucideProps,
 } from "lucide-react";
 import type { KnowledgeCategory } from "@/lib/knowledge-categories";
 
@@ -25,11 +26,8 @@ const MAP = {
 
 export function CategoryIcon({
   iconKey,
-  className,
-}: {
-  iconKey: KnowledgeCategory["iconKey"];
-  className?: string;
-}) {
+  ...rest
+}: { iconKey: KnowledgeCategory["iconKey"] } & LucideProps) {
   const Icon = MAP[iconKey];
-  return <Icon className={className} />;
+  return <Icon {...rest} />;
 }
