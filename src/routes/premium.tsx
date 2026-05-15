@@ -94,10 +94,19 @@ function useInView<T extends HTMLElement>(threshold = 0.3) {
 
 /* ------------------------------ COMPONENT ------------------------------ */
 function PremiumHome() {
+  // Smooth scroll site-wide
+  useEffect(() => {
+    const prev = document.documentElement.style.scrollBehavior;
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => { document.documentElement.style.scrollBehavior = prev; };
+  }, []);
   return (
     <div className="min-h-screen bg-white text-[#0E0E10] antialiased selection:bg-[#F5B800] selection:text-black">
+      <ScrollProgress />
+      <GrainOverlay />
       <Nav />
       <Hero />
+      <PartnerTicker />
       <ComfortStrip />
       <ModernLivingManifesto />
       <SocialProofStats />
@@ -120,6 +129,69 @@ function PremiumHome() {
       <Footer />
       <StickyMobileCTA />
     </div>
+  );
+}
+
+/* ----------------------------- SCROLL PROGRESS ----------------------------- */
+function ScrollProgress() {
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 });
+  return (
+    <motion.div
+      style={{ scaleX, transformOrigin: "0% 50%", background: `linear-gradient(90deg, ${GOLD}, ${BLUE})` }}
+      className="fixed inset-x-0 top-0 z-[60] h-[2px]"
+      aria-hidden
+    />
+  );
+}
+
+/* ------------------------------- GRAIN OVERLAY ------------------------------- */
+function GrainOverlay() {
+  // Subtle film grain — adds cinematic texture without distracting
+  const svg =
+    "data:image/svg+xml;utf8," +
+    encodeURIComponent(
+      `<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.5'/></svg>`,
+    );
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[55] opacity-[0.06] mix-blend-overlay"
+      style={{ backgroundImage: `url("${svg}")`, backgroundSize: "160px 160px" }}
+    />
+  );
+}
+
+/* ------------------------------ PARTNER TICKER ------------------------------ */
+function PartnerTicker() {
+  const items = [
+    "Autoryzowany Partner Daikin D1+",
+    "Certyfikat UDT",
+    "Uprawnienia F-Gazy",
+    "Mój Prąd · Czyste Powietrze",
+    "1000+ Realizacji",
+    "4.9 ★ Google Reviews",
+    "15 lat doświadczenia",
+    "Inżynierski projekt indywidualny",
+  ];
+  const row = [...items, ...items];
+  return (
+    <section aria-label="Zaufali nam" className="relative overflow-hidden border-y border-black/5 bg-white py-5">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-white to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-white to-transparent" />
+      <motion.div
+        className="flex gap-12 whitespace-nowrap text-[11px] uppercase tracking-[0.25em] text-black/55"
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 50, ease: "linear", repeat: Infinity }}
+      >
+        {row.map((t, i) => (
+          <span key={i} className="flex items-center gap-3">
+            <span className="inline-block h-1 w-1 rounded-full" style={{ background: GOLD }} />
+            {t}
+          </span>
+        ))}
+      </motion.div>
+    </section>
   );
 }
 
