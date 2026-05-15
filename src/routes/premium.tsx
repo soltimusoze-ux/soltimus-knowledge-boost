@@ -1369,30 +1369,42 @@ function Footer() {
 
 /* ----------------------------- STICKY MOBILE ----------------------------- */
 function StickyMobileCTA() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.6);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
   return (
-    <div className="fixed inset-x-3 bottom-3 z-40 flex gap-2 md:hidden">
+    <motion.div
+      initial={false}
+      animate={{ y: show ? 0 : 120, opacity: show ? 1 : 0 }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="fixed inset-x-3 bottom-3 z-40 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 p-1.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden"
+    >
       <a
         href="tel:+48000000000"
-        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-black text-white shadow-lg"
+        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
         aria-label="Zadzwoń"
       >
         <Phone className="h-4 w-4" />
       </a>
       <a
         href="https://wa.me/48000000000"
-        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white"
         aria-label="WhatsApp"
       >
         <MessageCircle className="h-4 w-4" />
       </a>
       <a
         href="#kontakt"
-        className="flex flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold text-black shadow-[0_10px_30px_-10px_rgba(245,184,0,0.7)]"
-        style={{ background: GOLD }}
+        className="flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold text-black"
+        style={{ background: `linear-gradient(135deg, ${GOLD}, #FFD24A)` }}
       >
         Darmowa konsultacja <ArrowRight className="h-4 w-4" />
       </a>
-    </div>
+    </motion.div>
   );
 }
 
