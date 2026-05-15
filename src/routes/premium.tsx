@@ -22,6 +22,16 @@ import {
   Wind,
   Thermometer,
   ChevronRight,
+  ChevronDown,
+  ClipboardList,
+  PencilRuler,
+  HardHat,
+  LifeBuoy,
+  CheckCircle2,
+  Users,
+  Building2,
+  Sparkles,
+  Quote,
 } from "lucide-react";
 
 export const Route = createFileRoute("/premium")({
@@ -88,9 +98,13 @@ function PremiumHome() {
     <div className="min-h-screen bg-white text-[#0E0E10] antialiased selection:bg-[#F5B800] selection:text-black">
       <Nav />
       <Hero />
-      <WhySoltimus />
+      <ComfortStrip />
+      <SocialProofStats />
       <Team />
+      <HowWeWork />
+      <WhySoltimus />
       <CaseStudies />
+      <TrustAwards />
       <VideoHub />
       <KnowledgeHub />
       <Testimonials />
@@ -126,15 +140,21 @@ function Nav() {
           <span className={scrolled ? "text-black" : "text-white"}>Soltimus</span>
         </a>
         <nav className="hidden items-center gap-8 text-sm md:flex">
-          {["Dlaczego my", "Zespół", "Realizacje", "Wiedza", "Kontakt"].map((l) => (
+          {[
+            { label: "Zespół", href: "#zespol" },
+            { label: "Jak pracujemy", href: "#proces" },
+            { label: "Realizacje", href: "#realizacje" },
+            { label: "Wiedza", href: "#wiedza" },
+            { label: "Kontakt", href: "#kontakt" },
+          ].map((l) => (
             <a
-              key={l}
-              href={`#${l.toLowerCase().replace(/\s/g, "-")}`}
+              key={l.label}
+              href={l.href}
               className={`transition-colors ${
                 scrolled ? "text-black/70 hover:text-black" : "text-white/80 hover:text-white"
               }`}
             >
-              {l}
+              {l.label}
             </a>
           ))}
         </nav>
@@ -158,26 +178,24 @@ function Hero() {
 
   return (
     <section ref={ref} className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-black">
-      {/* Video bg */}
+      {/* Lifestyle background — warm premium home */}
       <motion.div style={{ y }} className="absolute inset-0">
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="https://images.unsplash.com/photo-1545153996-04ce20069bb1?w=1920&q=80"
+        <img
+          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2400&q=85"
+          alt="Wnętrze nowoczesnego domu z komfortową temperaturą"
           className="h-full w-full object-cover"
-        >
-          <source
-            src="https://cdn.coverr.co/videos/coverr-solar-panels-on-a-modern-house-2633/1080p.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/80" />
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/85" />
         <div
-          className="absolute inset-0 opacity-30"
+          className="absolute inset-0 opacity-40"
           style={{
-            background: `radial-gradient(60% 50% at 70% 30%, ${GOLD}33, transparent 70%)`,
+            background: `radial-gradient(70% 55% at 75% 25%, ${GOLD}33, transparent 70%)`,
+          }}
+        />
+        <div
+          className="absolute inset-0 opacity-30 mix-blend-screen"
+          style={{
+            background: `radial-gradient(50% 50% at 15% 80%, ${BLUE}33, transparent 70%)`,
           }}
         />
       </motion.div>
@@ -190,10 +208,10 @@ function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-white/80 backdrop-blur"
+          className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-white/90 backdrop-blur"
         >
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: GOLD }} />
-          Autoryzowany Partner Daikin
+          Autoryzowany Partner Daikin · 1000+ domów
         </motion.span>
 
         <motion.h1
@@ -202,19 +220,20 @@ function Hero() {
           transition={{ delay: 0.35, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="mt-6 max-w-5xl text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-tight text-white"
         >
-          Projektujemy komfort
+          Ciepły dom.
           <br />
-          <span className="italic font-light text-white/90">i niskie rachunki.</span>
+          <span className="italic font-light text-white/90">Spokojna głowa.</span>
         </motion.h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="mt-6 max-w-xl text-base text-white/80 md:text-lg"
+          className="mt-6 max-w-xl text-base text-white/85 md:text-lg"
         >
-          Pompy ciepła, fotowoltaika, magazyny energii i rekuperacja —
-          od projektu po montaż i serwis.
+          Projektujemy i montujemy systemy, które dają Twojej rodzinie komfort
+          przez 25 lat — pompy ciepła, fotowoltaikę, magazyny energii i rekuperację.
+          Z opieką inżynierów, nie tylko monterów.
         </motion.p>
 
         <motion.div
@@ -233,7 +252,7 @@ function Hero() {
           </a>
           <a
             href="#realizacje"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/5 px-6 py-3.5 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/10"
+            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
           >
             Zobacz realizacje
           </a>
@@ -242,7 +261,6 @@ function Hero() {
         <TrustIndicators />
       </motion.div>
 
-      {/* Scroll cue */}
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 2 }}
@@ -285,6 +303,308 @@ function TrustIndicators() {
   );
 }
 
+/* --------------------------- COMFORT LIFESTYLE STRIP --------------------------- */
+function ComfortStrip() {
+  const shots = [
+    {
+      img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80",
+      label: "Cicho",
+      sub: "23 dB w salonie",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80",
+      label: "Ciepło",
+      sub: "21°C całą zimę",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
+      label: "Świeżo",
+      sub: "Powietrze jak po burzy",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      label: "Tanio",
+      sub: "Rachunki niższe o 70%",
+    },
+  ];
+  return (
+    <section className="bg-white px-5 py-20 md:px-8 md:py-28">
+      <div className="mx-auto max-w-7xl">
+        <SectionLabel>Co dostajesz</SectionLabel>
+        <h2 className="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-semibold leading-[1.05] tracking-tight">
+          Nie sprzedajemy pomp ciepła. <span className="italic font-light text-black/60">Sprzedajemy efekt.</span>
+        </h2>
+        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+          {shots.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ delay: i * 0.08, duration: 0.7 }}
+              className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-black md:aspect-[4/5]"
+            >
+              <img
+                src={s.img}
+                alt={s.label}
+                className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
+                <div className="text-lg font-semibold text-white md:text-xl">{s.label}</div>
+                <div className="text-xs text-white/70 md:text-sm">{s.sub}</div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------- SOCIAL PROOF STATS --------------------------- */
+function SocialProofStats() {
+  const [ref, seen] = useInView<HTMLDivElement>(0.3);
+  const realizacje = useCountUp(1000, 2200, seen);
+  const reviews = useCountUp(49, 1800, seen);
+  const lat = useCountUp(15, 1500, seen);
+  const ekipy = useCountUp(8, 1400, seen);
+
+  const stats = [
+    { value: `${realizacje}+`, label: "Zrealizowanych instalacji", sub: "od 2010 roku" },
+    { value: `${(reviews / 10).toFixed(1)}/5`, label: "Średnia ocena Google", sub: "ponad 200 opinii" },
+    { value: `${lat}`, label: "Lat doświadczenia", sub: "w fotowoltaice i HVAC" },
+    { value: `${ekipy}`, label: "Własnych ekip montażowych", sub: "bez podwykonawców" },
+  ];
+
+  return (
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-[#0E0E10] px-5 py-24 text-white md:px-8 md:py-32"
+    >
+      <div
+        className="absolute -top-40 left-1/4 h-[500px] w-[500px] rounded-full opacity-20 blur-3xl"
+        style={{ background: `radial-gradient(circle, ${GOLD}, transparent 60%)` }}
+      />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="grid grid-cols-2 gap-y-10 md:grid-cols-4 md:gap-y-0">
+          {stats.map((s, i) => (
+            <motion.div
+              key={s.label}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="flex flex-col gap-2 border-l border-white/10 px-5 first:border-l-0 md:px-8"
+            >
+              <div className="text-[clamp(2.5rem,5vw,4rem)] font-semibold leading-none tracking-tight">
+                {s.value}
+              </div>
+              <div className="text-sm font-medium text-white/90">{s.label}</div>
+              <div className="text-xs text-white/50">{s.sub}</div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------------- TEAM --------------------------------- */
+function Team() {
+  const people = [
+    {
+      name: "Marek Kowalski",
+      role: "Główny inżynier",
+      quote: "Każdy projekt zaczynam od bilansu cieplnego. Zawsze.",
+      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80",
+    },
+    {
+      name: "Anna Zielińska",
+      role: "Doradca techniczny",
+      quote: "Mój klient ma rozumieć każdą decyzję, którą razem podejmujemy.",
+      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80",
+    },
+    {
+      name: "Piotr Nowak",
+      role: "Koordynator montaży",
+      quote: "Jeden opiekun, jeden numer, jedna odpowiedzialność.",
+      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80",
+    },
+    {
+      name: "Karolina Wiśniewska",
+      role: "Specjalistka dotacji",
+      quote: "Czyste Powietrze od A do Z. Nie zostawiam papierów klientowi.",
+      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&q=80",
+    },
+  ];
+  return (
+    <section
+      id="zespol"
+      className="relative overflow-hidden bg-white px-5 py-28 md:px-8 md:py-40"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-5">
+            <SectionLabel>Ludzie Soltimus</SectionLabel>
+            <h2 className="mt-4 text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
+              Za każdą instalacją <span className="italic font-light text-black/60">stoi człowiek</span>.
+            </h2>
+            <p className="mt-6 max-w-md text-base text-black/60 md:text-lg">
+              Nie jesteśmy call-center, ani agregatorem podwykonawców. Jesteśmy
+              zespołem inżynierów, doradców i monterów, których poznasz osobiście —
+              i którzy biorą realną odpowiedzialność za Twój dom.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-black/60">
+              <span className="inline-flex items-center gap-2">
+                <Users className="h-4 w-4" style={{ color: BLUE }} /> 8 własnych ekip
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Building2 className="h-4 w-4" style={{ color: BLUE }} /> Showroom w Warszawie
+              </span>
+            </div>
+          </div>
+          <div className="md:col-span-7">
+            <div className="grid grid-cols-2 gap-3 md:gap-5">
+              {people.map((p, i) => (
+                <motion.figure
+                  key={p.name}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ delay: i * 0.08, duration: 0.7 }}
+                  className={`group relative overflow-hidden rounded-3xl bg-[#FAFAF7] ${
+                    i % 3 === 0 ? "md:translate-y-8" : ""
+                  }`}
+                >
+                  <div className="aspect-[3/4] w-full overflow-hidden">
+                    <img
+                      src={p.img}
+                      alt={p.name}
+                      className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
+                    />
+                  </div>
+                  <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-4 text-white md:p-5">
+                    <Quote
+                      className="mb-2 h-3.5 w-3.5 opacity-70"
+                      style={{ color: GOLD }}
+                    />
+                    <p className="text-xs leading-snug text-white/85 md:text-sm">
+                      {p.quote}
+                    </p>
+                    <div className="mt-3 border-t border-white/15 pt-2.5">
+                      <div className="text-sm font-semibold">{p.name}</div>
+                      <div className="text-[11px] text-white/60">{p.role}</div>
+                    </div>
+                  </figcaption>
+                </motion.figure>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------ HOW WE WORK ------------------------------ */
+function HowWeWork() {
+  const steps = [
+    {
+      icon: ClipboardList,
+      title: "Konsultacja",
+      desc: "Słuchamy. Pytamy o dom, rodzinę, plany. Bez sprzedażowej presji.",
+      time: "30–60 min",
+    },
+    {
+      icon: PencilRuler,
+      title: "Projekt i dobór",
+      desc: "Bilans cieplny, dobór mocy, wizualizacja oszczędności. Inżynierski szczegół.",
+      time: "3–5 dni",
+    },
+    {
+      icon: Banknote,
+      title: "Pomoc w dotacjach",
+      desc: "Czyste Powietrze, Mój Prąd, Moje Ciepło. Wnioski wypełniamy razem z Tobą.",
+      time: "do 2 tyg.",
+    },
+    {
+      icon: HardHat,
+      title: "Profesjonalny montaż",
+      desc: "Własna ekipa. Bez podwykonawców. Czysto, terminowo, z dokumentacją.",
+      time: "2–5 dni",
+    },
+    {
+      icon: LifeBuoy,
+      title: "Opieka i serwis",
+      desc: "Reakcja w 24h. Magazyn części. Jesteśmy z Tobą przez 25 lat.",
+      time: "365 dni/rok",
+    },
+  ];
+
+  return (
+    <section
+      id="proces"
+      className="relative overflow-hidden bg-[#FAFAF7] px-5 py-28 md:px-8 md:py-40"
+    >
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <SectionLabel>Jak pracujemy</SectionLabel>
+            <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight">
+              Pięć kroków. <span className="italic font-light text-black/60">Zero chaosu.</span>
+            </h2>
+          </div>
+          <p className="max-w-sm text-base text-black/60">
+            Każdy etap ma swojego opiekuna. Zawsze wiesz, co dzieje się w Twoim
+            projekcie i kto za to odpowiada.
+          </p>
+        </div>
+
+        <div className="relative mt-16">
+          {/* Timeline line */}
+          <div
+            className="absolute left-0 right-0 top-8 hidden h-px md:block"
+            style={{
+              background: `linear-gradient(to right, transparent, ${GOLD}66, ${GOLD}66, transparent)`,
+            }}
+          />
+          <ol className="grid grid-cols-1 gap-8 md:grid-cols-5 md:gap-4">
+            {steps.map((s, i) => (
+              <motion.li
+                key={s.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="relative flex flex-col gap-3 md:items-start"
+              >
+                <div
+                  className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
+                  style={{ borderTop: `2px solid ${GOLD}` }}
+                >
+                  <s.icon className="h-6 w-6 text-black" />
+                  <span
+                    className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full text-[10px] font-bold text-black"
+                    style={{ background: GOLD }}
+                  >
+                    {i + 1}
+                  </span>
+                </div>
+                <div className="text-[10px] uppercase tracking-widest text-black/40">
+                  {s.time}
+                </div>
+                <h3 className="text-lg font-semibold tracking-tight">{s.title}</h3>
+                <p className="text-sm leading-relaxed text-black/60">{s.desc}</p>
+              </motion.li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ----------------------------- WHY SOLTIMUS ----------------------------- */
 function WhySoltimus() {
   const cards = [
@@ -296,7 +616,7 @@ function WhySoltimus() {
     { icon: ShieldCheck, title: "Profesjonalny serwis", desc: "Reakcja w 24h. Własny magazyn części i mobilni technicy." },
   ];
   return (
-    <section id="dlaczego-my" className="relative bg-white px-5 py-28 md:px-8 md:py-40">
+    <section className="relative bg-white px-5 py-28 md:px-8 md:py-40">
       <div className="mx-auto max-w-7xl">
         <SectionLabel>Dlaczego Soltimus</SectionLabel>
         <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight">
@@ -329,85 +649,69 @@ function WhySoltimus() {
   );
 }
 
-/* --------------------------------- TEAM --------------------------------- */
-function Team() {
-  const people = [
-    { name: "Marek Kowalski", role: "Główny inżynier", img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80" },
-    { name: "Anna Zielińska", role: "Doradca techniczny", img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80" },
-    { name: "Piotr Nowak", role: "Koordynator montaży", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80" },
-    { name: "Karolina Wiśniewska", role: "Specjalista dotacji", img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80" },
-  ];
-  return (
-    <section id="zespół" className="relative bg-[#0E0E10] px-5 py-28 text-white md:px-8 md:py-40">
-      <div className="mx-auto max-w-7xl">
-        <SectionLabel dark>Ludzie Soltimus</SectionLabel>
-        <div className="mt-4 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <h2 className="max-w-2xl text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight">
-            Poznaj ludzi <span className="italic font-light text-white/70">Soltimus</span>.
-          </h2>
-          <p className="max-w-md text-base text-white/60">
-            Nowoczesna technologia zaczyna się od ludzi. Inżynierów, doradców, monterów i serwisantów,
-            którzy biorą odpowiedzialność za każdą instalację.
-          </p>
-        </div>
-        <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
-          {people.map((p, i) => (
-            <motion.div
-              key={p.name}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ delay: i * 0.08, duration: 0.7 }}
-              className="group relative overflow-hidden rounded-2xl bg-white/5"
-            >
-              <div className="aspect-[3/4] w-full overflow-hidden">
-                <img
-                  src={p.img}
-                  alt={p.name}
-                  className="h-full w-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
-                />
-              </div>
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/60 to-transparent p-4 md:p-5">
-                <div className="text-sm font-semibold md:text-base">{p.name}</div>
-                <div className="text-xs text-white/60">{p.role}</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ------------------------------ CASE STUDIES ------------------------------ */
 function CaseStudies() {
+  const [open, setOpen] = useState<number | null>(0);
   const cases = [
     {
       title: "Dom 220 m² — modernizacja ogrzewania i fotowoltaika",
+      city: "Pruszków",
       img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1600&q=80",
-      problem: "Stary kocioł gazowy + rachunki 12 000 zł/rok",
-      solution: "Pompa ciepła Daikin Altherma 3 + 9.8 kWp PV + magazyn 10 kWh",
-      result: "Rachunki niższe o 70%",
-      tech: ["Daikin Altherma 3", "PV 9.8 kWp", "Magazyn 10 kWh"],
+      photos: [
+        "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=1200&q=80",
+        "https://images.unsplash.com/photo-1605579375923-cb44c98e9e98?w=1200&q=80",
+      ],
+      problem: "Stary kocioł gazowy + rachunki 12 000 zł/rok. Zimne podłogi i wilgoć.",
+      challenge: "Modernizacja bez przerywania zamieszkania. Trudny dostęp do dachu.",
+      solution: "Pompa ciepła Daikin Altherma 3 + 9.8 kWp PV + magazyn 10 kWh.",
+      tech: ["Daikin Altherma 3 H HT", "PV 9.8 kWp", "Magazyn 10 kWh", "Dotacja: Czyste Powietrze"],
+      effect: "Rachunki niższe o 70%. Stała temperatura 21°C. Zwrot inwestycji w 7 lat.",
       saving: "−70%",
+      kpis: [
+        { v: "12 000 zł", l: "rocznie wcześniej" },
+        { v: "3 600 zł", l: "rocznie teraz" },
+        { v: "7 lat", l: "okres zwrotu" },
+      ],
     },
     {
       title: "Nowoczesny dom 180 m² — kompleksowa instalacja",
+      city: "Józefosław",
       img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
-      problem: "Pusta inwestycja, brak źródła ciepła i wentylacji",
-      solution: "Pompa + rekuperacja + PV 8 kWp + ciepła woda",
-      result: "Komfort A+ od pierwszego dnia",
-      tech: ["Daikin Altherma", "Rekuperacja", "PV 8 kWp"],
+      photos: [
+        "https://images.unsplash.com/photo-1545208974-b9ed28e80bd5?w=1200&q=80",
+        "https://images.unsplash.com/photo-1572120360610-d971b9d7767c?w=1200&q=80",
+      ],
+      problem: "Pusta inwestycja, brak źródła ciepła, brak wentylacji mechanicznej.",
+      challenge: "Pełna koordynacja z generalnym wykonawcą i elektrykiem.",
+      solution: "Pompa Daikin + rekuperacja + PV 8 kWp + ciepła woda użytkowa.",
+      tech: ["Daikin Altherma 3 R", "Rekuperacja Mistral", "PV 8 kWp"],
+      effect: "Komfort A+ od pierwszego dnia zamieszkania. Powietrze filtrowane HEPA.",
       saving: "A+",
+      kpis: [
+        { v: "21°C", l: "stała temperatura" },
+        { v: "60%", l: "filtracja PM2.5" },
+        { v: "0 zł", l: "rachunek za grzanie w lecie" },
+      ],
     },
     {
       title: "Rezydencja 350 m² — premium energy system",
+      city: "Konstancin",
       img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&q=80",
-      problem: "Wysokie wymagania komfortu i estetyki",
-      solution: "Kaskada pomp ciepła + PV 14 kWp + magazyn 20 kWh",
-      result: "Niezależność energetyczna",
-      tech: ["Kaskada Daikin", "PV 14 kWp", "Magazyn 20 kWh"],
+      photos: [
+        "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+        "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
+      ],
+      problem: "Wysokie wymagania komfortu, estetyki i niezależności energetycznej.",
+      challenge: "Ukrycie urządzeń. Integracja z systemem smart home.",
+      solution: "Kaskada pomp ciepła Daikin + PV 14 kWp + magazyn 20 kWh.",
+      tech: ["Kaskada Daikin", "PV 14 kWp", "Magazyn 20 kWh", "Loxone integration"],
+      effect: "Niezależność energetyczna na poziomie 92%. Pełna integracja smart home.",
       saving: "−85%",
+      kpis: [
+        { v: "92%", l: "niezależności energetycznej" },
+        { v: "20 kWh", l: "pojemność magazynu" },
+        { v: "−85%", l: "rachunki r/r" },
+      ],
     },
   ];
   return (
@@ -417,49 +721,97 @@ function CaseStudies() {
         <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight">
           Każdy dom to <span className="italic font-light">historia oszczędności</span>.
         </h2>
-        <div className="mt-16 space-y-6">
-          {cases.map((c, i) => (
-            <motion.article
-              key={c.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-              className="group grid grid-cols-1 overflow-hidden rounded-3xl border border-black/5 bg-[#FAFAF7] md:grid-cols-2"
-            >
-              <div className="relative h-64 overflow-hidden md:h-auto">
-                <img
-                  src={c.img}
-                  alt={c.title}
-                  className="h-full w-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
-                <div
-                  className="absolute left-5 top-5 rounded-full px-3 py-1 text-xs font-semibold"
-                  style={{ background: GOLD, color: GRAPHITE }}
+        <div className="mt-16 space-y-5">
+          {cases.map((c, i) => {
+            const isOpen = open === i;
+            return (
+              <motion.article
+                key={c.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7 }}
+                className="overflow-hidden rounded-3xl border border-black/5 bg-[#FAFAF7]"
+              >
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  className="grid w-full grid-cols-1 text-left md:grid-cols-[280px_1fr_auto] md:items-center"
                 >
-                  {c.saving}
-                </div>
-              </div>
-              <div className="flex flex-col gap-5 p-8 md:p-12">
-                <h3 className="text-xl font-semibold tracking-tight md:text-2xl">{c.title}</h3>
-                <div className="grid gap-3 text-sm">
-                  <Row label="Problem" value={c.problem} />
-                  <Row label="Rozwiązanie" value={c.solution} />
-                  <Row label="Rezultat" value={c.result} highlight />
-                </div>
-                <div className="mt-2 flex flex-wrap gap-2">
-                  {c.tech.map((t) => (
-                    <span key={t} className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-black/70">
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <button className="mt-2 inline-flex w-fit items-center gap-1.5 text-sm font-medium text-black/80 hover:text-black">
-                  Zobacz pełną historię <ArrowRight className="h-3.5 w-3.5" />
+                  <div className="relative h-56 overflow-hidden md:h-44">
+                    <img src={c.img} alt={c.title} className="h-full w-full object-cover" />
+                    <div
+                      className="absolute left-4 top-4 rounded-full px-3 py-1 text-xs font-semibold"
+                      style={{ background: GOLD, color: GRAPHITE }}
+                    >
+                      {c.saving}
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1 p-6 md:p-8">
+                    <div className="text-[10px] uppercase tracking-widest text-black/40">
+                      {c.city}
+                    </div>
+                    <h3 className="text-lg font-semibold tracking-tight md:text-xl">
+                      {c.title}
+                    </h3>
+                    <div className="mt-1 text-sm text-black/60 line-clamp-1">
+                      {c.effect}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 px-6 pb-6 text-sm font-medium text-black/70 md:px-8 md:pb-0">
+                    {isOpen ? "Zwiń" : "Rozwiń"}
+                    <ChevronDown
+                      className={`h-4 w-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                    />
+                  </div>
                 </button>
-              </div>
-            </motion.article>
-          ))}
+
+                <motion.div
+                  initial={false}
+                  animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="grid grid-cols-1 gap-8 border-t border-black/5 p-6 md:grid-cols-2 md:p-10">
+                    <div className="flex flex-col gap-5">
+                      <Row label="Problem" value={c.problem} />
+                      <Row label="Wyzwanie" value={c.challenge} />
+                      <Row label="Rozwiązanie" value={c.solution} />
+                      <Row label="Efekt" value={c.effect} highlight />
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {c.tech.map((t) => (
+                          <span
+                            key={t}
+                            className="rounded-full border border-black/10 bg-white px-3 py-1 text-xs text-black/70"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-5">
+                      <div className="grid grid-cols-2 gap-3">
+                        {c.photos.map((p, j) => (
+                          <div key={j} className="aspect-[4/3] overflow-hidden rounded-2xl">
+                            <img src={p} alt="Realizacja" className="h-full w-full object-cover" />
+                          </div>
+                        ))}
+                      </div>
+                      <div className="grid grid-cols-3 gap-2 rounded-2xl bg-white p-4">
+                        {c.kpis.map((k) => (
+                          <div key={k.l} className="text-center">
+                            <div className="text-lg font-semibold tracking-tight md:text-xl">{k.v}</div>
+                            <div className="text-[10px] uppercase tracking-widest text-black/40">
+                              {k.l}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -469,7 +821,7 @@ function CaseStudies() {
 function Row({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
     <div className="grid grid-cols-[100px_1fr] gap-3">
-      <span className="text-[10px] uppercase tracking-widest text-black/40 pt-1">{label}</span>
+      <span className="pt-1 text-[10px] uppercase tracking-widest text-black/40">{label}</span>
       <span
         className={highlight ? "font-semibold" : "text-black/70"}
         style={highlight ? { color: GRAPHITE } : undefined}
@@ -477,6 +829,62 @@ function Row({ label, value, highlight }: { label: string; value: string; highli
         {value}
       </span>
     </div>
+  );
+}
+
+/* ------------------------------ TRUST AWARDS ------------------------------ */
+function TrustAwards() {
+  const badges = [
+    { label: "Daikin D1+", sub: "Autoryzowany Partner" },
+    { label: "UDT", sub: "Uprawnienia montażowe" },
+    { label: "F-Gazy", sub: "Certyfikat FGAZ" },
+    { label: "SEP", sub: "do 1 kV" },
+    { label: "Czyste Powietrze", sub: "Operator programu" },
+    { label: "Mój Prąd", sub: "Wnioski 1–6" },
+  ];
+  return (
+    <section className="relative overflow-hidden bg-[#0E0E10] px-5 py-24 text-white md:px-8 md:py-32">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-12 md:grid-cols-12 md:gap-16">
+          <div className="md:col-span-5">
+            <SectionLabel dark>
+              <span className="inline-flex items-center gap-1.5">
+                <Sparkles className="h-3 w-3" style={{ color: GOLD }} /> Zaufanie
+              </span>
+            </SectionLabel>
+            <h2 className="mt-4 text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.02] tracking-tight">
+              Certyfikaty, które <span className="italic font-light text-white/60">faktycznie chronią</span> Twoją inwestycję.
+            </h2>
+            <p className="mt-6 max-w-md text-base text-white/60">
+              Pracujemy wyłącznie na sprzęcie i zasadach producentów. Każdy monter
+              ma uprawnienia, każda instalacja ma dokumentację.
+            </p>
+            <div className="mt-8 flex items-center gap-4">
+              <CheckCircle2 className="h-5 w-5" style={{ color: GOLD }} />
+              <span className="text-sm text-white/80">Pełna gwarancja producenta utrzymana</span>
+            </div>
+          </div>
+          <div className="md:col-span-7">
+            <div className="grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/5 md:grid-cols-3">
+              {badges.map((b) => (
+                <div
+                  key={b.label}
+                  className="group flex flex-col gap-2 bg-[#0E0E10] p-6 transition-colors hover:bg-white/5 md:p-8"
+                >
+                  <div
+                    className="text-lg font-semibold tracking-tight md:text-xl"
+                    style={{ color: GOLD }}
+                  >
+                    {b.label}
+                  </div>
+                  <div className="text-xs text-white/50">{b.sub}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -807,16 +1215,16 @@ function Footer() {
                 pn–pt 9:00–17:00
               </div>
               <a href="#" className="mt-3 inline-flex items-center gap-1 text-sm font-medium" style={{ color: BLUE }}>
-                <MapPin className="h-3.5 w-3.5" /> Otwórz w mapach
+                <MapPin className="h-3.5 w-3.5" /> <span>Otwórz w mapach</span>
               </a>
             </div>
             <div>
               <div className="text-[10px] uppercase tracking-widest text-black/40">Kontakt</div>
               <a href="tel:+48000000000" className="mt-3 flex items-center gap-2 text-sm text-black/80">
-                <Phone className="h-3.5 w-3.5" /> +48 000 000 000
+                <Phone className="h-3.5 w-3.5" /> <span>+48 000 000 000</span>
               </a>
               <a href="mailto:biuro@soltimus.pl" className="mt-2 flex items-center gap-2 text-sm text-black/80">
-                <Mail className="h-3.5 w-3.5" /> biuro@soltimus.pl
+                <Mail className="h-3.5 w-3.5" /> <span>biuro@soltimus.pl</span>
               </a>
             </div>
             <div>
@@ -834,7 +1242,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-black/5 pt-8 text-xs text-black/40 md:flex-row md:items-center">
-          <div>© {new Date().getFullYear()} Soltimus. Wszelkie prawa zastrzeżone.</div>
+          <div>© 2026 Soltimus. Wszelkie prawa zastrzeżone.</div>
           <div className="flex gap-5">
             <a href="#">Polityka prywatności</a>
             <a href="#">Regulamin</a>
@@ -853,8 +1261,16 @@ function StickyMobileCTA() {
       <a
         href="tel:+48000000000"
         className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-black text-white shadow-lg"
+        aria-label="Zadzwoń"
       >
         <Phone className="h-4 w-4" />
+      </a>
+      <a
+        href="https://wa.me/48000000000"
+        className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg"
+        aria-label="WhatsApp"
+      >
+        <MessageCircle className="h-4 w-4" />
       </a>
       <a
         href="#kontakt"
