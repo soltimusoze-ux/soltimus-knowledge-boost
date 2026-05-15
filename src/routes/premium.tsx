@@ -1,9 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { fetchPublicArticles, fetchPublicVideos } from "@/lib/wp-public.functions";
+import { matchCategory } from "@/lib/knowledge-categories";
 import {
   Star,
   Award,
@@ -1091,14 +1092,14 @@ function VideoHub() {
 /* ----------------------------- KNOWLEDGE HUB ----------------------------- */
 function KnowledgeHub() {
   const cats = [
-    { name: "Pompy ciepła", icon: Thermometer, count: "42 materiały" },
-    { name: "Fotowoltaika", icon: Sun, count: "38 materiałów" },
-    { name: "Magazyny energii", icon: Battery, count: "21 materiałów" },
-    { name: "Dotacje", icon: Banknote, count: "17 materiałów" },
-    { name: "Case studies", icon: Building2, count: "29 realizacji" },
-    { name: "FAQ", icon: HelpCircle, count: "60+ pytań" },
-    { name: "Porównania", icon: GitCompare, count: "12 zestawień" },
-    { name: "Poradniki", icon: BookOpen, count: "34 poradniki" },
+    { slug: "pompy-ciepla", name: "Pompy ciepła", icon: Thermometer, count: "42 materiały" },
+    { slug: "fotowoltaika", name: "Fotowoltaika", icon: Sun, count: "38 materiałów" },
+    { slug: "magazyny-energii", name: "Magazyny energii", icon: Battery, count: "21 materiałów" },
+    { slug: "dotacje", name: "Dotacje", icon: Banknote, count: "17 materiałów" },
+    { slug: "case-studies", name: "Case studies", icon: Building2, count: "29 realizacji" },
+    { slug: "faq", name: "FAQ", icon: HelpCircle, count: "60+ pytań" },
+    { slug: "porownania", name: "Porównania", icon: GitCompare, count: "12 zestawień" },
+    { slug: "engineering-lab", name: "Engineering Lab", icon: BookOpen, count: "Pogłębione analizy" },
   ];
 
   const fetchArticles = useServerFn(fetchPublicArticles);
@@ -1191,45 +1192,45 @@ function KnowledgeHub() {
               nie copywriterów. Bez marketingowych obietnic, z liczbami z realnych instalacji.
             </p>
           </div>
-          <a
-            href="https://soltimus.pl/strefa-wiedzy/artykuly/"
-            target="_blank"
-            rel="noopener"
+          <Link
+            to="/wiedza"
             className="group inline-flex items-center gap-2 self-start rounded-full border border-black/15 px-5 py-2.5 text-sm font-medium transition-all hover:border-black hover:bg-black hover:text-white"
           >
             Cała baza wiedzy
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-          </a>
+          </Link>
         </div>
 
         {/* ---------- CATEGORY GRID ---------- */}
         <div className="mt-14 grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
           {cats.map((c, i) => (
-            <motion.a
+            <motion.div
               key={c.name}
-              href="https://soltimus.pl/strefa-wiedzy/artykuly/"
-              target="_blank"
-              rel="noopener"
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.04, duration: 0.5 }}
-              className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-black/5 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] md:p-6"
             >
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-xl"
-                style={{ background: `${BLUE}10` }}
+              <Link
+                to="/wiedza/$category"
+                params={{ category: c.slug }}
+                className="group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border border-black/5 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] md:p-6"
               >
-                <c.icon className="h-5 w-5" style={{ color: BLUE }} />
-              </div>
-              <div>
-                <div className="text-[15px] font-semibold tracking-tight">{c.name}</div>
-                <div className="mt-0.5 text-[11px] uppercase tracking-widest text-black/40">
-                  {c.count}
+                <div
+                  className="flex h-10 w-10 items-center justify-center rounded-xl"
+                  style={{ background: `${BLUE}10` }}
+                >
+                  <c.icon className="h-5 w-5" style={{ color: BLUE }} />
                 </div>
-              </div>
-              <ArrowRight className="absolute right-5 top-5 h-4 w-4 text-black/20 transition-all group-hover:right-4 group-hover:text-black" />
-            </motion.a>
+                <div>
+                  <div className="text-[15px] font-semibold tracking-tight">{c.name}</div>
+                  <div className="mt-0.5 text-[11px] uppercase tracking-widest text-black/40">
+                    {c.count}
+                  </div>
+                </div>
+                <ArrowRight className="absolute right-5 top-5 h-4 w-4 text-black/20 transition-all group-hover:right-4 group-hover:text-black" />
+              </Link>
+            </motion.div>
           ))}
         </div>
 
@@ -1239,45 +1240,49 @@ function KnowledgeHub() {
           {aLoading && !lead ? (
             <div className="h-[560px] animate-pulse rounded-3xl bg-black/5 lg:col-span-7" />
           ) : lead ? (
-            <motion.a
-              href={lead.link}
-              target="_blank"
-              rel="noopener"
+            <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
-              className="group relative col-span-1 flex flex-col overflow-hidden rounded-3xl bg-black lg:col-span-7"
+              className="col-span-1 lg:col-span-7"
             >
-              <div className="relative aspect-[16/10] overflow-hidden lg:aspect-[16/11]">
-                <img
-                  src={lead.image ?? fallbackImg}
-                  alt={lead.title}
-                  className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-                <span
-                  className="absolute left-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white backdrop-blur"
-                >
-                  <Sparkles className="h-3 w-3" style={{ color: GOLD }} />
-                  Materiał redakcyjny
-                </span>
-                <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
-                  <h3 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl">
-                    {lead.title}
-                  </h3>
-                  {lead.excerpt && (
-                    <p className="mt-3 max-w-xl text-sm text-white/70 line-clamp-2 md:text-base">
-                      {lead.excerpt}
-                    </p>
-                  )}
-                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white">
-                    Czytaj pełny artykuł
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+              <Link
+                to="/wiedza/$category/$slug"
+                params={{
+                  category: matchCategory(`${lead.title} ${lead.excerpt}`),
+                  slug: lead.slug,
+                }}
+                className="group relative flex flex-col overflow-hidden rounded-3xl bg-black"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden lg:aspect-[16/11]">
+                  <img
+                    src={lead.image ?? fallbackImg}
+                    alt={lead.title}
+                    className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                  <span className="absolute left-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white backdrop-blur">
+                    <Sparkles className="h-3 w-3" style={{ color: GOLD }} />
+                    Materiał redakcyjny
+                  </span>
+                  <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
+                    <h3 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl">
+                      {lead.title}
+                    </h3>
+                    {lead.excerpt && (
+                      <p className="mt-3 max-w-xl text-sm text-white/70 line-clamp-2 md:text-base">
+                        {lead.excerpt}
+                      </p>
+                    )}
+                    <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white">
+                      Czytaj pełny artykuł
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.a>
+              </Link>
+            </motion.div>
           ) : null}
 
           {/* Secondary stack */}
@@ -1285,37 +1290,47 @@ function KnowledgeHub() {
             {(aLoading && secondary.length === 0
               ? Array.from({ length: 3 }).map((_, i) => ({ id: i, loading: true } as any))
               : secondary
-            ).map((s: any, i: number) => (
-              <motion.a
-                key={s.id}
-                href={s.link ?? "#"}
-                target="_blank"
-                rel="noopener"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className={`group flex gap-4 rounded-2xl border border-black/5 bg-white p-4 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] ${s.loading ? "animate-pulse" : ""}`}
-              >
-                <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-black/5 md:h-28 md:w-28">
-                  {!s.loading && (
-                    <img
-                      src={s.image ?? fallbackImg}
-                      alt={s.title ?? ""}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  )}
-                </div>
-                <div className="flex flex-1 flex-col justify-center gap-1.5">
-                  <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
-                    {s.loading ? "—" : "Poradnik"}
-                  </span>
-                  <h4 className="text-sm font-semibold leading-snug tracking-tight line-clamp-3 md:text-base">
-                    {s.title ?? ""}
-                  </h4>
-                </div>
-              </motion.a>
-            ))}
+            ).map((s: any, i: number) =>
+              s.loading ? (
+                <div
+                  key={s.id}
+                  className="h-32 animate-pulse rounded-2xl border border-black/5 bg-white p-4"
+                />
+              ) : (
+                <motion.div
+                  key={s.id}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.08 }}
+                >
+                  <Link
+                    to="/wiedza/$category/$slug"
+                    params={{
+                      category: matchCategory(`${s.title} ${s.excerpt}`),
+                      slug: s.slug,
+                    }}
+                    className="group flex gap-4 rounded-2xl border border-black/5 bg-white p-4 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
+                  >
+                    <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-black/5 md:h-28 md:w-28">
+                      <img
+                        src={s.image ?? fallbackImg}
+                        alt={s.title ?? ""}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col justify-center gap-1.5">
+                      <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
+                        Poradnik · {s.readingTime ?? 5} min
+                      </span>
+                      <h4 className="text-sm font-semibold leading-snug tracking-tight line-clamp-3 md:text-base">
+                        {s.title ?? ""}
+                      </h4>
+                    </div>
+                  </Link>
+                </motion.div>
+              )
+            )}
           </div>
         </div>
 
@@ -1466,36 +1481,39 @@ function KnowledgeHub() {
           <div className="mt-24">
             <div className="flex items-end justify-between gap-6">
               <h3 className="text-xl font-semibold tracking-tight md:text-2xl">Więcej z bazy wiedzy</h3>
-              <a
-                href="https://soltimus.pl/strefa-wiedzy/artykuly/"
-                target="_blank"
-                rel="noopener"
+              <Link
+                to="/wiedza"
                 className="text-xs uppercase tracking-widest text-black/50 hover:text-black"
               >
                 Wszystkie →
-              </a>
+              </Link>
             </div>
             <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
               {more.map((m, i) => (
-                <motion.a
+                <motion.div
                   key={m.id}
-                  href={m.link}
-                  target="_blank"
-                  rel="noopener"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
-                  className="group flex flex-col gap-3 rounded-2xl border border-black/5 bg-white p-5 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
                 >
-                  <FileText className="h-4 w-4 text-black/40" />
-                  <h4 className="text-[15px] font-semibold leading-snug tracking-tight line-clamp-3">
-                    {m.title}
-                  </h4>
-                  <div className="mt-auto inline-flex items-center gap-1.5 text-xs font-medium">
-                    Czytaj <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-                  </div>
-                </motion.a>
+                  <Link
+                    to="/wiedza/$category/$slug"
+                    params={{
+                      category: matchCategory(`${m.title} ${m.excerpt}`),
+                      slug: m.slug,
+                    }}
+                    className="group flex h-full flex-col gap-3 rounded-2xl border border-black/5 bg-white p-5 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
+                  >
+                    <FileText className="h-4 w-4 text-black/40" />
+                    <h4 className="text-[15px] font-semibold leading-snug tracking-tight line-clamp-3">
+                      {m.title}
+                    </h4>
+                    <div className="mt-auto inline-flex items-center gap-1.5 text-xs font-medium">
+                      Czytaj <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>

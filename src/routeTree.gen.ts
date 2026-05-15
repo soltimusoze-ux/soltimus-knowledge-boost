@@ -13,7 +13,10 @@ import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
+import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
+import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
 import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
 import { Route as AuthenticatedAdminNewArticleRouteImport } from './routes/_authenticated.admin.new-article'
@@ -37,10 +40,25 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WiedzaIndexRoute = WiedzaIndexRouteImport.update({
+  id: '/wiedza/',
+  path: '/wiedza/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WiedzaCategoryRoute = WiedzaCategoryRouteImport.update({
+  id: '/wiedza/$category',
+  path: '/wiedza/$category',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
+} as any)
+const WiedzaCategorySlugRoute = WiedzaCategorySlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => WiedzaCategoryRoute,
 } as any)
 const AuthenticatedAdminNewVideoRoute =
   AuthenticatedAdminNewVideoRouteImport.update({
@@ -65,18 +83,24 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
+  '/wiedza/': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
+  '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
+  '/wiedza': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
+  '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -85,9 +109,12 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
+  '/wiedza/': typeof WiedzaIndexRoute
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/_authenticated/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
+  '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -96,18 +123,24 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/premium'
+    | '/wiedza/$category'
+    | '/wiedza/'
     | '/admin/new-article'
     | '/admin/new-pdf'
     | '/admin/new-video'
+    | '/wiedza/$category/$slug'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/login'
     | '/premium'
+    | '/wiedza/$category'
+    | '/wiedza'
     | '/admin/new-article'
     | '/admin/new-pdf'
     | '/admin/new-video'
+    | '/wiedza/$category/$slug'
     | '/admin'
   id:
     | '__root__'
@@ -115,9 +148,12 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/login'
     | '/premium'
+    | '/wiedza/$category'
+    | '/wiedza/'
     | '/_authenticated/admin/new-article'
     | '/_authenticated/admin/new-pdf'
     | '/_authenticated/admin/new-video'
+    | '/wiedza/$category/$slug'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -126,6 +162,8 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
   PremiumRoute: typeof PremiumRoute
+  WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
+  WiedzaIndexRoute: typeof WiedzaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -158,12 +196,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wiedza/': {
+      id: '/wiedza/'
+      path: '/wiedza'
+      fullPath: '/wiedza/'
+      preLoaderRoute: typeof WiedzaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wiedza/$category': {
+      id: '/wiedza/$category'
+      path: '/wiedza/$category'
+      fullPath: '/wiedza/$category'
+      preLoaderRoute: typeof WiedzaCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/admin/': {
       id: '/_authenticated/admin/'
       path: '/admin'
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
+    }
+    '/wiedza/$category/$slug': {
+      id: '/wiedza/$category/$slug'
+      path: '/$slug'
+      fullPath: '/wiedza/$category/$slug'
+      preLoaderRoute: typeof WiedzaCategorySlugRouteImport
+      parentRoute: typeof WiedzaCategoryRoute
     }
     '/_authenticated/admin/new-video': {
       id: '/_authenticated/admin/new-video'
@@ -207,11 +266,25 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface WiedzaCategoryRouteChildren {
+  WiedzaCategorySlugRoute: typeof WiedzaCategorySlugRoute
+}
+
+const WiedzaCategoryRouteChildren: WiedzaCategoryRouteChildren = {
+  WiedzaCategorySlugRoute: WiedzaCategorySlugRoute,
+}
+
+const WiedzaCategoryRouteWithChildren = WiedzaCategoryRoute._addFileChildren(
+  WiedzaCategoryRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   PremiumRoute: PremiumRoute,
+  WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,
+  WiedzaIndexRoute: WiedzaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
