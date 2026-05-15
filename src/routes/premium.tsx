@@ -1204,31 +1204,33 @@ function KnowledgeHub() {
         {/* ---------- CATEGORY GRID ---------- */}
         <div className="mt-14 grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
           {cats.map((c, i) => (
-            <motion.a
+            <motion.div
               key={c.name}
-              href="https://soltimus.pl/strefa-wiedzy/artykuly/"
-              target="_blank"
-              rel="noopener"
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ delay: i * 0.04, duration: 0.5 }}
-              className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-black/5 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] md:p-6"
             >
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-xl"
-                style={{ background: `${BLUE}10` }}
+              <Link
+                to="/wiedza/$category"
+                params={{ category: c.slug }}
+                className="group relative flex h-full flex-col gap-3 overflow-hidden rounded-2xl border border-black/5 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] md:p-6"
               >
-                <c.icon className="h-5 w-5" style={{ color: BLUE }} />
-              </div>
-              <div>
-                <div className="text-[15px] font-semibold tracking-tight">{c.name}</div>
-                <div className="mt-0.5 text-[11px] uppercase tracking-widest text-black/40">
-                  {c.count}
+                <div
+                  className="flex h-10 w-10 items-center justify-center rounded-xl"
+                  style={{ background: `${BLUE}10` }}
+                >
+                  <c.icon className="h-5 w-5" style={{ color: BLUE }} />
                 </div>
-              </div>
-              <ArrowRight className="absolute right-5 top-5 h-4 w-4 text-black/20 transition-all group-hover:right-4 group-hover:text-black" />
-            </motion.a>
+                <div>
+                  <div className="text-[15px] font-semibold tracking-tight">{c.name}</div>
+                  <div className="mt-0.5 text-[11px] uppercase tracking-widest text-black/40">
+                    {c.count}
+                  </div>
+                </div>
+                <ArrowRight className="absolute right-5 top-5 h-4 w-4 text-black/20 transition-all group-hover:right-4 group-hover:text-black" />
+              </Link>
+            </motion.div>
           ))}
         </div>
 
