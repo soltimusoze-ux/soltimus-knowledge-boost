@@ -1481,36 +1481,39 @@ function KnowledgeHub() {
           <div className="mt-24">
             <div className="flex items-end justify-between gap-6">
               <h3 className="text-xl font-semibold tracking-tight md:text-2xl">Więcej z bazy wiedzy</h3>
-              <a
-                href="https://soltimus.pl/strefa-wiedzy/artykuly/"
-                target="_blank"
-                rel="noopener"
+              <Link
+                to="/wiedza"
                 className="text-xs uppercase tracking-widest text-black/50 hover:text-black"
               >
                 Wszystkie →
-              </a>
+              </Link>
             </div>
             <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
               {more.map((m, i) => (
-                <motion.a
+                <motion.div
                   key={m.id}
-                  href={m.link}
-                  target="_blank"
-                  rel="noopener"
                   initial={{ opacity: 0, y: 16 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.06 }}
-                  className="group flex flex-col gap-3 rounded-2xl border border-black/5 bg-white p-5 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
                 >
-                  <FileText className="h-4 w-4 text-black/40" />
-                  <h4 className="text-[15px] font-semibold leading-snug tracking-tight line-clamp-3">
-                    {m.title}
-                  </h4>
-                  <div className="mt-auto inline-flex items-center gap-1.5 text-xs font-medium">
-                    Czytaj <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-                  </div>
-                </motion.a>
+                  <Link
+                    to="/wiedza/$category/$slug"
+                    params={{
+                      category: matchCategory(`${m.title} ${m.excerpt}`),
+                      slug: m.slug,
+                    }}
+                    className="group flex h-full flex-col gap-3 rounded-2xl border border-black/5 bg-white p-5 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
+                  >
+                    <FileText className="h-4 w-4 text-black/40" />
+                    <h4 className="text-[15px] font-semibold leading-snug tracking-tight line-clamp-3">
+                      {m.title}
+                    </h4>
+                    <div className="mt-auto inline-flex items-center gap-1.5 text-xs font-medium">
+                      Czytaj <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                  </Link>
+                </motion.div>
               ))}
             </div>
           </div>
