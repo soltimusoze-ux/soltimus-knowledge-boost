@@ -13,6 +13,7 @@ import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
 import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
@@ -35,6 +36,11 @@ const AuthenticatedRoute = AuthenticatedRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WiedzaIndexRoute = WiedzaIndexRouteImport.update({
+  id: '/wiedza/',
+  path: '/wiedza/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/wiedza/': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/wiedza': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/wiedza/': typeof WiedzaIndexRoute
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/_authenticated/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
@@ -96,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/premium'
+    | '/wiedza/'
     | '/admin/new-article'
     | '/admin/new-pdf'
     | '/admin/new-video'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/premium'
+    | '/wiedza'
     | '/admin/new-article'
     | '/admin/new-pdf'
     | '/admin/new-video'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/login'
     | '/premium'
+    | '/wiedza/'
     | '/_authenticated/admin/new-article'
     | '/_authenticated/admin/new-pdf'
     | '/_authenticated/admin/new-video'
@@ -126,6 +138,7 @@ export interface RootRouteChildren {
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
   LoginRoute: typeof LoginRoute
   PremiumRoute: typeof PremiumRoute
+  WiedzaIndexRoute: typeof WiedzaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -156,6 +169,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wiedza/': {
+      id: '/wiedza/'
+      path: '/wiedza'
+      fullPath: '/wiedza/'
+      preLoaderRoute: typeof WiedzaIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
@@ -212,7 +232,18 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
   LoginRoute: LoginRoute,
   PremiumRoute: PremiumRoute,
+  WiedzaIndexRoute: WiedzaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
