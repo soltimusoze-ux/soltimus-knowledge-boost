@@ -294,16 +294,31 @@ function Hero() {
           Autoryzowany Partner Daikin · 1000+ domów
         </motion.span>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-6 max-w-5xl text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-tight text-white"
-        >
-          Ciepły dom.
+        <h1 className="mt-6 max-w-5xl text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-tight text-white">
+          {["Ciepły", "dom."].map((w, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.35 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="mr-3 inline-block"
+            >
+              {w}
+            </motion.span>
+          ))}
           <br />
-          <span className="italic font-light text-white/90">Spokojna głowa.</span>
-        </motion.h1>
+          {["Spokojna", "głowa."].map((w, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ delay: 0.7 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              className="mr-3 inline-block italic font-light text-white/90"
+            >
+              {w}
+            </motion.span>
+          ))}
+        </h1>
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
