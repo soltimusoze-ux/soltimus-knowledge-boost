@@ -480,13 +480,14 @@ function ComfortStrip() {
 function SocialProofStats() {
   const [ref, seen] = useInView<HTMLDivElement>(0.3);
   const realizacje = useCountUp(1000, 2200, seen);
-  const reviews = useCountUp(49, 1800, seen);
+  const reviews = useCountUp(50, 1800, seen);
+  const reviewCount = useCountUp(263, 2200, seen);
   const lat = useCountUp(15, 1500, seen);
   const ekipy = useCountUp(8, 1400, seen);
 
   const stats = [
     { value: `${realizacje}+`, label: "Zrealizowanych instalacji", sub: "od 2010 roku" },
-    { value: `${(reviews / 10).toFixed(1)}/5`, label: "Średnia ocena Google", sub: "ponad 200 opinii" },
+    { value: `${(reviews / 10).toFixed(1)}/5`, label: "Średnia ocena Google", sub: `${reviewCount}+ opinii klientów` },
     { value: `${lat}`, label: "Lat doświadczenia", sub: "w fotowoltaice i HVAC" },
     { value: `${ekipy}`, label: "Własnych ekip montażowych", sub: "bez podwykonawców" },
   ];
