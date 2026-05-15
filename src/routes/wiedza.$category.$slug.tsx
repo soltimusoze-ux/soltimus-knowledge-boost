@@ -173,7 +173,7 @@ function ArticlePage() {
                 <CategoryIcon
                   iconKey={cat.iconKey}
                   className="h-3.5 w-3.5"
-                  // @ts-expect-error inline style for accent
+
                   style={{ color: cat.accent }}
                 />
               </div>

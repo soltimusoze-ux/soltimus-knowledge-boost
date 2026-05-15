@@ -82,7 +82,7 @@ function CategoryPage() {
               <CategoryIcon
                 iconKey={cat.iconKey}
                 className="h-7 w-7"
-                // @ts-expect-error inline style for accent
+
                 style={{ color: cat.accent }}
               />
             </div>
@@ -152,7 +152,7 @@ function CategoryPage() {
                   <CategoryIcon
                     iconKey={c.iconKey}
                     className="h-5 w-5"
-                    // @ts-expect-error inline style for accent
+
                     style={{ color: c.accent }}
                   />
                 </div>

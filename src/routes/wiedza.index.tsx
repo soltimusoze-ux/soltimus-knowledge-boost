@@ -115,7 +115,7 @@ function WiedzaIndex() {
                       <CategoryIcon
                         iconKey={c.iconKey}
                         className="h-5 w-5"
-                        // @ts-expect-error inline style for accent
+
                         style={{ color: c.accent }}
                       />
                     </div>
