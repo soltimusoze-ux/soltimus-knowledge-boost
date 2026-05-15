@@ -387,12 +387,13 @@ function Hero() {
 
 function TrustIndicators() {
   const [ref, seen] = useInView<HTMLDivElement>(0.4);
-  const reviews = useCountUp(49, 1500, seen);
+  const reviews = useCountUp(50, 1500, seen);
+  const reviewCount = useCountUp(263, 2000, seen);
   const realizacje = useCountUp(1000, 2000, seen);
   const lat = useCountUp(15, 1500, seen);
 
   const items = [
-    { label: "Google Reviews", value: `${(reviews / 10).toFixed(1)}`, icon: <Star className="h-4 w-4" fill={GOLD} stroke={GOLD} /> },
+    { label: `${reviewCount}+ opinii Google`, value: `${(reviews / 10).toFixed(1)}`, icon: <Star className="h-4 w-4" fill={GOLD} stroke={GOLD} /> },
     { label: "Realizacji", value: `${realizacje}+`, icon: <ShieldCheck className="h-4 w-4 text-white" /> },
     { label: "Lat doświadczenia", value: `${lat}`, icon: <Award className="h-4 w-4 text-white" /> },
     { label: "Pomoc w dotacjach", value: "Tak", icon: <Banknote className="h-4 w-4 text-white" /> },
