@@ -1291,6 +1291,343 @@ function StickyMobileCTA() {
   );
 }
 
+/* ------------------------ MODERN LIVING MANIFESTO ------------------------ */
+function ModernLivingManifesto() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.05]);
+
+  return (
+    <section
+      ref={ref}
+      className="relative isolate overflow-hidden bg-white"
+    >
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-5 py-24 md:grid-cols-12 md:gap-12 md:px-8 md:py-40">
+        <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
+          <SectionLabel>Modern living</SectionLabel>
+          <h2 className="mt-4 text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
+            Komfort, którego <span className="italic font-light text-black/60">nie słychać</span>.
+          </h2>
+          <p className="mt-6 max-w-md text-base leading-relaxed text-black/60 md:text-lg">
+            Projektujemy systemy dla domów, w których dziecko zasypia przy
+            21°C, kawa pachnie świeżym powietrzem, a rachunek za prąd nie
+            psuje niedzielnego śniadania.
+          </p>
+          <p className="mt-4 max-w-md text-base leading-relaxed text-black/60 md:text-lg">
+            To nie jest sprzęt. To architektura codziennego dobrostanu.
+          </p>
+          <div className="mt-10 grid grid-cols-2 gap-6 border-t border-black/5 pt-8">
+            <div>
+              <div className="text-2xl font-semibold tracking-tight md:text-3xl">21°C</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-black/40">
+                stała temperatura — cały rok
+              </div>
+            </div>
+            <div>
+              <div className="text-2xl font-semibold tracking-tight md:text-3xl">23 dB</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-black/40">
+                ciszej niż szept
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="mt-12 md:col-span-7 md:mt-0">
+          <div className="grid grid-cols-6 gap-3 md:gap-5">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="col-span-4 aspect-[4/5] overflow-hidden rounded-3xl bg-black"
+            >
+              <motion.img
+                style={{ scale }}
+                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&q=85"
+                alt="Wieczorny salon"
+                className="h-full w-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="col-span-2 mt-12 aspect-[3/4] overflow-hidden rounded-3xl bg-black md:mt-20"
+            >
+              <motion.img
+                style={{ y }}
+                src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85"
+                alt="Naturalne światło"
+                className="h-[120%] w-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="col-span-3 aspect-[5/4] overflow-hidden rounded-3xl bg-black"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=85"
+                alt="Rodzina"
+                className="h-full w-full object-cover"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="col-span-3 aspect-[5/4] overflow-hidden rounded-3xl bg-black"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200&q=85"
+                alt="Wieczorne wnętrze"
+                className="h-full w-full object-cover"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------- LIFESTYLE GALLERY --------------------------- */
+function LifestyleGallery() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const yA = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+  const yB = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+  const yC = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+
+  const tiles = [
+    {
+      img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=85",
+      tag: "Dom jednorodzinny",
+      sub: "Konstancin",
+      y: yA,
+      h: "h-[420px] md:h-[560px]",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1618219740975-d40978bb7378?w=1200&q=85",
+      tag: "Apartament premium",
+      sub: "Mokotów",
+      y: yB,
+      h: "h-[340px] md:h-[440px]",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85",
+      tag: "Rezydencja",
+      sub: "Józefosław",
+      y: yC,
+      h: "h-[460px] md:h-[600px]",
+    },
+  ];
+
+  return (
+    <section ref={ref} className="relative overflow-hidden bg-[#FAFAF7] px-5 py-28 md:px-8 md:py-40">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <SectionLabel>Domy, w których pracujemy</SectionLabel>
+            <h2 className="mt-4 text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
+              Architektura.
+              <br />
+              <span className="italic font-light text-black/60">Komfort.</span> Niezależność.
+            </h2>
+          </div>
+          <p className="text-base text-black/60 md:col-span-5 md:text-lg">
+            Współpracujemy z architektami, generalnymi wykonawcami i właścicielami
+            nieruchomości premium. Każdy dom traktujemy jak jednorazowy projekt
+            inżynierski — bo nim jest.
+          </p>
+        </div>
+
+        <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-6">
+          {tiles.map((t, i) => (
+            <motion.figure
+              key={t.tag}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: i * 0.12, duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className={`group relative overflow-hidden rounded-3xl bg-black ${t.h} ${
+                i === 1 ? "md:translate-y-16" : ""
+              } ${i === 2 ? "md:-translate-y-6" : ""}`}
+            >
+              <motion.img
+                style={{ y: t.y }}
+                src={t.img}
+                alt={t.tag}
+                className="h-[120%] w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-6 text-white md:p-8">
+                <div
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: GOLD }}
+                >
+                  {t.sub}
+                </div>
+                <div className="mt-2 text-xl font-semibold md:text-2xl">{t.tag}</div>
+              </figcaption>
+            </motion.figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------- CINEMATIC QUOTE --------------------------- */
+function CinematicQuote({
+  image,
+  quote,
+  author,
+}: {
+  image: string;
+  quote: string;
+  author: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.4, 1, 1, 0.4]);
+
+  return (
+    <section
+      ref={ref}
+      className="relative isolate h-[70vh] min-h-[520px] overflow-hidden bg-black md:h-[85vh]"
+    >
+      <motion.div style={{ y }} className="absolute inset-0 -z-10 h-[130%]">
+        <img src={image} alt="" className="h-full w-full object-cover opacity-70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/30 to-black/80" />
+      </motion.div>
+      <motion.div
+        style={{ opacity }}
+        className="relative mx-auto flex h-full max-w-5xl flex-col items-center justify-center px-5 text-center md:px-8"
+      >
+        <span
+          className="mb-6 inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.4em] text-white/60"
+        >
+          <span className="h-px w-10" style={{ background: GOLD }} />
+          Manifest
+        </span>
+        <Quote className="mb-6 h-7 w-7" style={{ color: GOLD }} />
+        <p className="text-[clamp(1.75rem,4.5vw,3.5rem)] font-light italic leading-[1.15] tracking-tight text-white">
+          „{quote}"
+        </p>
+        <div className="mt-10 text-xs uppercase tracking-[0.3em] text-white/50">{author}</div>
+      </motion.div>
+    </section>
+  );
+}
+
+/* ---------------------------- BEHIND THE SCENES ---------------------------- */
+function BehindTheScenes() {
+  const items = [
+    {
+      img: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=1400&q=85",
+      tag: "Magazyn",
+      title: "Własny magazyn części",
+      desc: "Kluczowe komponenty Daikin zawsze pod ręką. Reakcja serwisu w 24h.",
+      stat: "1 200 m²",
+      statLabel: "powierzchni",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1400&q=85",
+      tag: "Projektowanie",
+      title: "Biuro inżynierskie",
+      desc: "Bilans cieplny, dobór mocy, symulacje — zanim cokolwiek pojedzie na budowę.",
+      stat: "5 inżynierów",
+      statLabel: "etatowo",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&q=85",
+      tag: "Koordynacja",
+      title: "Operations & logistyka",
+      desc: "Dedykowany opiekun projektu. Planowanie ekip, dostaw, harmonogramów.",
+      stat: "8 ekip",
+      statLabel: "własnych",
+    },
+    {
+      img: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1400&q=85",
+      tag: "Montaż",
+      title: "Mobilne brygady",
+      desc: "Każda ekipa ma uprawnienia UDT, F-Gazy i SEP. Bez podwykonawców.",
+      stat: "100%",
+      statLabel: "in-house",
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-white px-5 py-28 md:px-8 md:py-40">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <SectionLabel>Za kulisami</SectionLabel>
+            <h2 className="mt-4 text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
+              Organizacja, której <span className="italic font-light text-black/60">nie widać</span> — ale czuć.
+            </h2>
+          </div>
+          <p className="text-base text-black/60 md:col-span-5 md:text-lg">
+            Soltimus to nie dwóch monterów z busem. To zespół 40+ osób, magazyn,
+            biuro projektowe i logistyka, która sprawia, że Twoja instalacja idzie
+            jak w zegarku.
+          </p>
+        </div>
+
+        <div className="mt-16 grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-6">
+          {items.map((it, i) => (
+            <motion.article
+              key={it.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: i * 0.08, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              className={`group relative overflow-hidden rounded-3xl bg-[#0E0E10] text-white ${
+                i % 3 === 0 ? "md:translate-y-0" : ""
+              } ${i === 1 ? "md:translate-y-12" : ""} ${i === 3 ? "md:translate-y-12" : ""}`}
+            >
+              <div className="relative aspect-[16/10] overflow-hidden">
+                <img
+                  src={it.img}
+                  alt={it.title}
+                  className="h-full w-full object-cover opacity-90 transition-all duration-[1400ms] group-hover:scale-110 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+                <div
+                  className="absolute left-5 top-5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] backdrop-blur"
+                  style={{ color: GOLD }}
+                >
+                  {it.tag}
+                </div>
+                <div className="absolute bottom-5 right-5 text-right">
+                  <div className="text-2xl font-semibold tracking-tight md:text-3xl">
+                    {it.stat}
+                  </div>
+                  <div className="text-[10px] uppercase tracking-widest text-white/60">
+                    {it.statLabel}
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col gap-2 p-7 md:p-8">
+                <h3 className="text-xl font-semibold tracking-tight md:text-2xl">
+                  {it.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-white/60">{it.desc}</p>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ------------------------------- HELPERS ------------------------------- */
 function SectionLabel({
   children,
