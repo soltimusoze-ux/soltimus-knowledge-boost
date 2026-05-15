@@ -482,14 +482,14 @@ function Row({ label, value, highlight }: { label: string; value: string; highli
 
 /* ------------------------------ VIDEO HUB ------------------------------ */
 function VideoHub() {
-  const reels = [
-    { t: "Pompy ciepła — od czego zacząć", img: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=600&q=80" },
-    { t: "5 błędów przy doborze PV", img: "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=600&q=80" },
-    { t: "Czyste Powietrze 2026", img: "https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?w=600&q=80" },
-    { t: "Magazyn energii — kiedy się opłaca", img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=600&q=80" },
-    { t: "Daikin Altherma w akcji", img: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" },
-    { t: "Montaż pompy — kulisy", img: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=600&q=80" },
-  ];
+  const fetchVideos = useServerFn(fetchPublicVideos);
+  const { data, isLoading } = useQuery({
+    queryKey: ["wp", "videos"],
+    queryFn: () => fetchVideos(),
+    staleTime: 5 * 60 * 1000,
+  });
+  const reels = data?.posts ?? [];
+
   return (
     <section className="relative overflow-hidden bg-[#0E0E10] px-5 py-28 text-white md:px-8 md:py-40">
       <div className="mx-auto max-w-7xl">
@@ -500,39 +500,58 @@ function VideoHub() {
               Reels, które <span className="italic font-light text-white/70">tłumaczą.</span>
             </h2>
           </div>
-          <a href="#" className="hidden items-center gap-1.5 text-sm text-white/70 hover:text-white md:inline-flex">
+          <a
+            href="https://soltimus.pl/strefa-wiedzy/wideo/"
+            target="_blank"
+            rel="noopener"
+            className="hidden items-center gap-1.5 text-sm text-white/70 hover:text-white md:inline-flex"
+          >
             Wszystkie wideo <ArrowRight className="h-3.5 w-3.5" />
           </a>
         </div>
         <div className="mt-12 -mx-5 flex gap-4 overflow-x-auto px-5 pb-4 md:mx-0 md:gap-6 md:px-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {reels.map((r, i) => (
-            <motion.div
-              key={r.t}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-              className="group relative aspect-[9/16] w-[260px] flex-shrink-0 overflow-hidden rounded-3xl bg-white/5 md:w-[280px]"
-            >
-              <img
-                src={r.img}
-                alt={r.t}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
-              <div className="absolute inset-0 flex items-center justify-center">
+          {isLoading && reels.length === 0
+            ? Array.from({ length: 4 }).map((_, i) => (
                 <div
-                  className="flex h-14 w-14 items-center justify-center rounded-full backdrop-blur transition-transform group-hover:scale-110"
-                  style={{ background: `${GOLD}EE` }}
+                  key={i}
+                  className="aspect-[9/16] w-[260px] flex-shrink-0 animate-pulse rounded-3xl bg-white/5 md:w-[280px]"
+                />
+              ))
+            : reels.map((r, i) => (
+                <motion.a
+                  key={r.id}
+                  href={r.link}
+                  target="_blank"
+                  rel="noopener"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.05 }}
+                  className="group relative aspect-[9/16] w-[260px] flex-shrink-0 overflow-hidden rounded-3xl bg-white/5 md:w-[280px]"
                 >
-                  <Play className="h-5 w-5 fill-black text-black" />
-                </div>
-              </div>
-              <div className="absolute inset-x-0 bottom-0 p-5 text-sm font-medium leading-snug">
-                {r.t}
-              </div>
-            </motion.div>
-          ))}
+                  {r.image ? (
+                    <img
+                      src={r.image}
+                      alt={r.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-gradient-to-br from-white/10 to-white/5" />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div
+                      className="flex h-14 w-14 items-center justify-center rounded-full backdrop-blur transition-transform group-hover:scale-110"
+                      style={{ background: `${GOLD}EE` }}
+                    >
+                      <Play className="h-5 w-5 fill-black text-black" />
+                    </div>
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 p-5 text-sm font-medium leading-snug">
+                    {r.title}
+                  </div>
+                </motion.a>
+              ))}
         </div>
       </div>
     </section>
@@ -542,76 +561,102 @@ function VideoHub() {
 /* ----------------------------- KNOWLEDGE HUB ----------------------------- */
 function KnowledgeHub() {
   const cats = [
-    { name: "Pompy ciepła", icon: Thermometer, count: 24 },
-    { name: "Fotowoltaika", icon: Sun, count: 18 },
-    { name: "Magazyny energii", icon: Battery, count: 9 },
-    { name: "Rekuperacja", icon: Wind, count: 11 },
-    { name: "Dotacje", icon: Banknote, count: 14 },
-    { name: "Poradniki", icon: ShieldCheck, count: 32 },
+    { name: "Pompy ciepła", icon: Thermometer },
+    { name: "Fotowoltaika", icon: Sun },
+    { name: "Magazyny energii", icon: Battery },
+    { name: "Rekuperacja", icon: Wind },
+    { name: "Dotacje", icon: Banknote },
+    { name: "Poradniki", icon: ShieldCheck },
   ];
-  const featured = [
-    {
-      cat: "Pompy ciepła",
-      title: "Gruntowa pompa ciepła: jak działa, ile kosztuje i czy ma wady?",
-      img: "https://images.unsplash.com/photo-1518893063132-36e46dbe2428?w=1200&q=80",
-    },
-    {
-      cat: "Fotowoltaika",
-      title: "Net-billing 2026 — co się zmienia dla Twojej instalacji?",
-      img: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200&q=80",
-    },
-  ];
+  const fetchArticles = useServerFn(fetchPublicArticles);
+  const { data, isLoading } = useQuery({
+    queryKey: ["wp", "articles"],
+    queryFn: () => fetchArticles(),
+    staleTime: 5 * 60 * 1000,
+  });
+  const articles = data?.posts ?? [];
+  const featured = articles.slice(0, 2);
+
+  const fallbackImg =
+    "https://images.unsplash.com/photo-1518893063132-36e46dbe2428?w=1200&q=80";
+
   return (
     <section id="wiedza" className="bg-white px-5 py-28 md:px-8 md:py-40">
       <div className="mx-auto max-w-7xl">
-        <SectionLabel>Strefa wiedzy</SectionLabel>
-        <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight">
-          Decyzje warte <span className="italic font-light">setek tysięcy</span> wymagają wiedzy.
-        </h2>
+        <div className="flex items-end justify-between gap-6">
+          <div>
+            <SectionLabel>Strefa wiedzy</SectionLabel>
+            <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight">
+              Decyzje warte <span className="italic font-light">setek tysięcy</span> wymagają wiedzy.
+            </h2>
+          </div>
+          <a
+            href="https://soltimus.pl/strefa-wiedzy/artykuly/"
+            target="_blank"
+            rel="noopener"
+            className="hidden items-center gap-1.5 text-sm text-black/60 hover:text-black md:inline-flex"
+          >
+            Wszystkie artykuły <ArrowRight className="h-3.5 w-3.5" />
+          </a>
+        </div>
 
         <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {featured.map((f, i) => (
-            <motion.a
-              key={f.title}
-              href="#"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="group relative flex flex-col overflow-hidden rounded-3xl bg-[#FAFAF7] lg:row-span-2"
-            >
-              <div className="aspect-[16/10] overflow-hidden lg:aspect-auto lg:h-[60%]">
-                <img
-                  src={f.img}
-                  alt={f.title}
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+          {isLoading && featured.length === 0
+            ? Array.from({ length: 2 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="h-[420px] animate-pulse rounded-3xl bg-[#FAFAF7] lg:row-span-2"
                 />
-              </div>
-              <div className="flex flex-1 flex-col gap-3 p-8">
-                <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
-                  {f.cat}
-                </span>
-                <h3 className="text-xl font-semibold leading-tight tracking-tight md:text-2xl">
-                  {f.title}
-                </h3>
-                <div className="mt-auto inline-flex items-center gap-1.5 text-sm font-medium">
-                  Czytaj <ArrowRight className="h-3.5 w-3.5" />
-                </div>
-              </div>
-            </motion.a>
-          ))}
+              ))
+            : featured.map((f, i) => (
+                <motion.a
+                  key={f.id}
+                  href={f.link}
+                  target="_blank"
+                  rel="noopener"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="group relative flex flex-col overflow-hidden rounded-3xl bg-[#FAFAF7] lg:row-span-2"
+                >
+                  <div className="aspect-[16/10] overflow-hidden lg:aspect-auto lg:h-[60%]">
+                    <img
+                      src={f.image ?? fallbackImg}
+                      alt={f.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col gap-3 p-8">
+                    <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
+                      Artykuł
+                    </span>
+                    <h3 className="text-xl font-semibold leading-tight tracking-tight md:text-2xl">
+                      {f.title}
+                    </h3>
+                    {f.excerpt && (
+                      <p className="text-sm text-black/60 line-clamp-3">{f.excerpt}</p>
+                    )}
+                    <div className="mt-auto inline-flex items-center gap-1.5 text-sm font-medium">
+                      Czytaj <ArrowRight className="h-3.5 w-3.5" />
+                    </div>
+                  </div>
+                </motion.a>
+              ))}
 
           <div className="grid grid-cols-2 gap-3 lg:gap-4">
             {cats.map((c) => (
               <a
                 key={c.name}
-                href="#"
+                href="https://soltimus.pl/strefa-wiedzy/artykuly/"
+                target="_blank"
+                rel="noopener"
                 className="group flex flex-col gap-2 rounded-2xl border border-black/5 bg-white p-5 transition-all hover:border-black/20 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)]"
               >
                 <c.icon className="h-5 w-5 text-black/60 transition-colors group-hover:text-black" />
                 <div className="mt-auto">
                   <div className="text-sm font-semibold">{c.name}</div>
-                  <div className="text-xs text-black/40">{c.count} artykułów</div>
+                  <div className="text-xs text-black/40">Zobacz artykuły</div>
                 </div>
               </a>
             ))}
