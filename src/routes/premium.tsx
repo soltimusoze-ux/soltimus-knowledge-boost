@@ -32,6 +32,13 @@ import {
   Building2,
   Sparkles,
   Quote,
+  Plus,
+  Minus,
+  BookOpen,
+  HelpCircle,
+  GitCompare,
+  Layers,
+  FileText,
 } from "lucide-react";
 
 export const Route = createFileRoute("/premium")({
@@ -170,7 +177,7 @@ function PartnerTicker() {
     "Uprawnienia F-Gazy",
     "Mój Prąd · Czyste Powietrze",
     "1000+ Realizacji",
-    "4.9 ★ Google Reviews",
+    "5.0 ★ · 263+ opinii Google",
     "15 lat doświadczenia",
     "Inżynierski projekt indywidualny",
   ];
@@ -387,12 +394,13 @@ function Hero() {
 
 function TrustIndicators() {
   const [ref, seen] = useInView<HTMLDivElement>(0.4);
-  const reviews = useCountUp(49, 1500, seen);
+  const reviews = useCountUp(50, 1500, seen);
+  const reviewCount = useCountUp(263, 2000, seen);
   const realizacje = useCountUp(1000, 2000, seen);
   const lat = useCountUp(15, 1500, seen);
 
   const items = [
-    { label: "Google Reviews", value: `${(reviews / 10).toFixed(1)}`, icon: <Star className="h-4 w-4" fill={GOLD} stroke={GOLD} /> },
+    { label: `${reviewCount}+ opinii Google`, value: `${(reviews / 10).toFixed(1)}`, icon: <Star className="h-4 w-4" fill={GOLD} stroke={GOLD} /> },
     { label: "Realizacji", value: `${realizacje}+`, icon: <ShieldCheck className="h-4 w-4 text-white" /> },
     { label: "Lat doświadczenia", value: `${lat}`, icon: <Award className="h-4 w-4 text-white" /> },
     { label: "Pomoc w dotacjach", value: "Tak", icon: <Banknote className="h-4 w-4 text-white" /> },
@@ -479,13 +487,14 @@ function ComfortStrip() {
 function SocialProofStats() {
   const [ref, seen] = useInView<HTMLDivElement>(0.3);
   const realizacje = useCountUp(1000, 2200, seen);
-  const reviews = useCountUp(49, 1800, seen);
+  const reviews = useCountUp(50, 1800, seen);
+  const reviewCount = useCountUp(263, 2200, seen);
   const lat = useCountUp(15, 1500, seen);
   const ekipy = useCountUp(8, 1400, seen);
 
   const stats = [
     { value: `${realizacje}+`, label: "Zrealizowanych instalacji", sub: "od 2010 roku" },
-    { value: `${(reviews / 10).toFixed(1)}/5`, label: "Średnia ocena Google", sub: "ponad 200 opinii" },
+    { value: `${(reviews / 10).toFixed(1)}/5`, label: "Średnia ocena Google", sub: `${reviewCount}+ opinii klientów` },
     { value: `${lat}`, label: "Lat doświadczenia", sub: "w fotowoltaice i HVAC" },
     { value: `${ekipy}`, label: "Własnych ekip montażowych", sub: "bez podwykonawców" },
   ];
@@ -1082,107 +1091,415 @@ function VideoHub() {
 /* ----------------------------- KNOWLEDGE HUB ----------------------------- */
 function KnowledgeHub() {
   const cats = [
-    { name: "Pompy ciepła", icon: Thermometer },
-    { name: "Fotowoltaika", icon: Sun },
-    { name: "Magazyny energii", icon: Battery },
-    { name: "Rekuperacja", icon: Wind },
-    { name: "Dotacje", icon: Banknote },
-    { name: "Poradniki", icon: ShieldCheck },
+    { name: "Pompy ciepła", icon: Thermometer, count: "42 materiały" },
+    { name: "Fotowoltaika", icon: Sun, count: "38 materiałów" },
+    { name: "Magazyny energii", icon: Battery, count: "21 materiałów" },
+    { name: "Dotacje", icon: Banknote, count: "17 materiałów" },
+    { name: "Case studies", icon: Building2, count: "29 realizacji" },
+    { name: "FAQ", icon: HelpCircle, count: "60+ pytań" },
+    { name: "Porównania", icon: GitCompare, count: "12 zestawień" },
+    { name: "Poradniki", icon: BookOpen, count: "34 poradniki" },
   ];
+
   const fetchArticles = useServerFn(fetchPublicArticles);
-  const { data, isLoading } = useQuery({
+  const fetchVideos = useServerFn(fetchPublicVideos);
+  const { data: aData, isLoading: aLoading } = useQuery({
     queryKey: ["wp", "articles"],
     queryFn: () => fetchArticles(),
     staleTime: 5 * 60 * 1000,
   });
-  const articles = data?.posts ?? [];
-  const featured = articles.slice(0, 2);
+  const { data: vData } = useQuery({
+    queryKey: ["wp", "videos"],
+    queryFn: () => fetchVideos(),
+    staleTime: 5 * 60 * 1000,
+  });
+
+  const articles = aData?.posts ?? [];
+  const videos = (vData?.posts ?? []).filter((v) => v.videoId);
+  const lead = articles[0];
+  const secondary = articles.slice(1, 4);
+  const more = articles.slice(4, 7);
 
   const fallbackImg =
-    "https://images.unsplash.com/photo-1518893063132-36e46dbe2428?w=1200&q=80";
+    "https://images.unsplash.com/photo-1518893063132-36e46dbe2428?w=1600&q=80";
+
+  const comparison = [
+    { feature: "Roczny koszt ogrzewania (150 m²)", heat: "~3 500 zł", gas: "~7 800 zł", elec: "~12 400 zł" },
+    { feature: "Emisja CO₂", heat: "Niska", gas: "Średnia", elec: "Średnia" },
+    { feature: "Dotacja Czyste Powietrze", heat: "do 135 000 zł", gas: "brak", elec: "brak" },
+    { feature: "Żywotność systemu", heat: "20–25 lat", gas: "15 lat", elec: "10–15 lat" },
+    { feature: "Praca z fotowoltaiką", heat: "Pełna integracja", gas: "Brak", elec: "Częściowa" },
+  ];
+
+  const faqs = [
+    {
+      q: "Czy pompa ciepła sprawdzi się w starszym domu?",
+      a: "Tak — w 90% przypadków. Kluczowy jest indywidualny audyt strat ciepła oraz dobór mocy i typu pompy (powietrze–woda lub gruntowa). W starszych domach często wystarcza wymiana 2–3 grzejników i poprawa izolacji strychu, aby uzyskać COP > 3,5 nawet przy –10°C.",
+    },
+    {
+      q: "Ile kosztuje pompa ciepła z montażem w 2026 roku?",
+      a: "Kompletna inwestycja w pompę ciepła Daikin Altherma 3 z montażem to 55 000–85 000 zł brutto, zależnie od mocy (8–16 kW) i wariantu (split / monoblock). Po dotacji Czyste Powietrze koszt netto może spaść do 20 000–40 000 zł.",
+    },
+    {
+      q: "Czy fotowoltaika opłaca się przy net-billingu?",
+      a: "Tak, ale tylko w połączeniu z magazynem energii lub sterownikiem konsumpcji własnej. Realny zwrot inwestycji to dziś 7–9 lat, a przy integracji z pompą ciepła nawet 5–6 lat. Sama instalacja PV bez magazynu pokrywa dziś ok. 30–40% rocznego zużycia.",
+    },
+    {
+      q: "Jak długo trwa cały proces — od konsultacji do uruchomienia?",
+      a: "Standardowo 4–8 tygodni. Konsultacja i audyt: 1 tydzień. Projekt i wycena: 5–10 dni. Realizacja montażu: 2–5 dni dla PV, 3–7 dni dla pompy ciepła. Dokumentacja dotacyjna i uruchomienie: 1–2 tygodnie.",
+    },
+    {
+      q: "Czy pomagacie w dotacjach Czyste Powietrze i Mój Prąd?",
+      a: "Tak, prowadzimy klienta przez cały proces dotacyjny — od audytu energetycznego, przez wniosek, po rozliczenie. To usługa wliczona w pakiet realizacji, bez dodatkowych opłat. Skuteczność naszych wniosków: 98,7%.",
+    },
+    {
+      q: "Jaki serwis i gwarancję otrzymuję po montażu?",
+      a: "5 lat gwarancji producenta na pompę ciepła Daikin (przy serwisowaniu autoryzowanym), 12 lat na panele i 10 lat na falownik. Dodatkowo własny dział serwisu Soltimus z reakcją w 24h na terenie województwa.",
+    },
+  ];
+
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
 
   return (
-    <section id="wiedza" className="bg-white px-5 py-28 md:px-8 md:py-40">
+    <section id="wiedza" className="relative bg-[#FAFAF7] px-5 py-28 md:px-8 md:py-40">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="mx-auto max-w-7xl">
-        <div className="flex items-end justify-between gap-6">
-          <div>
-            <SectionLabel>Strefa wiedzy</SectionLabel>
-            <h2 className="mt-4 max-w-3xl text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.05] tracking-tight">
-              Decyzje warte <span className="italic font-light">setek tysięcy</span> wymagają wiedzy.
+        {/* ---------- HEADER ---------- */}
+        <div className="flex flex-col gap-10 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-3xl">
+            <SectionLabel>Strefa wiedzy · Knowledge Hub</SectionLabel>
+            <h2 className="mt-5 text-[clamp(2rem,5vw,4rem)] font-semibold leading-[1.02] tracking-tight">
+              Decyzje warte <span className="italic font-light">setek tysięcy</span>
+              <br />
+              wymagają realnej wiedzy inżynierskiej.
             </h2>
+            <p className="mt-6 max-w-2xl text-base text-black/60 md:text-lg">
+              Praktyczne poradniki, technologiczne porównania i case studies pisane przez naszych projektantów i serwisantów —
+              nie copywriterów. Bez marketingowych obietnic, z liczbami z realnych instalacji.
+            </p>
           </div>
           <a
             href="https://soltimus.pl/strefa-wiedzy/artykuly/"
             target="_blank"
             rel="noopener"
-            className="hidden items-center gap-1.5 text-sm text-black/60 hover:text-black md:inline-flex"
+            className="group inline-flex items-center gap-2 self-start rounded-full border border-black/15 px-5 py-2.5 text-sm font-medium transition-all hover:border-black hover:bg-black hover:text-white"
           >
-            Wszystkie artykuły <ArrowRight className="h-3.5 w-3.5" />
+            Cała baza wiedzy
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </a>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-3">
-          {isLoading && featured.length === 0
-            ? Array.from({ length: 2 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="h-[420px] animate-pulse rounded-3xl bg-[#FAFAF7] lg:row-span-2"
+        {/* ---------- CATEGORY GRID ---------- */}
+        <div className="mt-14 grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-3">
+          {cats.map((c, i) => (
+            <motion.a
+              key={c.name}
+              href="https://soltimus.pl/strefa-wiedzy/artykuly/"
+              target="_blank"
+              rel="noopener"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ delay: i * 0.04, duration: 0.5 }}
+              className="group relative flex flex-col gap-3 overflow-hidden rounded-2xl border border-black/5 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-black/20 hover:shadow-[0_12px_40px_-16px_rgba(0,0,0,0.18)] md:p-6"
+            >
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-xl"
+                style={{ background: `${BLUE}10` }}
+              >
+                <c.icon className="h-5 w-5" style={{ color: BLUE }} />
+              </div>
+              <div>
+                <div className="text-[15px] font-semibold tracking-tight">{c.name}</div>
+                <div className="mt-0.5 text-[11px] uppercase tracking-widest text-black/40">
+                  {c.count}
+                </div>
+              </div>
+              <ArrowRight className="absolute right-5 top-5 h-4 w-4 text-black/20 transition-all group-hover:right-4 group-hover:text-black" />
+            </motion.a>
+          ))}
+        </div>
+
+        {/* ---------- EDITORIAL FEATURED ---------- */}
+        <div className="mt-20 grid grid-cols-1 gap-6 lg:grid-cols-12">
+          {/* Lead article */}
+          {aLoading && !lead ? (
+            <div className="h-[560px] animate-pulse rounded-3xl bg-black/5 lg:col-span-7" />
+          ) : lead ? (
+            <motion.a
+              href={lead.link}
+              target="_blank"
+              rel="noopener"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="group relative col-span-1 flex flex-col overflow-hidden rounded-3xl bg-black lg:col-span-7"
+            >
+              <div className="relative aspect-[16/10] overflow-hidden lg:aspect-[16/11]">
+                <img
+                  src={lead.image ?? fallbackImg}
+                  alt={lead.title}
+                  className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
                 />
-              ))
-            : featured.map((f, i) => (
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
+                <span
+                  className="absolute left-6 top-6 inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white backdrop-blur"
+                >
+                  <Sparkles className="h-3 w-3" style={{ color: GOLD }} />
+                  Materiał redakcyjny
+                </span>
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
+                  <h3 className="max-w-2xl text-2xl font-semibold leading-tight tracking-tight text-white md:text-4xl">
+                    {lead.title}
+                  </h3>
+                  {lead.excerpt && (
+                    <p className="mt-3 max-w-xl text-sm text-white/70 line-clamp-2 md:text-base">
+                      {lead.excerpt}
+                    </p>
+                  )}
+                  <div className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white">
+                    Czytaj pełny artykuł
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </div>
+            </motion.a>
+          ) : null}
+
+          {/* Secondary stack */}
+          <div className="col-span-1 flex flex-col gap-3 lg:col-span-5">
+            {(aLoading && secondary.length === 0
+              ? Array.from({ length: 3 }).map((_, i) => ({ id: i, loading: true } as any))
+              : secondary
+            ).map((s: any, i: number) => (
+              <motion.a
+                key={s.id}
+                href={s.link ?? "#"}
+                target="_blank"
+                rel="noopener"
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.08 }}
+                className={`group flex gap-4 rounded-2xl border border-black/5 bg-white p-4 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)] ${s.loading ? "animate-pulse" : ""}`}
+              >
+                <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-black/5 md:h-28 md:w-28">
+                  {!s.loading && (
+                    <img
+                      src={s.image ?? fallbackImg}
+                      alt={s.title ?? ""}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  )}
+                </div>
+                <div className="flex flex-1 flex-col justify-center gap-1.5">
+                  <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
+                    {s.loading ? "—" : "Poradnik"}
+                  </span>
+                  <h4 className="text-sm font-semibold leading-snug tracking-tight line-clamp-3 md:text-base">
+                    {s.title ?? ""}
+                  </h4>
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </div>
+
+        {/* ---------- VIDEO LIBRARY ---------- */}
+        {videos.length > 0 && (
+          <div className="mt-24">
+            <div className="flex items-end justify-between gap-6">
+              <div>
+                <SectionLabel>Wideo · Eksperci Soltimus</SectionLabel>
+                <h3 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
+                  Zobacz, jak to robimy w praktyce.
+                </h3>
+              </div>
+            </div>
+            <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {videos.slice(0, 3).map((v, i) => (
                 <motion.a
-                  key={f.id}
-                  href={f.link}
+                  key={v.id}
+                  href={v.link}
                   target="_blank"
                   rel="noopener"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="group relative flex flex-col overflow-hidden rounded-3xl bg-[#FAFAF7] lg:row-span-2"
+                  transition={{ delay: i * 0.08 }}
+                  className="group relative aspect-video overflow-hidden rounded-2xl bg-black"
                 >
-                  <div className="aspect-[16/10] overflow-hidden lg:aspect-auto lg:h-[60%]">
-                    <img
-                      src={f.image ?? fallbackImg}
-                      alt={f.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
+                  <img
+                    src={v.image ?? fallbackImg}
+                    alt={v.title}
+                    className="h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                  <div className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-2xl transition-transform group-hover:scale-110">
+                    <Play className="h-5 w-5 translate-x-0.5 text-black" fill="black" />
                   </div>
-                  <div className="flex flex-1 flex-col gap-3 p-8">
-                    <span className="text-[10px] uppercase tracking-widest" style={{ color: BLUE }}>
-                      Artykuł
-                    </span>
-                    <h3 className="text-xl font-semibold leading-tight tracking-tight md:text-2xl">
-                      {f.title}
-                    </h3>
-                    {f.excerpt && (
-                      <p className="text-sm text-black/60 line-clamp-3">{f.excerpt}</p>
-                    )}
-                    <div className="mt-auto inline-flex items-center gap-1.5 text-sm font-medium">
-                      Czytaj <ArrowRight className="h-3.5 w-3.5" />
-                    </div>
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <span className="text-[10px] uppercase tracking-widest text-white/70">Wideo</span>
+                    <h4 className="mt-1 text-sm font-semibold leading-tight text-white line-clamp-2 md:text-base">
+                      {v.title}
+                    </h4>
                   </div>
                 </motion.a>
               ))}
+            </div>
+          </div>
+        )}
 
-          <div className="grid grid-cols-2 gap-3 lg:gap-4">
-            {cats.map((c) => (
-              <a
-                key={c.name}
-                href="https://soltimus.pl/strefa-wiedzy/artykuly/"
-                target="_blank"
-                rel="noopener"
-                className="group flex flex-col gap-2 rounded-2xl border border-black/5 bg-white p-5 transition-all hover:border-black/20 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.15)]"
+        {/* ---------- COMPARISON TABLE ---------- */}
+        <div className="mt-24">
+          <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div>
+              <SectionLabel>Porównanie technologii</SectionLabel>
+              <h3 className="mt-3 text-2xl font-semibold tracking-tight md:text-3xl">
+                Pompa ciepła vs gaz vs ogrzewanie elektryczne.
+              </h3>
+            </div>
+            <span className="text-xs text-black/40">Dane uśrednione dla domu 150 m² · 2026</span>
+          </div>
+          <div className="mt-8 overflow-hidden rounded-3xl border border-black/5 bg-white">
+            <div className="hidden grid-cols-4 gap-px bg-black/5 text-[11px] uppercase tracking-widest text-black/50 md:grid">
+              <div className="bg-white p-5">Parametr</div>
+              <div className="bg-white p-5 font-semibold" style={{ color: BLUE }}>Pompa ciepła</div>
+              <div className="bg-white p-5">Gaz</div>
+              <div className="bg-white p-5">Elektryczne</div>
+            </div>
+            {comparison.map((row, i) => (
+              <div
+                key={row.feature}
+                className={`grid grid-cols-2 gap-px bg-black/5 text-sm md:grid-cols-4 ${i % 2 === 0 ? "" : "bg-[#FAFAF7]"}`}
               >
-                <c.icon className="h-5 w-5 text-black/60 transition-colors group-hover:text-black" />
-                <div className="mt-auto">
-                  <div className="text-sm font-semibold">{c.name}</div>
-                  <div className="text-xs text-black/40">Zobacz artykuły</div>
+                <div className="col-span-2 bg-white p-5 font-medium md:col-span-1">{row.feature}</div>
+                <div className="bg-white p-5">
+                  <span className="md:hidden text-[10px] uppercase tracking-widest text-black/40">Pompa ciepła</span>
+                  <div className="font-semibold" style={{ color: BLUE }}>{row.heat}</div>
                 </div>
-              </a>
+                <div className="bg-white p-5 text-black/70">
+                  <span className="md:hidden text-[10px] uppercase tracking-widest text-black/40">Gaz</span>
+                  <div>{row.gas}</div>
+                </div>
+                <div className="bg-white p-5 text-black/70">
+                  <span className="md:hidden text-[10px] uppercase tracking-widest text-black/40">Elektryczne</span>
+                  <div>{row.elec}</div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
+
+        {/* ---------- FAQ ---------- */}
+        <div className="mt-24 grid grid-cols-1 gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <SectionLabel>FAQ · Najczęstsze pytania</SectionLabel>
+            <h3 className="mt-3 text-2xl font-semibold leading-tight tracking-tight md:text-4xl">
+              Pytania, które
+              <br />
+              <span className="italic font-light">naprawdę</span> zadają klienci.
+            </h3>
+            <p className="mt-5 text-sm text-black/60 md:text-base">
+              Sześćdziesiąt najczęstszych pytań z konsultacji projektowych — w jednym miejscu. Odpowiedzi pisane przez
+              naszych inżynierów, nie skopiowane z internetu.
+            </p>
+            <a
+              href="#kontakt"
+              className="mt-6 inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4"
+            >
+              Nie znalazłeś odpowiedzi? Zapytaj eksperta
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+          <div className="lg:col-span-8">
+            <div className="divide-y divide-black/10 border-y border-black/10">
+              {faqs.map((f, i) => {
+                const open = openFaq === i;
+                return (
+                  <div key={f.q} className="py-5">
+                    <button
+                      onClick={() => setOpenFaq(open ? null : i)}
+                      className="flex w-full items-start justify-between gap-6 text-left"
+                      aria-expanded={open}
+                    >
+                      <span className="text-base font-semibold leading-snug tracking-tight md:text-lg">
+                        {f.q}
+                      </span>
+                      <span className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-black/15">
+                        {open ? <Minus className="h-3.5 w-3.5" /> : <Plus className="h-3.5 w-3.5" />}
+                      </span>
+                    </button>
+                    <motion.div
+                      initial={false}
+                      animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pr-12 pt-4 text-sm leading-relaxed text-black/70 md:text-base">
+                        {f.a}
+                      </p>
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* ---------- MORE READS ---------- */}
+        {more.length > 0 && (
+          <div className="mt-24">
+            <div className="flex items-end justify-between gap-6">
+              <h3 className="text-xl font-semibold tracking-tight md:text-2xl">Więcej z bazy wiedzy</h3>
+              <a
+                href="https://soltimus.pl/strefa-wiedzy/artykuly/"
+                target="_blank"
+                rel="noopener"
+                className="text-xs uppercase tracking-widest text-black/50 hover:text-black"
+              >
+                Wszystkie →
+              </a>
+            </div>
+            <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+              {more.map((m, i) => (
+                <motion.a
+                  key={m.id}
+                  href={m.link}
+                  target="_blank"
+                  rel="noopener"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.06 }}
+                  className="group flex flex-col gap-3 rounded-2xl border border-black/5 bg-white p-5 transition-all hover:border-black/20 hover:shadow-[0_10px_30px_-15px_rgba(0,0,0,0.15)]"
+                >
+                  <FileText className="h-4 w-4 text-black/40" />
+                  <h4 className="text-[15px] font-semibold leading-snug tracking-tight line-clamp-3">
+                    {m.title}
+                  </h4>
+                  <div className="mt-auto inline-flex items-center gap-1.5 text-xs font-medium">
+                    Czytaj <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                  </div>
+                </motion.a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
