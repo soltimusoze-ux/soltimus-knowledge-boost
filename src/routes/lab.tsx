@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { motion } from "framer-motion";
@@ -496,6 +496,7 @@ function SeriesRail({
   loading: boolean;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
   const scroll = (dir: number) => {
     if (!ref.current) return;
     const w = ref.current.clientWidth * 0.85;
@@ -565,8 +566,11 @@ function SeriesRail({
             <motion.button
               key={c.id}
               type="button"
-              onClick={() => c.play && onPlay(c.play)}
-              disabled={!c.play}
+              onClick={() => {
+                if (c.play) onPlay(c.play);
+                else if (c.slug) navigate({ to: "/lab-episode/$slug", params: { slug: c.slug } });
+              }}
+              disabled={!c.play && !c.slug}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}

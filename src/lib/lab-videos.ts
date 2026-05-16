@@ -30,14 +30,15 @@ export type LabVideo = {
   id: string;
   slug: string;
   title: string;
+  shortTitle?: string;
   description: string;
   /** Series slug — must match VIDEO_SERIES.slug in `video-series.ts` */
   series: string;
-  /** Pełny URL YouTube lub Vimeo. Pusty string = jeszcze nie nagrane. */
+  /** Full YouTube or Vimeo URL. Empty string = not yet recorded. */
   videoUrl: string;
-  /** Override miniatury. Jeżeli puste — generujemy z YouTube. */
+  /** Override thumbnail. If empty — generated from YouTube. */
   thumbnail?: string;
-  /** Format mm:ss lub h:mm:ss */
+  /** Format mm:ss or h:mm:ss */
   duration?: string;
   tags: string[];
   relatedArticles?: LabRelatedLink[];
@@ -48,6 +49,7 @@ export type LabVideo = {
     text: string;
     href: string;
   };
+  ctaDescription?: string;
   publishedAt: string; // ISO date
   status: LabVideoStatus;
 };
@@ -87,42 +89,75 @@ export function resolveThumbnail(v: LabVideo): string | null {
 export const LAB_VIDEOS: LabVideo[] = [
   {
     id: "bufor-ciepla",
-    slug: "czy-bufor-ciepla-jest-potrzebny",
-    title: "Czy bufor ciepła jest naprawdę potrzebny?",
+    slug: "czy-bufor-ciepla-jest-potrzebny-przy-pompie-ciepla",
+    title: "Czy bufor ciepła jest potrzebny przy pompie ciepła?",
+    shortTitle: "Bufor ciepła — konieczność czy zbędny koszt?",
     description:
-      "Analizujemy 12 instalacji z buforem i 12 bez bufora. Pokazujemy realny wpływ na taktowanie sprężarki, COP sezonowy i komfort cieplny.",
+      "Wyjaśniamy, kiedy bufor ciepła jest niepotrzebnym kosztem, a kiedy chroni pompę ciepła przed taktowaniem, błędami przepływu i problemami podczas defrostu.",
     series: "engineering-lab",
     videoUrl: "",
     duration: "12:40",
-    tags: ["bufor", "pompa ciepła", "hydraulika", "taktowanie", "COP"],
+    tags: [
+      "bufor ciepła",
+      "pompa ciepła",
+      "taktowanie",
+      "defrost",
+      "grzejniki",
+      "ogrzewanie podłogowe",
+      "hydraulika",
+      "Daikin",
+    ],
     relatedArticles: [
+      {
+        label:
+          "Czy bufor ciepła do pompy ciepła jest potrzebny? Cała prawda o kosztach i hydraulice",
+        href: "/wiedza/pompy-ciepla",
+      },
       {
         label: "Hydraulika niskotemperaturowa — projekt",
         href: "/wiedza/hydraulika",
       },
-      {
-        label: "Pompy ciepła — dobór i COP",
-        href: "/wiedza/pompy-ciepla",
-      },
     ],
     faqs: [
       {
-        q: "Kiedy bufor jest konieczny?",
-        a: "Przy instalacjach grzejnikowych z małą objętością zładu, przy pompach on/off oraz przy współpracy z kominkiem z płaszczem wodnym.",
+        q: "Czy każda pompa ciepła musi mieć bufor?",
+        a:
+          "Nie. Pompy inwerterowe z dobrze dobraną objętością zładu instalacyjnego (ogrzewanie podłogowe, duża liczba grzejników) często pracują optymalnie bez bufora. Problem pojawia się przy pompach on/off oraz instalacjach z małą objętością wody.",
       },
       {
-        q: "Ile litrów bufora na 1 kW?",
-        a: "Praktycznie 10–20 l/kW dla pomp inwerterowych, 30–50 l/kW dla pomp on/off.",
+        q: "Czy przy ogrzewaniu podłogowym bufor jest potrzebny?",
+        a:
+          "Zazwyczaj nie. Ogrzewanie podłogowe ma bardzo dużą bezwładność cieplną i objętość wody w układzie, która sama w sobie pełni funkcję bufora. Dla pompy inwerterowej to wystarczająca stabilizacja.",
+      },
+      {
+        q: "Dlaczego przy grzejnikach bufor jest często konieczny?",
+        a:
+          "Grzejniki mają małą objętość wody i wysoką temperaturę zasilania. Pompa inwerterowa pracuje najefektywniej przy stałym obciążeniu — przy grzejnikach zmienia się szybko, co prowadzi do taktowania sprężarki. Bufor wydłuża cykl pracy.",
+      },
+      {
+        q: "Co to jest taktowanie pompy ciepła?",
+        a:
+          "To cykliczne załączanie i wyłączanie sprężarki w krótkich odstępach czasu. Powyżej 3 startów na godzinę pompa pracuje nieoptymalnie: zużywa więcej energii na rozruch, mechanizm zużywa się szybciej, a COP sezonowy spada.",
+      },
+      {
+        q: "Jak bufor pomaga przy defroście?",
+        a:
+          "Podczas defrostu pompa pobiera ciepło z instalacji wewnętrznej. Bez bufora temperatura w grzejnikach lub podłogówce gwałtownie spada. Bufor dostarcza ciepło bez odczuwalnego spadku komfortu w pomieszczeniach.",
       },
     ],
     caseStudies: [
-      { label: "Dom 180 m² · Wrocław — bez bufora", href: "/wiedza/case-studies" },
+      {
+        label: "Modernizacja domu z grzejnikami i pompą ciepła Daikin",
+        href: "/wiedza/case-studies",
+      },
     ],
     cta: {
       text: "Umów konsultację techniczną",
       href: "/premium#kontakt",
     },
-    publishedAt: "2026-05-10",
+    ctaDescription:
+      "Nie wiesz, czy w Twojej instalacji bufor jest potrzebny? Przeanalizujemy układ hydrauliczny i dobierzemy rozwiązanie bez zbędnych kosztów.",
+    publishedAt: "2026-05-20",
     status: "coming-soon",
   },
   {
@@ -144,7 +179,8 @@ export const LAB_VIDEOS: LabVideo[] = [
     faqs: [
       {
         q: "Co to jest bezwładność cieplna?",
-        a: "Zdolność konstrukcji do magazynowania i powolnego oddawania ciepła — kluczowa przy doborze trybów pracy pompy.",
+        a:
+          "Zdolność konstrukcji do magazynowania i powolnego oddawania ciepła — kluczowa przy doborze trybów pracy pompy.",
       },
     ],
     cta: {
@@ -177,11 +213,13 @@ export const LAB_VIDEOS: LabVideo[] = [
     faqs: [
       {
         q: "Jakie grzejniki przy pompie ciepła?",
-        a: "Najlepsze są płytowe typ 22/33 z odpowiednim przewymiarowaniem (×1.4–1.8) lub konwektory wentylatorowe.",
+        a:
+          "Najlepsze są płytowe typ 22/33 z odpowiednim przewymiarowaniem (×1.4–1.8) lub konwektory wentylatorowe.",
       },
       {
         q: "Jaka temperatura zasilania?",
-        a: "Optymalnie 45–55°C. Powyżej 60°C COP drastycznie spada.",
+        a:
+          "Optymalnie 45–55°C. Powyżej 60°C COP drastycznie spada.",
       },
     ],
     cta: {
@@ -214,7 +252,8 @@ export const LAB_VIDEOS: LabVideo[] = [
     faqs: [
       {
         q: "Ile cykli na godzinę to za dużo?",
-        a: "Powyżej 3 startów/h sprężarka pracuje nieoptymalnie. Cel: 1–2 starty/h przy stabilnej pogodzie.",
+        a:
+          "Powyżej 3 startów/h sprężarka pracuje nieoptymalnie. Cel: 1–2 starty/h przy stabilnej pogodzie.",
       },
     ],
     cta: {
