@@ -496,6 +496,7 @@ function SeriesRail({
   loading: boolean;
 }) {
   const ref = useRef<HTMLDivElement | null>(null);
+  const navigate = useNavigate();
   const scroll = (dir: number) => {
     if (!ref.current) return;
     const w = ref.current.clientWidth * 0.85;
