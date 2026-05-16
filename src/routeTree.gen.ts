@@ -16,6 +16,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
+import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
@@ -56,6 +57,11 @@ const WiedzaCategoryRoute = WiedzaCategoryRouteImport.update({
   path: '/wiedza/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LabEpisodeSlugRoute = LabEpisodeSlugRouteImport.update({
+  id: '/lab-episode/$slug',
+  path: '/lab-episode/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -103,6 +110,7 @@ export interface FileRoutesByTo {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -118,6 +126,7 @@ export interface FileRoutesById {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -133,6 +142,7 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/premium'
+    | '/lab-episode/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
     | '/admin/new-article'
@@ -146,6 +156,7 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/premium'
+    | '/lab-episode/$slug'
     | '/wiedza/$category'
     | '/wiedza'
     | '/admin/new-article'
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/premium'
+    | '/lab-episode/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
     | '/_authenticated/admin/new-article'
@@ -175,6 +187,7 @@ export interface RootRouteChildren {
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
   PremiumRoute: typeof PremiumRoute
+  LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
   WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
   WiedzaIndexRoute: typeof WiedzaIndexRoute
 }
@@ -228,6 +241,13 @@ declare module '@tanstack/react-router' {
       path: '/wiedza/$category'
       fullPath: '/wiedza/$category'
       preLoaderRoute: typeof WiedzaCategoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lab-episode/$slug': {
+      id: '/lab-episode/$slug'
+      path: '/lab-episode/$slug'
+      fullPath: '/lab-episode/$slug'
+      preLoaderRoute: typeof LabEpisodeSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
@@ -304,9 +324,20 @@ const rootRouteChildren: RootRouteChildren = {
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
   PremiumRoute: PremiumRoute,
+  LabEpisodeSlugRoute: LabEpisodeSlugRoute,
   WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,
   WiedzaIndexRoute: WiedzaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
