@@ -238,40 +238,55 @@ function WiedzaIndex() {
         </section>
       )}
 
-      {/* VIDEO STRIP */}
+      {/* SOLTIMUS LAB TEASER */}
       {videos.length > 0 && (
-        <section className="border-t border-black/5 bg-white px-5 py-24 md:px-8 md:py-32">
-          <div className="mx-auto max-w-7xl">
-            <SectionHeading
-              kicker="Wideo · Eksperci Soltimus"
-              title="Zobacz, jak to działa w terenie"
-              sub="Realizacje, rozmowy techniczne i mini-tutoriale z naszego kanału."
-            />
-            <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {videos.slice(0, 6).map((v) => (
-                <a
-                  key={v.id}
-                  href={v.link}
-                  target="_blank"
-                  rel="noopener"
-                  className="group relative aspect-video overflow-hidden rounded-2xl bg-black"
+        <section className="relative overflow-hidden bg-[#0A0A0A] px-5 py-24 text-white md:px-8 md:py-32">
+          <div className="pointer-events-none absolute -right-40 top-1/3 h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,rgba(245,184,0,0.12),transparent_70%)]" />
+          <div className="relative mx-auto max-w-7xl">
+            <div className="flex flex-wrap items-end justify-between gap-6">
+              <div className="max-w-2xl">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/15 px-3 py-1.5 text-[10px] uppercase tracking-[0.28em] text-white/70">
+                  <Play className="h-3 w-3 text-[#F5B800]" fill="currentColor" />
+                  Soltimus Lab · Engineering TV
+                </div>
+                <h2 className="mt-6 text-[clamp(2rem,4.6vw,3.4rem)] font-semibold leading-tight tracking-tight">
+                  Cztery serie. Setki odcinków.
+                  <br />
+                  <span className="italic font-light text-white/70">
+                    Inżynieria, którą widać.
+                  </span>
+                </h2>
+                <p className="mt-5 max-w-xl text-white/60 md:text-lg">
+                  Engineering Lab, HVAC Myths, Premium Case Studies i Expert Answers —
+                  cinematic platforma wideo Soltimus.
+                </p>
+                <Link
+                  to="/lab"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-black transition-all hover:bg-[#F5B800]"
                 >
-                  <img
-                    src={v.image ?? FALLBACK}
-                    alt={v.title}
-                    className="h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  <div className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-2xl transition-transform group-hover:scale-110">
-                    <Play className="h-5 w-5 translate-x-0.5 text-black" fill="black" />
-                  </div>
-                  <div className="absolute inset-x-0 bottom-0 p-5">
-                    <h4 className="text-sm font-semibold leading-tight text-white line-clamp-2 md:text-base">
-                      {v.title}
-                    </h4>
-                  </div>
-                </a>
-              ))}
+                  Wejdź do Soltimus Lab
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-2 gap-2 md:gap-3">
+                {videos.slice(0, 4).map((v) => (
+                  <Link
+                    key={v.id}
+                    to="/lab"
+                    className="group relative aspect-[4/5] w-[140px] overflow-hidden rounded-xl bg-black md:w-[160px]"
+                  >
+                    <img
+                      src={v.image ?? FALLBACK}
+                      alt={v.title}
+                      className="h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                    <span className="absolute left-1/2 top-1/2 flex h-10 w-10 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 shadow-xl">
+                      <Play className="h-3.5 w-3.5 translate-x-0.5 text-black" fill="black" />
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>
