@@ -18,6 +18,7 @@ import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
+import { Route as WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport } from './routes/wiedza.pompy-ciepla.gruntowa-pompa-ciepla-kompletny-przewodnik'
 import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
 import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
@@ -67,6 +68,12 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute =
+  WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport.update({
+    id: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik',
+    path: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const WiedzaCategorySlugRoute = WiedzaCategorySlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -103,6 +110,7 @@ export interface FileRoutesByFullPath {
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
+  '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -117,6 +125,7 @@ export interface FileRoutesByTo {
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
+  '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -133,6 +142,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
+  '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/admin/new-pdf'
     | '/admin/new-video'
     | '/wiedza/$category/$slug'
+    | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/admin/new-pdf'
     | '/admin/new-video'
     | '/wiedza/$category/$slug'
+    | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
     | '/admin'
   id:
     | '__root__'
@@ -178,6 +190,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/new-pdf'
     | '/_authenticated/admin/new-video'
     | '/wiedza/$category/$slug'
+    | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -190,6 +203,7 @@ export interface RootRouteChildren {
   LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
   WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
   WiedzaIndexRoute: typeof WiedzaIndexRoute
+  WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute: typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -256,6 +270,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
+    }
+    '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': {
+      id: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
+      path: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
+      fullPath: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
+      preLoaderRoute: typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/wiedza/$category/$slug': {
       id: '/wiedza/$category/$slug'
@@ -327,7 +348,19 @@ const rootRouteChildren: RootRouteChildren = {
   LabEpisodeSlugRoute: LabEpisodeSlugRoute,
   WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,
   WiedzaIndexRoute: WiedzaIndexRoute,
+  WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute:
+    WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
