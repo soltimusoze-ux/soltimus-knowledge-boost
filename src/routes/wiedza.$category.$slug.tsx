@@ -25,6 +25,7 @@ import {
 } from "@/lib/knowledge-categories";
 import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import { CategoryIcon } from "@/components/knowledge/CategoryIcon";
+import { RelatedVideos } from "@/components/knowledge/RelatedVideos";
 
 export const Route = createFileRoute("/wiedza/$category/$slug")({
   beforeLoad: ({ params }) => {
@@ -273,6 +274,8 @@ function ArticlePage() {
             </div>
 
             <FaqBlock category={cat.name} />
+
+            <RelatedVideos matchText={`${post.title} ${cat.name}`} limit={4} />
 
             {/* Article CTA */}
             <div className="mt-16 overflow-hidden rounded-3xl bg-black p-8 text-white md:p-12">

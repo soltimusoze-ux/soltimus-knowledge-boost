@@ -12,12 +12,21 @@ export function KnowledgeNav({ trail }: { trail?: { label: string; to?: string }
           <ArrowLeft className="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" />
           Soltimus
         </Link>
-        <Link
-          to="/wiedza"
-          className="text-xs uppercase tracking-[0.25em] text-black/70 hover:text-black"
-        >
-          Knowledge Hub
-        </Link>
+        <div className="flex items-center gap-5">
+          <Link
+            to="/wiedza"
+            className="text-xs uppercase tracking-[0.25em] text-black/70 hover:text-black"
+          >
+            Knowledge Hub
+          </Link>
+          <Link
+            to="/lab"
+            className="hidden items-center gap-1.5 text-xs uppercase tracking-[0.25em] text-black/70 hover:text-black sm:inline-flex"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-[#C03B3B]" />
+            Lab
+          </Link>
+        </div>
         <Link
           to="/premium"
           hash="kontakt"
