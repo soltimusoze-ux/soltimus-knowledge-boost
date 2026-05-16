@@ -566,8 +566,11 @@ function SeriesRail({
             <motion.button
               key={c.id}
               type="button"
-              onClick={() => c.play && onPlay(c.play)}
-              disabled={!c.play}
+              onClick={() => {
+                if (c.play) onPlay(c.play);
+                else if (c.slug) navigate({ to: "/lab-episode/$slug", params: { slug: c.slug } });
+              }}
+              disabled={!c.play && !c.slug}
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
