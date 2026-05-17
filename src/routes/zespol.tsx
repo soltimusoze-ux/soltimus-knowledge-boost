@@ -69,6 +69,7 @@ const members: Member[] = [
     education: "Politechnika Warszawska",
     bio: "Specjalista Daikin i koordynator wykonawstwa. Dba o to, by projekt inżynierski przełożył się na bezbłędną realizację — z dokładnością co do milimetra i parametru.",
     expertise: ["Daikin Specialist", "Koordynacja montażu", "Uruchomienia systemów"],
+    image: konradImg,
     accent: "blue",
   },
   {
@@ -79,6 +80,7 @@ const members: Member[] = [
     education: "Politechnika Warszawska",
     bio: "Spina harmonogram, dostawy i ekipy w jeden płynny proces. Dzięki niej każda realizacja Soltimus przebiega zgodnie z planem i bez niespodzianek dla inwestora.",
     expertise: ["Planowanie", "Logistyka realizacji", "Komunikacja zespołowa"],
+    image: izaImg,
     accent: "yellow",
   },
   {
@@ -89,6 +91,7 @@ const members: Member[] = [
     education: "",
     bio: "Pierwszy kontakt z Soltimus. Pomaga klientom poruszać się po programach Czyste Powietrze, Mój Prąd i Moje Ciepło — tak, by formalności nie spowalniały inwestycji.",
     expertise: ["Czyste Powietrze", "Mój Prąd · Moje Ciepło", "Obsługa klienta"],
+    image: karolinaImg,
     accent: "yellow",
   },
 ];
