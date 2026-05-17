@@ -115,7 +115,7 @@ function PremiumHome() {
     <div className="min-h-screen bg-white text-[#0E0E10] antialiased selection:bg-[#F5B800] selection:text-black">
       <ScrollProgress />
       <GrainOverlay />
-      <Nav />
+      <SiteHeader variant="transparent" />
       <Hero />
       <PartnerTicker />
       <ComfortStrip />
@@ -137,7 +137,7 @@ function PremiumHome() {
       <KnowledgeHub />
       <Testimonials />
       <FinalCTA />
-      <Footer />
+      <SiteFooter />
       <StickyMobileCTA />
     </div>
   );
