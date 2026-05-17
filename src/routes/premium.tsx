@@ -1638,13 +1638,13 @@ function FinalCTA() {
             Darmowa konsultacja <ArrowRight className="h-4 w-4" />
           </a>
           <a
-            href="tel:+48000000000"
+            href="tel:+48500350150"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white/10"
           >
             <Phone className="h-4 w-4" /> Zadzwoń teraz
           </a>
           <a
-            href="https://wa.me/48000000000"
+            href="https://wa.me/48500350150"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white/10"
           >
             <MessageCircle className="h-4 w-4" /> WhatsApp
@@ -1684,7 +1684,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-[10px] uppercase tracking-widest text-black/40">Kontakt</div>
-              <a href="tel:+48000000000" className="mt-3 flex items-center gap-2 text-sm text-black/80">
+              <a href="tel:+48500350150" className="mt-3 flex items-center gap-2 text-sm text-black/80">
                 <Phone className="h-3.5 w-3.5" /> <span>+48 000 000 000</span>
               </a>
               <a href="mailto:biuro@soltimus.pl" className="mt-2 flex items-center gap-2 text-sm text-black/80">
@@ -1735,14 +1735,14 @@ function StickyMobileCTA() {
       className="fixed inset-x-3 bottom-3 z-40 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 p-1.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden"
     >
       <a
-        href="tel:+48000000000"
+        href="tel:+48500350150"
         className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
         aria-label="Zadzwoń"
       >
         <Phone className="h-4 w-4" />
       </a>
       <a
-        href="https://wa.me/48000000000"
+        href="https://wa.me/48500350150"
         className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white"
         aria-label="WhatsApp"
       >
