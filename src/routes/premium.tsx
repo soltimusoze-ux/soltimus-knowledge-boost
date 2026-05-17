@@ -1576,7 +1576,13 @@ function Testimonials() {
                 </div>
                 <p className="text-base leading-relaxed text-black/80">"{t.quote}"</p>
                 <div className="mt-2 flex items-center gap-3 border-t border-black/5 pt-4">
-                  <img src={t.photo} alt={t.name} className="h-10 w-10 rounded-full object-cover" />
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold text-black"
+                    style={{ background: `${GOLD}33`, border: `1px solid ${GOLD}` }}
+                    aria-hidden
+                  >
+                    {t.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
+                  </div>
                   <div>
                     <div className="text-sm font-semibold">{t.name}</div>
                     <div className="text-xs text-black/50">{t.city}</div>
