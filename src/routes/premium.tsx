@@ -66,8 +66,6 @@ export const Route = createFileRoute("/premium")({
   component: PremiumHome,
 });
 
-export { PremiumHome };
-
 const GOLD = "#F5B800";
 const BLUE = "#0089CF";
 const GRAPHITE = "#0E0E10";
@@ -107,7 +105,7 @@ function useInView<T extends HTMLElement>(threshold = 0.3) {
 }
 
 /* ------------------------------ COMPONENT ------------------------------ */
-function PremiumHome() {
+export function PremiumHome() {
   // Smooth scroll site-wide
   useEffect(() => {
     const prev = document.documentElement.style.scrollBehavior;
