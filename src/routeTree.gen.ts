@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZespolRouteImport } from './routes/zespol'
 import { Route as PremiumRouteImport } from './routes/premium'
+import { Route as OfertaRouteImport } from './routes/oferta'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
 import { Route as KontaktRouteImport } from './routes/kontakt'
@@ -34,6 +35,11 @@ const ZespolRoute = ZespolRouteImport.update({
 const PremiumRoute = PremiumRouteImport.update({
   id: '/premium',
   path: '/premium',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfertaRoute = OfertaRouteImport.update({
+  id: '/oferta',
+  path: '/oferta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
+  '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
+  '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
@@ -151,6 +159,7 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
+  '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
@@ -170,6 +179,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/lab'
     | '/login'
+    | '/oferta'
     | '/premium'
     | '/zespol'
     | '/lab-episode/$slug'
@@ -187,6 +197,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/lab'
     | '/login'
+    | '/oferta'
     | '/premium'
     | '/zespol'
     | '/lab-episode/$slug'
@@ -205,6 +216,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/lab'
     | '/login'
+    | '/oferta'
     | '/premium'
     | '/zespol'
     | '/lab-episode/$slug'
@@ -224,6 +236,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
+  OfertaRoute: typeof OfertaRoute
   PremiumRoute: typeof PremiumRoute
   ZespolRoute: typeof ZespolRoute
   LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
@@ -246,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/premium'
       fullPath: '/premium'
       preLoaderRoute: typeof PremiumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oferta': {
+      id: '/oferta'
+      path: '/oferta'
+      fullPath: '/oferta'
+      preLoaderRoute: typeof OfertaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -385,6 +405,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
+  OfertaRoute: OfertaRoute,
   PremiumRoute: PremiumRoute,
   ZespolRoute: ZespolRoute,
   LabEpisodeSlugRoute: LabEpisodeSlugRoute,
@@ -396,3 +417,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
