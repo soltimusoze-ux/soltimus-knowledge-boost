@@ -1529,7 +1529,6 @@ function Testimonials() {
     {
       name: "Tomasz K.",
       city: "Warszawa",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
       install: "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&q=80",
       quote: "Profesjonalizm na każdym etapie. Rachunki spadły o 60%, a komfort wzrósł.",
       rating: 5,
@@ -1537,7 +1536,6 @@ function Testimonials() {
     {
       name: "Magdalena R.",
       city: "Kraków",
-      photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
       install: "https://images.unsplash.com/photo-1605579375923-cb44c98e9e98?w=800&q=80",
       quote: "Pomogli mi przejść przez Czyste Powietrze. Zero stresu, wszystko zorganizowane.",
       rating: 5,
@@ -1545,7 +1543,6 @@ function Testimonials() {
     {
       name: "Jakub W.",
       city: "Poznań",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
       install: "https://images.unsplash.com/photo-1545208974-b9ed28e80bd5?w=800&q=80",
       quote: "Najlepsza decyzja przy budowie domu. Daikin + PV + magazyn — działa idealnie.",
       rating: 5,
@@ -1579,7 +1576,13 @@ function Testimonials() {
                 </div>
                 <p className="text-base leading-relaxed text-black/80">"{t.quote}"</p>
                 <div className="mt-2 flex items-center gap-3 border-t border-black/5 pt-4">
-                  <img src={t.photo} alt={t.name} className="h-10 w-10 rounded-full object-cover" />
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold text-black"
+                    style={{ background: `${GOLD}33`, border: `1px solid ${GOLD}` }}
+                    aria-hidden
+                  >
+                    {t.name.split(" ").map((p) => p[0]).join("").slice(0, 2)}
+                  </div>
                   <div>
                     <div className="text-sm font-semibold">{t.name}</div>
                     <div className="text-xs text-black/50">{t.city}</div>
