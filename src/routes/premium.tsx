@@ -1529,7 +1529,6 @@ function Testimonials() {
     {
       name: "Tomasz K.",
       city: "Warszawa",
-      photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",
       install: "https://images.unsplash.com/photo-1565182999561-18d7dc61c393?w=800&q=80",
       quote: "Profesjonalizm na każdym etapie. Rachunki spadły o 60%, a komfort wzrósł.",
       rating: 5,
@@ -1537,7 +1536,6 @@ function Testimonials() {
     {
       name: "Magdalena R.",
       city: "Kraków",
-      photo: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",
       install: "https://images.unsplash.com/photo-1605579375923-cb44c98e9e98?w=800&q=80",
       quote: "Pomogli mi przejść przez Czyste Powietrze. Zero stresu, wszystko zorganizowane.",
       rating: 5,
@@ -1545,7 +1543,6 @@ function Testimonials() {
     {
       name: "Jakub W.",
       city: "Poznań",
-      photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80",
       install: "https://images.unsplash.com/photo-1545208974-b9ed28e80bd5?w=800&q=80",
       quote: "Najlepsza decyzja przy budowie domu. Daikin + PV + magazyn — działa idealnie.",
       rating: 5,
