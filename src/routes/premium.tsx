@@ -12,6 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { fetchPublicArticles, fetchPublicVideos } from "@/lib/wp-public.functions";
 import { matchCategory } from "@/lib/knowledge-categories";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { COMPANY } from "@/lib/company";
 import {
   Star,
   Award,
