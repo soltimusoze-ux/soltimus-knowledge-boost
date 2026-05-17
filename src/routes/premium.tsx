@@ -537,28 +537,28 @@ function SocialProofStats() {
 function Team() {
   const people = [
     {
-      name: "Marek Kowalski",
+      name: "Bartosz",
       role: "Główny inżynier",
       quote: "Każdy projekt zaczynam od bilansu cieplnego. Zawsze.",
-      img: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80",
+      img: bartoszImg,
     },
     {
-      name: "Anna Zielińska",
+      name: "Jarek",
       role: "Doradca techniczny",
       quote: "Mój klient ma rozumieć każdą decyzję, którą razem podejmujemy.",
-      img: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80",
+      img: jarekImg,
     },
     {
-      name: "Piotr Nowak",
+      name: "Konrad",
       role: "Koordynator montaży",
       quote: "Jeden opiekun, jeden numer, jedna odpowiedzialność.",
-      img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80",
+      img: konradImg,
     },
     {
-      name: "Karolina Wiśniewska",
+      name: "Karolina",
       role: "Specjalistka dotacji",
       quote: "Czyste Powietrze od A do Z. Nie zostawiam papierów klientowi.",
-      img: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&q=80",
+      img: karolinaImg,
     },
   ];
   return (
