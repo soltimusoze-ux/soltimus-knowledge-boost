@@ -235,9 +235,9 @@ function KontaktPage() {
                   </button>
                   <p className="text-[11px] text-black/40 sm:col-span-2">
                     Wysyłając formularz akceptujesz naszą{" "}
-                    <Link to="/polityka-prywatnosci" className="underline">
+                    <a href="#" className="underline">
                       politykę prywatności
-                    </Link>
+                    </a>
                     .
                   </p>
                 </form>
