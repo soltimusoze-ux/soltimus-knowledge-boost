@@ -12,6 +12,9 @@ import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { fetchPublicArticles, fetchPublicVideos } from "@/lib/wp-public.functions";
 import { matchCategory } from "@/lib/knowledge-categories";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { COMPANY } from "@/lib/company";
 import {
   Star,
   Award,
@@ -52,22 +55,18 @@ import {
 export const Route = createFileRoute("/premium")({
   head: () => ({
     meta: [
-      { title: "Soltimus — Komfort i niskie rachunki | Pompy ciepła, fotowoltaika" },
+      { title: "Soltimus — Nowoczesne systemy energii i komfortu" },
       {
         name: "description",
         content:
-          "Soltimus projektuje i montuje pompy ciepła, fotowoltaikę, magazyny energii i rekuperację. Autoryzowany Partner Daikin. 1000+ realizacji.",
-      },
-      { property: "og:title", content: "Soltimus — Komfort i niskie rachunki" },
-      {
-        property: "og:description",
-        content:
-          "Pompy ciepła, fotowoltaika, magazyny energii i rekuperacja — od projektu po serwis.",
+          "Soltimus projektuje i instaluje pompy ciepła, fotowoltaikę, magazyny energii i rekuperację. Autoryzowany Partner Daikin.",
       },
     ],
   }),
   component: PremiumHome,
 });
+
+export { PremiumHome };
 
 const GOLD = "#F5B800";
 const BLUE = "#0089CF";
@@ -119,7 +118,7 @@ function PremiumHome() {
     <div className="min-h-screen bg-white text-[#0E0E10] antialiased selection:bg-[#F5B800] selection:text-black">
       <ScrollProgress />
       <GrainOverlay />
-      <Nav />
+      <SiteHeader variant="transparent" />
       <Hero />
       <PartnerTicker />
       <ComfortStrip />
@@ -141,7 +140,7 @@ function PremiumHome() {
       <KnowledgeHub />
       <Testimonials />
       <FinalCTA />
-      <Footer />
+      <SiteFooter />
       <StickyMobileCTA />
     </div>
   );
@@ -255,7 +254,7 @@ function Nav() {
           ))}
         </nav>
         <a
-          href="#kontakt"
+          href="/kontakt"
           className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-black px-4 py-2 text-xs font-medium text-white transition-transform hover:scale-[1.03]"
         >
           Konsultacja <ArrowRight className="h-3.5 w-3.5" />
@@ -372,7 +371,7 @@ function Hero() {
           className="mt-8 flex flex-wrap gap-3"
         >
           <a
-            href="#kontakt"
+            href="/kontakt"
             className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-black transition-all hover:scale-[1.03] hover:shadow-[0_10px_40px_-10px_rgba(245,184,0,0.6)]"
             style={{ background: GOLD }}
           >
@@ -380,7 +379,7 @@ function Hero() {
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
-            href="#realizacje"
+            href="/realizacje"
             className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
           >
             Zobacz realizacje
@@ -1448,7 +1447,7 @@ function KnowledgeHub() {
               naszych inżynierów, nie skopiowane z internetu.
             </p>
             <a
-              href="#kontakt"
+              href="/kontakt"
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4"
             >
               Nie znalazłeś odpowiedzi? Zapytaj eksperta
@@ -1639,13 +1638,13 @@ function FinalCTA() {
             Darmowa konsultacja <ArrowRight className="h-4 w-4" />
           </a>
           <a
-            href="tel:+48000000000"
+            href="tel:+48500350150"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white/10"
           >
             <Phone className="h-4 w-4" /> Zadzwoń teraz
           </a>
           <a
-            href="https://wa.me/48000000000"
+            href="https://wa.me/48500350150"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3.5 text-sm font-medium backdrop-blur transition-colors hover:bg-white/10"
           >
             <MessageCircle className="h-4 w-4" /> WhatsApp
@@ -1685,7 +1684,7 @@ function Footer() {
             </div>
             <div>
               <div className="text-[10px] uppercase tracking-widest text-black/40">Kontakt</div>
-              <a href="tel:+48000000000" className="mt-3 flex items-center gap-2 text-sm text-black/80">
+              <a href="tel:+48500350150" className="mt-3 flex items-center gap-2 text-sm text-black/80">
                 <Phone className="h-3.5 w-3.5" /> <span>+48 000 000 000</span>
               </a>
               <a href="mailto:biuro@soltimus.pl" className="mt-2 flex items-center gap-2 text-sm text-black/80">
@@ -1736,21 +1735,21 @@ function StickyMobileCTA() {
       className="fixed inset-x-3 bottom-3 z-40 flex items-center gap-2 rounded-full border border-white/15 bg-black/70 p-1.5 shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl md:hidden"
     >
       <a
-        href="tel:+48000000000"
+        href="tel:+48500350150"
         className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
         aria-label="Zadzwoń"
       >
         <Phone className="h-4 w-4" />
       </a>
       <a
-        href="https://wa.me/48000000000"
+        href="https://wa.me/48500350150"
         className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white"
         aria-label="WhatsApp"
       >
         <MessageCircle className="h-4 w-4" />
       </a>
       <a
-        href="#kontakt"
+        href="/kontakt"
         className="flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold text-black"
         style={{ background: `linear-gradient(135deg, ${GOLD}, #FFD24A)` }}
       >

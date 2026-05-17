@@ -10,9 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZespolRouteImport } from './routes/zespol'
+import { Route as RealizacjeRouteImport } from './routes/realizacje'
 import { Route as PremiumRouteImport } from './routes/premium'
+import { Route as OfertaRouteImport } from './routes/oferta'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
@@ -30,9 +33,19 @@ const ZespolRoute = ZespolRouteImport.update({
   path: '/zespol',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RealizacjeRoute = RealizacjeRouteImport.update({
+  id: '/realizacje',
+  path: '/realizacje',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PremiumRoute = PremiumRouteImport.update({
   id: '/premium',
   path: '/premium',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OfertaRoute = OfertaRouteImport.update({
+  id: '/oferta',
+  path: '/oferta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -43,6 +56,11 @@ const LoginRoute = LoginRouteImport.update({
 const LabRoute = LabRouteImport.update({
   id: '/lab',
   path: '/lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
@@ -106,9 +124,12 @@ const AuthenticatedAdminNewArticleRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
+  '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
+  '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -122,9 +143,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
+  '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
+  '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -140,9 +164,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
+  '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
+  '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -158,9 +185,12 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/kontakt'
     | '/lab'
     | '/login'
+    | '/oferta'
     | '/premium'
+    | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
@@ -174,9 +204,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/kontakt'
     | '/lab'
     | '/login'
+    | '/oferta'
     | '/premium'
+    | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
@@ -191,9 +224,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/kontakt'
     | '/lab'
     | '/login'
+    | '/oferta'
     | '/premium'
+    | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
@@ -209,9 +245,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  KontaktRoute: typeof KontaktRoute
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
+  OfertaRoute: typeof OfertaRoute
   PremiumRoute: typeof PremiumRoute
+  RealizacjeRoute: typeof RealizacjeRoute
   ZespolRoute: typeof ZespolRoute
   LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
   WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
@@ -228,11 +267,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ZespolRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/realizacje': {
+      id: '/realizacje'
+      path: '/realizacje'
+      fullPath: '/realizacje'
+      preLoaderRoute: typeof RealizacjeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/premium': {
       id: '/premium'
       path: '/premium'
       fullPath: '/premium'
       preLoaderRoute: typeof PremiumRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/oferta': {
+      id: '/oferta'
+      path: '/oferta'
+      fullPath: '/oferta'
+      preLoaderRoute: typeof OfertaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -247,6 +300,13 @@ declare module '@tanstack/react-router' {
       path: '/lab'
       fullPath: '/lab'
       preLoaderRoute: typeof LabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -362,9 +422,12 @@ const WiedzaCategoryRouteWithChildren = WiedzaCategoryRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  KontaktRoute: KontaktRoute,
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
+  OfertaRoute: OfertaRoute,
   PremiumRoute: PremiumRoute,
+  RealizacjeRoute: RealizacjeRoute,
   ZespolRoute: ZespolRoute,
   LabEpisodeSlugRoute: LabEpisodeSlugRoute,
   WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,
