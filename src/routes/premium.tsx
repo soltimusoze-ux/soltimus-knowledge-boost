@@ -3,6 +3,9 @@ import bartoszImg from "@/assets/team-bartosz.jpg";
 import jarekImg from "@/assets/team-jarek.jpg";
 import konradImg from "@/assets/team-konrad.jpg";
 import karolinaImg from "@/assets/team-karolina.jpg";
+import izaImg from "@/assets/team-iza.jpg";
+import logoDark from "@/assets/soltimus-logo.jpg";
+import logoLight from "@/assets/soltimus-logo-white.jpg";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -224,12 +227,13 @@ function Nav() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 md:px-8">
-        <a href="#" className="flex items-center gap-2 font-semibold tracking-tight">
-          <span
-            className="inline-block h-6 w-6 rounded-md"
-            style={{ background: `conic-gradient(from 210deg, ${GOLD}, ${BLUE}, ${GOLD})` }}
+        <a href="#" aria-label="Soltimus — strona główna" className="flex items-center">
+          <img
+            src={scrolled ? logoDark : logoLight}
+            alt="Soltimus Energy Efficiency"
+            className="h-7 w-auto md:h-8 select-none"
+            draggable={false}
           />
-          <span className={scrolled ? "text-black" : "text-white"}>Soltimus</span>
         </a>
         <nav className="hidden items-center gap-8 text-sm md:flex">
           {[
@@ -557,6 +561,12 @@ function Team() {
       role: "Koordynator montaży",
       quote: "Jeden opiekun, jeden numer, jedna odpowiedzialność.",
       img: konradImg,
+    },
+    {
+      name: "Iza",
+      role: "Koordynatorka realizacji",
+      quote: "Harmonogram, dostawy, ekipy — wszystko ma się spiąć co do dnia.",
+      img: izaImg,
     },
     {
       name: "Karolina",
