@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ZespolRouteImport } from './routes/zespol'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
@@ -24,6 +25,11 @@ import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authen
 import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
 import { Route as AuthenticatedAdminNewArticleRouteImport } from './routes/_authenticated.admin.new-article'
 
+const ZespolRoute = ZespolRouteImport.update({
+  id: '/zespol',
+  path: '/zespol',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PremiumRoute = PremiumRouteImport.update({
   id: '/premium',
   path: '/premium',
@@ -103,6 +109,7 @@ export interface FileRoutesByFullPath {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -118,6 +125,7 @@ export interface FileRoutesByTo {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza': typeof WiedzaIndexRoute
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
+  '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/premium'
+    | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
@@ -167,6 +177,7 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/premium'
+    | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
     | '/wiedza'
@@ -183,6 +194,7 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/premium'
+    | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
@@ -200,6 +212,7 @@ export interface RootRouteChildren {
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
   PremiumRoute: typeof PremiumRoute
+  ZespolRoute: typeof ZespolRoute
   LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
   WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
   WiedzaIndexRoute: typeof WiedzaIndexRoute
@@ -208,6 +221,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/zespol': {
+      id: '/zespol'
+      path: '/zespol'
+      fullPath: '/zespol'
+      preLoaderRoute: typeof ZespolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/premium': {
       id: '/premium'
       path: '/premium'
@@ -345,6 +365,7 @@ const rootRouteChildren: RootRouteChildren = {
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
   PremiumRoute: PremiumRoute,
+  ZespolRoute: ZespolRoute,
   LabEpisodeSlugRoute: LabEpisodeSlugRoute,
   WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,
   WiedzaIndexRoute: WiedzaIndexRoute,
