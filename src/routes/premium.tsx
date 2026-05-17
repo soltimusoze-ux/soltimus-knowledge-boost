@@ -254,7 +254,7 @@ function Nav() {
           ))}
         </nav>
         <a
-          href="#kontakt"
+          href="/kontakt"
           className="hidden md:inline-flex items-center gap-1.5 rounded-full bg-black px-4 py-2 text-xs font-medium text-white transition-transform hover:scale-[1.03]"
         >
           Konsultacja <ArrowRight className="h-3.5 w-3.5" />
@@ -371,7 +371,7 @@ function Hero() {
           className="mt-8 flex flex-wrap gap-3"
         >
           <a
-            href="#kontakt"
+            href="/kontakt"
             className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-black transition-all hover:scale-[1.03] hover:shadow-[0_10px_40px_-10px_rgba(245,184,0,0.6)]"
             style={{ background: GOLD }}
           >
@@ -379,7 +379,7 @@ function Hero() {
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
           <a
-            href="#realizacje"
+            href="/realizacje"
             className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
           >
             Zobacz realizacje
@@ -1447,7 +1447,7 @@ function KnowledgeHub() {
               naszych inżynierów, nie skopiowane z internetu.
             </p>
             <a
-              href="#kontakt"
+              href="/kontakt"
               className="mt-6 inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4"
             >
               Nie znalazłeś odpowiedzi? Zapytaj eksperta
@@ -1749,7 +1749,7 @@ function StickyMobileCTA() {
         <MessageCircle className="h-4 w-4" />
       </a>
       <a
-        href="#kontakt"
+        href="/kontakt"
         className="flex h-11 flex-1 items-center justify-center gap-2 rounded-full text-sm font-semibold text-black"
         style={{ background: `linear-gradient(135deg, ${GOLD}, #FFD24A)` }}
       >
