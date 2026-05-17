@@ -65,7 +65,7 @@ function KontaktPage() {
 
   return (
     <main className="min-h-screen bg-white text-[#0E0E10]">
-      <PageHeader />
+      <SiteHeader variant="solid" />
 
       {/* HERO */}
       <section className="border-b border-black/5 bg-[#FAFAF7] px-5 pb-16 pt-32 md:px-8 md:pb-24 md:pt-40">
