@@ -52,22 +52,18 @@ import {
 export const Route = createFileRoute("/premium")({
   head: () => ({
     meta: [
-      { title: "Soltimus — Komfort i niskie rachunki | Pompy ciepła, fotowoltaika" },
+      { title: "Soltimus — Nowoczesne systemy energii i komfortu" },
       {
         name: "description",
         content:
-          "Soltimus projektuje i montuje pompy ciepła, fotowoltaikę, magazyny energii i rekuperację. Autoryzowany Partner Daikin. 1000+ realizacji.",
-      },
-      { property: "og:title", content: "Soltimus — Komfort i niskie rachunki" },
-      {
-        property: "og:description",
-        content:
-          "Pompy ciepła, fotowoltaika, magazyny energii i rekuperacja — od projektu po serwis.",
+          "Soltimus projektuje i instaluje pompy ciepła, fotowoltaikę, magazyny energii i rekuperację. Autoryzowany Partner Daikin.",
       },
     ],
   }),
   component: PremiumHome,
 });
+
+export { PremiumHome };
 
 const GOLD = "#F5B800";
 const BLUE = "#0089CF";
