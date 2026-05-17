@@ -1,9 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Phone, Mail, MapPin, Clock, ArrowRight, CheckCircle2 } from "lucide-react";
-import logoLight from "@/assets/soltimus-logo-white.png";
-import { COMPANY, NAV_ITEMS } from "@/lib/company";
+import { COMPANY } from "@/lib/company";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { SiteHeader } from "@/components/site/SiteHeader";
 
 export const Route = createFileRoute("/kontakt")({
   head: () => ({
