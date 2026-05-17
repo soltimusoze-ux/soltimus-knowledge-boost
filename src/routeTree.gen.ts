@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZespolRouteImport } from './routes/zespol'
+import { Route as RealizacjeRouteImport } from './routes/realizacje'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as OfertaRouteImport } from './routes/oferta'
 import { Route as LoginRouteImport } from './routes/login'
@@ -30,6 +31,11 @@ import { Route as AuthenticatedAdminNewArticleRouteImport } from './routes/_auth
 const ZespolRoute = ZespolRouteImport.update({
   id: '/zespol',
   path: '/zespol',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RealizacjeRoute = RealizacjeRouteImport.update({
+  id: '/realizacje',
+  path: '/realizacje',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PremiumRoute = PremiumRouteImport.update({
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
+  '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
+  '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRoute
   '/premium': typeof PremiumRoute
+  '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/oferta'
     | '/premium'
+    | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
@@ -199,6 +209,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/oferta'
     | '/premium'
+    | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
@@ -218,6 +229,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/oferta'
     | '/premium'
+    | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/wiedza/$category'
@@ -238,6 +250,7 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   OfertaRoute: typeof OfertaRoute
   PremiumRoute: typeof PremiumRoute
+  RealizacjeRoute: typeof RealizacjeRoute
   ZespolRoute: typeof ZespolRoute
   LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
   WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
@@ -252,6 +265,13 @@ declare module '@tanstack/react-router' {
       path: '/zespol'
       fullPath: '/zespol'
       preLoaderRoute: typeof ZespolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/realizacje': {
+      id: '/realizacje'
+      path: '/realizacje'
+      fullPath: '/realizacje'
+      preLoaderRoute: typeof RealizacjeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/premium': {
@@ -407,6 +427,7 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   OfertaRoute: OfertaRoute,
   PremiumRoute: PremiumRoute,
+  RealizacjeRoute: RealizacjeRoute,
   ZespolRoute: ZespolRoute,
   LabEpisodeSlugRoute: LabEpisodeSlugRoute,
   WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,
