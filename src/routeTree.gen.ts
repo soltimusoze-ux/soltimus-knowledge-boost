@@ -13,6 +13,7 @@ import { Route as ZespolRouteImport } from './routes/zespol'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
@@ -43,6 +44,11 @@ const LoginRoute = LoginRouteImport.update({
 const LabRoute = LabRouteImport.update({
   id: '/lab',
   path: '/lab',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
@@ -106,6 +112,7 @@ const AuthenticatedAdminNewArticleRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
@@ -140,6 +148,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/premium': typeof PremiumRoute
@@ -158,6 +167,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/kontakt'
     | '/lab'
     | '/login'
     | '/premium'
@@ -174,6 +184,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/kontakt'
     | '/lab'
     | '/login'
     | '/premium'
@@ -191,6 +202,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/kontakt'
     | '/lab'
     | '/login'
     | '/premium'
@@ -209,6 +221,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  KontaktRoute: typeof KontaktRoute
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
   PremiumRoute: typeof PremiumRoute
@@ -247,6 +260,13 @@ declare module '@tanstack/react-router' {
       path: '/lab'
       fullPath: '/lab'
       preLoaderRoute: typeof LabRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -362,6 +382,7 @@ const WiedzaCategoryRouteWithChildren = WiedzaCategoryRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  KontaktRoute: KontaktRoute,
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
   PremiumRoute: PremiumRoute,
