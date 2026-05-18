@@ -6,6 +6,7 @@ import karolinaImg from "@/assets/team-karolina.jpg";
 import izaImg from "@/assets/team-iza.jpg";
 import logoDark from "@/assets/soltimus-logo.png";
 import logoLight from "@/assets/soltimus-logo-white.png";
+import heroArchitecture from "@/assets/hero-architecture.jpg";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
