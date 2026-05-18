@@ -13,6 +13,16 @@ import {
 } from "@/lib/knowledge-categories";
 import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import { CategoryIcon } from "@/components/knowledge/CategoryIcon";
+import gruntowaPompaHero from "@/assets/gruntowa-pompa-hero.jpg";
+
+const IMAGE_OVERRIDES: Record<string, string> = {
+  "gruntowa-pompa-ciepla-jak-dziala-ile-kosztuje-i-czy-ma-wady-kompletny-przewodnik":
+    gruntowaPompaHero,
+};
+
+function postImage(post: any): string {
+  return IMAGE_OVERRIDES[post?.slug] ?? post?.image ?? FALLBACK;
+}
 
 export const Route = createFileRoute("/wiedza/")({
   head: () => ({
