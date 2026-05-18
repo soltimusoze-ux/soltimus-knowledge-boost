@@ -263,7 +263,7 @@ function Nav() {
 }
 
 /* ---------------------------------- HERO ---------------------------------- */
-import heroArchitecture from "@/assets/hero-architecture.jpg";
+
 
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
