@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { motion, useScroll, useSpring } from "framer-motion";
@@ -27,9 +27,17 @@ import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import { CategoryIcon } from "@/components/knowledge/CategoryIcon";
 import { RelatedVideos } from "@/components/knowledge/RelatedVideos";
 
+// Map WordPress slugs → rich static articles in code.
+const STATIC_ARTICLE_REDIRECTS: Record<string, string> = {
+  "gruntowa-pompa-ciepla-jak-dziala-ile-kosztuje-i-czy-ma-wady-kompletny-przewodnik":
+    "/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik",
+};
+
 export const Route = createFileRoute("/wiedza/$category/$slug")({
   beforeLoad: ({ params }) => {
     if (!categoryBySlug(params.category)) throw notFound();
+    const target = STATIC_ARTICLE_REDIRECTS[params.slug];
+    if (target) throw redirect({ to: target, replace: true });
   },
   head: ({ params }) => ({
     meta: [
