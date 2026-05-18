@@ -66,10 +66,24 @@ function mapPost(p: any, includeContent = false): PublicPost {
 
 async function fetchCategory(catId: number, perPage: number): Promise<PublicPost[]> {
   const url = `${WP_SITE}/wp-json/wp/v2/posts?categories=${catId}&per_page=${perPage}&_embed=wp:featuredmedia&orderby=date&order=desc`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`WP fetch ${catId}: ${res.status}`);
-  const data = (await res.json()) as any[];
-  return data.map((p) => mapPost(p));
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      console.error(`WP fetch ${catId}: ${res.status}`);
+      return [];
+    }
+    const ct = res.headers.get("content-type") ?? "";
+    if (!ct.includes("application/json")) {
+      console.error(`WP fetch ${catId}: non-JSON response (${ct})`);
+      return [];
+    }
+    const data = (await res.json()) as any[];
+    if (!Array.isArray(data)) return [];
+    return data.map((p) => mapPost(p));
+  } catch (e) {
+    console.error(`WP fetch ${catId} failed:`, e);
+    return [];
+  }
 }
 
 export const fetchPublicArticles = createServerFn({ method: "GET" }).handler(async () => {
