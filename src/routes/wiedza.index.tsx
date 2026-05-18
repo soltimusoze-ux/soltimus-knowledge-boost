@@ -13,6 +13,16 @@ import {
 } from "@/lib/knowledge-categories";
 import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import { CategoryIcon } from "@/components/knowledge/CategoryIcon";
+import gruntowaPompaHero from "@/assets/gruntowa-pompa-hero.jpg";
+
+const IMAGE_OVERRIDES: Record<string, string> = {
+  "gruntowa-pompa-ciepla-jak-dziala-ile-kosztuje-i-czy-ma-wady-kompletny-przewodnik":
+    gruntowaPompaHero,
+};
+
+function postImage(post: any): string {
+  return IMAGE_OVERRIDES[post?.slug] ?? post?.image ?? FALLBACK;
+}
 
 export const Route = createFileRoute("/wiedza/")({
   head: () => ({
@@ -276,7 +286,7 @@ function WiedzaIndex() {
                     className="group relative aspect-[4/5] w-[140px] overflow-hidden rounded-xl bg-black md:w-[160px]"
                   >
                     <img
-                      src={v.image ?? FALLBACK}
+                      src={postImage(v)}
                       alt={v.title}
                       className="h-full w-full object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
                     />
@@ -329,7 +339,7 @@ function ArticleHeroCard({ post }: { post: any }) {
     >
       <div className="relative aspect-[16/10] overflow-hidden lg:aspect-[16/10]">
         <img
-          src={post.image ?? FALLBACK}
+          src={postImage(post)}
           alt={post.title}
           className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
         />
@@ -370,7 +380,7 @@ function SideArticleCard({ post }: { post: any }) {
     >
       <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-black/5 md:h-28 md:w-28">
         <img
-          src={post.image ?? FALLBACK}
+          src={postImage(post)}
           alt={post.title}
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
@@ -403,7 +413,7 @@ function SmallArticleCard({ post, idx }: { post: any; idx: number }) {
       >
         <div className="aspect-[16/10] overflow-hidden bg-black/5">
           <img
-            src={post.image ?? FALLBACK}
+            src={postImage(post)}
             alt={post.title}
             className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105"
           />
