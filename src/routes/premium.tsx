@@ -263,136 +263,154 @@ function Nav() {
 }
 
 /* ---------------------------------- HERO ---------------------------------- */
+import heroArchitecture from "@/assets/hero-architecture.jpg";
+
 function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [0, 160]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const imgScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
+  const ease = [0.22, 1, 0.36, 1] as const;
 
   return (
-    <section ref={ref} className="relative h-[100svh] min-h-[640px] w-full overflow-hidden bg-black">
-      {/* Lifestyle background — warm premium home */}
-      <motion.div style={{ y }} className="absolute inset-0">
+    <section
+      ref={ref}
+      className="relative h-[100svh] min-h-[720px] w-full overflow-hidden bg-[#08090B] text-white"
+    >
+      {/* Cinematic architectural background */}
+      <motion.div style={{ y, scale: imgScale }} className="absolute inset-0">
         <img
-          src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=2400&q=85"
-          alt="Wnętrze nowoczesnego domu z komfortową temperaturą"
+          src={heroArchitecture}
+          alt="Nowoczesny dom z systemem energii Soltimus o zmierzchu"
           className="h-full w-full object-cover"
+          fetchPriority="high"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/35 to-black/85" />
-        <div
-          className="absolute inset-0 opacity-40"
+        {/* Deep gradient for legibility — bottom heavy, calm */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#08090B]/60 via-[#08090B]/30 to-[#08090B]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#08090B]/80 via-transparent to-transparent" />
+      </motion.div>
+
+      {/* Subtle animated energy light — a single slow sweep across the architecture */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 2.2, delay: 0.3 }}
+      >
+        <motion.div
+          className="absolute -top-1/3 left-1/2 h-[140%] w-[60%] -translate-x-1/2 rotate-12 blur-3xl"
           style={{
-            background: `radial-gradient(70% 55% at 75% 25%, ${GOLD}33, transparent 70%)`,
+            background:
+              "linear-gradient(180deg, transparent 0%, rgba(245,184,0,0.10) 45%, rgba(0,137,207,0.08) 60%, transparent 100%)",
           }}
-        />
-        <div
-          className="absolute inset-0 opacity-30 mix-blend-screen"
-          style={{
-            background: `radial-gradient(50% 50% at 15% 80%, ${BLUE}33, transparent 70%)`,
-          }}
+          animate={{ x: ["-30%", "30%", "-30%"] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         />
       </motion.div>
 
-      {/* Ambient floating orbs */}
-      <motion.div
+      {/* Fine architectural grid overlay — Apple-style */}
+      <div
         aria-hidden
-        className="pointer-events-none absolute -left-24 top-1/3 h-[420px] w-[420px] rounded-full blur-3xl"
-        style={{ background: `radial-gradient(circle, ${GOLD}40, transparent 70%)` }}
-        animate={{ y: [0, -30, 0], x: [0, 12, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)",
+          backgroundSize: "120px 120px",
+        }}
       />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute -right-32 bottom-0 h-[520px] w-[520px] rounded-full blur-3xl"
-        style={{ background: `radial-gradient(circle, ${BLUE}33, transparent 70%)` }}
-        animate={{ y: [0, 24, 0], x: [0, -16, 0] }}
-        transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
-      />
-      {/* Vignette for cinematic depth */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_55%,rgba(0,0,0,0.55)_100%)]" />
 
+      {/* Top eyebrow rail */}
       <motion.div
-        style={{ opacity }}
-        className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-5 pb-20 pt-32 md:px-8 md:pb-28"
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.6, duration: 1.2, ease }}
+        className="absolute left-0 right-0 top-28 z-10 mx-auto flex max-w-7xl items-center justify-between px-6 md:top-32 md:px-12"
       >
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-white/90 backdrop-blur"
-        >
-          <span className="h-1.5 w-1.5 rounded-full" style={{ background: GOLD }} />
-          Autoryzowany Partner Daikin · 1000+ domów
-        </motion.span>
+        <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-white/55">
+          <span className="h-px w-8 bg-white/30" />
+          Soltimus · Engineering
+        </div>
+        <div className="hidden items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-white/55 md:flex">
+          Est. 2009 · Garwolin / PL
+          <span className="h-px w-8 bg-white/30" />
+        </div>
+      </motion.div>
 
-        <h1 className="mt-6 max-w-5xl text-[clamp(2.5rem,7vw,6rem)] font-semibold leading-[0.95] tracking-tight text-white">
-          {["Ciepły", "dom."].map((w, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ delay: 0.35 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="mr-3 inline-block"
-            >
-              {w}
-            </motion.span>
-          ))}
-          <br />
-          {["Spokojna", "głowa."].map((w, i) => (
-            <motion.span
-              key={i}
-              initial={{ opacity: 0, y: 40, filter: "blur(12px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ delay: 0.7 + i * 0.12, duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="mr-3 inline-block italic font-light text-white/90"
-            >
-              {w}
-            </motion.span>
-          ))}
-        </h1>
+      {/* Main content — anchored bottom-left, oversized typography */}
+      <motion.div
+        style={{ opacity: contentOpacity, y: contentY }}
+        className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-28 pt-40 md:px-12 md:pb-32"
+      >
+        <motion.h1
+          initial={{ opacity: 0, y: 30, filter: "blur(14px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ delay: 0.4, duration: 1.6, ease }}
+          className="max-w-[18ch] text-[clamp(2.5rem,7.2vw,6.5rem)] font-extralight leading-[0.98] tracking-[-0.025em] text-white"
+        >
+          Projektujemy{" "}
+          <span className="italic font-thin text-white/90">inteligentne</span>{" "}
+          systemy energii dla nowoczesnych domów.
+        </motion.h1>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.1, duration: 1 }}
+          className="mt-10 h-px w-16 bg-white/30"
+        />
 
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          className="mt-6 max-w-xl text-base text-white/85 md:text-lg"
+          transition={{ delay: 1.2, duration: 1, ease }}
+          className="mt-10 max-w-xl text-base font-light leading-relaxed text-white/70 md:text-lg"
         >
-          Projektujemy i montujemy systemy, które dają Twojej rodzinie komfort
-          przez 25 lat — pompy ciepła, fotowoltaikę, magazyny energii i rekuperację.
-          Z opieką inżynierów, nie tylko monterów.
+          Pompy ciepła, fotowoltaika, magazyny energii i nowoczesne systemy
+          komfortu — projektowane z inżynieryjną precyzją.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.75 }}
-          className="mt-8 flex flex-wrap gap-3"
+          transition={{ delay: 1.45, duration: 1, ease }}
+          className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4"
         >
           <a
             href="/kontakt"
-            className="group inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium text-black transition-all hover:scale-[1.03] hover:shadow-[0_10px_40px_-10px_rgba(245,184,0,0.6)]"
-            style={{ background: GOLD }}
+            className="group inline-flex items-center gap-3 border-b border-white/40 pb-2 text-sm font-light tracking-wide text-white transition-colors hover:border-white"
           >
-            Darmowa konsultacja
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            Porozmawiaj z inżynierem
+            <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1.5" />
           </a>
-          <a
-            href="/realizacje"
-            className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3.5 text-sm font-medium text-white backdrop-blur transition-colors hover:bg-white/20"
+          <Link
+            to="/lab"
+            className="group inline-flex items-center gap-3 pb-2 text-sm font-light tracking-wide text-white/65 transition-colors hover:text-white"
           >
-            Zobacz realizacje
-          </a>
+            Poznaj Soltimus Lab
+            <ArrowRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-1.5" />
+          </Link>
         </motion.div>
-
-        <TrustIndicators />
       </motion.div>
 
+      {/* Premium scroll indicator — vertical thread */}
       <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 text-[10px] uppercase tracking-[0.3em] text-white/60"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.8, duration: 1 }}
+        className="absolute bottom-10 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-3"
       >
-        Scroll
+        <span className="text-[9px] uppercase tracking-[0.4em] text-white/45">Scroll</span>
+        <div className="relative h-12 w-px overflow-hidden bg-white/15">
+          <motion.div
+            className="absolute left-0 top-0 h-1/2 w-px bg-white/80"
+            animate={{ y: ["-100%", "200%"] }}
+            transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </div>
       </motion.div>
     </section>
   );
