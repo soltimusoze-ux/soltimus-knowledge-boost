@@ -16,6 +16,7 @@ import { Route as OfertaRouteImport } from './routes/oferta'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as KalkulatorPompyCieplaRouteImport } from './routes/kalkulator-pompy-ciepla'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
@@ -62,6 +63,11 @@ const LabRoute = LabRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KalkulatorPompyCieplaRoute = KalkulatorPompyCieplaRouteImport.update({
+  id: '/kalkulator-pompy-ciepla',
+  path: '/kalkulator-pompy-ciepla',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
@@ -130,6 +136,7 @@ const AuthenticatedAdminNewArticleRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/kalkulator-pompy-ciepla': typeof KalkulatorPompyCieplaRoute
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
@@ -150,6 +157,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/kalkulator-pompy-ciepla': typeof KalkulatorPompyCieplaRoute
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
@@ -172,6 +180,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/kalkulator-pompy-ciepla': typeof KalkulatorPompyCieplaRoute
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
@@ -194,6 +203,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/kalkulator-pompy-ciepla'
     | '/kontakt'
     | '/lab'
     | '/login'
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/kalkulator-pompy-ciepla'
     | '/kontakt'
     | '/lab'
     | '/login'
@@ -235,6 +246,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/kalkulator-pompy-ciepla'
     | '/kontakt'
     | '/lab'
     | '/login'
@@ -257,6 +269,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  KalkulatorPompyCieplaRoute: typeof KalkulatorPompyCieplaRoute
   KontaktRoute: typeof KontaktRoute
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
@@ -320,6 +333,13 @@ declare module '@tanstack/react-router' {
       path: '/kontakt'
       fullPath: '/kontakt'
       preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kalkulator-pompy-ciepla': {
+      id: '/kalkulator-pompy-ciepla'
+      path: '/kalkulator-pompy-ciepla'
+      fullPath: '/kalkulator-pompy-ciepla'
+      preLoaderRoute: typeof KalkulatorPompyCieplaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -442,6 +462,7 @@ const WiedzaCategoryRouteWithChildren = WiedzaCategoryRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  KalkulatorPompyCieplaRoute: KalkulatorPompyCieplaRoute,
   KontaktRoute: KontaktRoute,
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
@@ -459,3 +480,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
