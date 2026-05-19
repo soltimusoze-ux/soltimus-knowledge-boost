@@ -10,6 +10,7 @@ import {
 
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/sonner";
+import { RecommendedProductsStrip } from "@/components/heat-pump/RecommendedProducts";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -108,6 +109,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Outlet />
+        <RecommendedProductsStrip />
         <Toaster richColors position="top-right" />
       </AuthProvider>
     </QueryClientProvider>
