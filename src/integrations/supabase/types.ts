@@ -50,6 +50,81 @@ export type Database = {
         }
         Relationships: []
       }
+      heat_pump_leads: {
+        Row: {
+          area_m2: number
+          building_type: string
+          climate_zone: number
+          created_at: string
+          email: string
+          estimated_price_max: number | null
+          estimated_price_min: number | null
+          floors: number
+          heat_demand_kw: number
+          heating_system: string
+          id: string
+          insulation: string
+          name: string
+          notes: string | null
+          occupants: number
+          phone: string
+          recommended_power_kw: number
+          recommended_series: string | null
+          rodo_consent: boolean
+          source_url: string | null
+          status: string
+          user_agent: string | null
+        }
+        Insert: {
+          area_m2: number
+          building_type: string
+          climate_zone?: number
+          created_at?: string
+          email: string
+          estimated_price_max?: number | null
+          estimated_price_min?: number | null
+          floors?: number
+          heat_demand_kw: number
+          heating_system: string
+          id?: string
+          insulation: string
+          name: string
+          notes?: string | null
+          occupants?: number
+          phone: string
+          recommended_power_kw: number
+          recommended_series?: string | null
+          rodo_consent?: boolean
+          source_url?: string | null
+          status?: string
+          user_agent?: string | null
+        }
+        Update: {
+          area_m2?: number
+          building_type?: string
+          climate_zone?: number
+          created_at?: string
+          email?: string
+          estimated_price_max?: number | null
+          estimated_price_min?: number | null
+          floors?: number
+          heat_demand_kw?: number
+          heating_system?: string
+          id?: string
+          insulation?: string
+          name?: string
+          notes?: string | null
+          occupants?: number
+          phone?: string
+          recommended_power_kw?: number
+          recommended_series?: string | null
+          rodo_consent?: boolean
+          source_url?: string | null
+          status?: string
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
