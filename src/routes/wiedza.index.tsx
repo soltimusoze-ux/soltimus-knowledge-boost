@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Play } from "lucide-react";
+import { ArrowRight, Sparkles, Play, Calculator, Banknote } from "lucide-react";
 import {
   fetchPublicArticles,
   fetchPublicVideos,
@@ -177,6 +177,68 @@ function WiedzaIndex() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* PRICING FEATURE — Cennik 2026 */}
+      <section className="px-5 pb-4 md:px-8">
+        <div className="mx-auto max-w-7xl">
+          <Link
+            to="/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026"
+            className="group relative grid overflow-hidden rounded-3xl border border-black/10 bg-gradient-to-br from-[#0089CF] via-[#005a8a] to-black p-8 text-white transition hover:shadow-[0_30px_80px_-30px_rgba(0,137,207,0.6)] md:grid-cols-[2fr,1fr] md:p-12"
+          >
+            <div className="pointer-events-none absolute -right-20 -top-20 h-[320px] w-[320px] rounded-full bg-[radial-gradient(circle,rgba(245,184,0,0.18),transparent_70%)]" />
+            <div className="relative">
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1.5 text-[10px] uppercase tracking-[0.28em] text-white/90 backdrop-blur">
+                <Banknote className="h-3 w-3 text-[#F5B800]" />
+                Nowość · Cennik 2026
+              </div>
+              <h2 className="mt-6 max-w-2xl text-[clamp(1.8rem,4vw,3rem)] font-semibold leading-[1.05] tracking-tight">
+                Ile naprawdę kosztuje pompa ciepła?
+                <span className="block italic font-light text-white/70">
+                  Transparentne widełki + kalkulator doboru.
+                </span>
+              </h2>
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 md:text-base">
+                Realne ceny montażu split / monoblok / gruntowa, 3 przykłady
+                domów po dotacji i kalkulator, który w 90 sekund pokaże
+                rekomendowany model Daikin Altherma 3.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <span className="inline-flex items-center gap-2 rounded-full bg-[#F5B800] px-5 py-2.5 text-sm font-medium text-black transition group-hover:bg-white">
+                  Przeczytaj cennik
+                  <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm text-white/90">
+                  <Calculator className="h-4 w-4" />
+                  Kalkulator doboru
+                </span>
+              </div>
+            </div>
+            <div className="relative hidden md:block">
+              <div className="absolute inset-0 flex items-center justify-end">
+                <div className="grid w-full max-w-[260px] gap-3">
+                  {[
+                    ["Split", "38–55 tys. zł"],
+                    ["Monoblok", "45–65 tys. zł"],
+                    ["Gruntowa", "75–120 tys. zł"],
+                  ].map(([k, v]) => (
+                    <div
+                      key={k}
+                      className="rounded-xl border border-white/15 bg-white/[0.06] p-4 backdrop-blur"
+                    >
+                      <div className="text-[10px] uppercase tracking-widest text-white/50">
+                        {k}
+                      </div>
+                      <div className="mt-1 font-mono text-lg text-[#F5B800]">
+                        {v}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </Link>
         </div>
       </section>
 
