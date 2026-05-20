@@ -237,6 +237,39 @@ function CalculatorPage() {
         </div>
       </section>
 
+      {/* Gwarancja + serwis — trust strip */}
+      <section className="border-b border-black/5 bg-white">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-8 px-6 py-6 md:gap-12">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5">
+              <Shield className="h-5 w-5 text-black" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold">5-letnia gwarancja</div>
+              <div className="text-xs text-black/50">Na urządzenie i montaż</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5">
+              <Clock className="h-5 w-5 text-black" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold">Serwis 24/7</div>
+              <div className="text-xs text-black/50">Całodobowa pomoc techniczna</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5">
+              <Heart className="h-5 w-5 text-black" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold">Troska o Twój dom</div>
+              <div className="text-xs text-black/50">Komfort i bezpieczeństwo rodziny</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Główna sekcja: formularz + sticky wynik */}
       <section className="mx-auto max-w-6xl px-6 py-12 md:py-16">
         <div className="grid gap-10 lg:grid-cols-[1fr_420px]">
