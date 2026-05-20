@@ -367,14 +367,14 @@ function CalculatorPage() {
 
             {/* Krok 5 — lead */}
             <div id="lead" className="rounded-3xl border border-black/10 bg-white p-6 md:p-8">
-              <StepHeading index={5} title="Otrzymaj pełną ofertę" icon={CheckCircle2} />
+              <StepHeading index={5} title="Zadbaj o ciepło i komfort Twojego domu" icon={CheckCircle2} />
 
               {submitted ? (
                 <div className="rounded-2xl bg-black/5 p-6 text-center">
                   <CheckCircle2 className="mx-auto h-10 w-10 text-black" />
                   <h4 className="mt-3 text-lg font-semibold">Dziękujemy.</h4>
                   <p className="mt-1 text-sm text-black/60">
-                    Zespół Soltimus odezwie się w ciągu 24h z pełną wyceną dopasowaną do Twojego budynku.
+                    Zespół Soltimus odezwie się w ciągu 24h z pełną wyceną dopasowaną do Twojego budynku — zadbamy o Twój spokój i komfort na lata.
                   </p>
                 </div>
               ) : (
