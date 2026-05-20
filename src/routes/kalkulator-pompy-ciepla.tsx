@@ -12,6 +12,9 @@ import {
   Droplets,
   Sparkles,
   AlertTriangle,
+  Shield,
+  Clock,
+  Heart,
 } from "lucide-react";
 
 import SiteHeader from "@/components/site/SiteHeader";
@@ -203,7 +206,7 @@ function CalculatorPage() {
       });
       saveRecommendedProduct(result.primary.product.id);
       setSubmitted(true);
-      toast.success("Wysłano! Skontaktujemy się w 24h.");
+      toast.success("Wysłano! Odezwiemy się w ciągu 24h, by zadbać o Twój komfort.");
     } catch (err) {
       console.error(err);
       toast.error("Nie udało się wysłać. Zadzwoń bezpośrednio.");
@@ -228,8 +231,41 @@ function CalculatorPage() {
               <span className="text-black/40">w 60 sekund.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-black/60">
-              Orientacyjna moc, model Daikin Altherma i szacunkowa cena brutto z montażem (8% VAT). Bez rejestracji.
+              Orientacyjna moc, model Daikin Altherma i szacunkowa cena brutto z montażem (8% VAT). Z gwarancją 5-letnią i serwisem 24/7.
             </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Gwarancja + serwis — trust strip */}
+      <section className="border-b border-black/5 bg-white">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-8 px-6 py-6 md:gap-12">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5">
+              <Shield className="h-5 w-5 text-black" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold">5-letnia gwarancja</div>
+              <div className="text-xs text-black/50">Na urządzenie i montaż</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5">
+              <Clock className="h-5 w-5 text-black" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold">Serwis 24/7</div>
+              <div className="text-xs text-black/50">Całodobowa pomoc techniczna</div>
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-black/5">
+              <Heart className="h-5 w-5 text-black" />
+            </div>
+            <div>
+              <div className="text-sm font-semibold">Troska o Twój dom</div>
+              <div className="text-xs text-black/50">Komfort i bezpieczeństwo rodziny</div>
+            </div>
           </div>
         </div>
       </section>
@@ -331,14 +367,14 @@ function CalculatorPage() {
 
             {/* Krok 5 — lead */}
             <div id="lead" className="rounded-3xl border border-black/10 bg-white p-6 md:p-8">
-              <StepHeading index={5} title="Otrzymaj pełną ofertę" icon={CheckCircle2} />
+              <StepHeading index={5} title="Zadbaj o ciepło i komfort Twojego domu" icon={CheckCircle2} />
 
               {submitted ? (
                 <div className="rounded-2xl bg-black/5 p-6 text-center">
                   <CheckCircle2 className="mx-auto h-10 w-10 text-black" />
                   <h4 className="mt-3 text-lg font-semibold">Dziękujemy.</h4>
                   <p className="mt-1 text-sm text-black/60">
-                    Zespół Soltimus odezwie się w ciągu 24h z pełną wyceną dopasowaną do Twojego budynku.
+                    Zespół Soltimus odezwie się w ciągu 24h z pełną wyceną dopasowaną do Twojego budynku — zadbamy o Twój spokój i komfort na lata.
                   </p>
                 </div>
               ) : (
@@ -397,7 +433,7 @@ function CalculatorPage() {
                     className="group inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-sm font-semibold transition-transform hover:scale-[1.02] disabled:opacity-50 sm:col-span-2"
                     style={{ backgroundColor: ACCENT, color: "#000" }}
                   >
-                    {sending ? "Wysyłanie…" : "Wyślij wynik i otrzymaj pełną ofertę"}
+                    {sending ? "Wysyłanie…" : "Wyślij wynik — zadbamy o komfort Twojej rodziny"}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </button>
                 </form>
@@ -527,7 +563,7 @@ function ResultCard({
           className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-semibold transition-transform hover:scale-[1.02]"
           style={{ backgroundColor: ACCENT, color: "#000" }}
         >
-          Otrzymaj pełną ofertę <ArrowRight className="h-4 w-4" />
+          Sprawdź, jak zapewnić ciepło Twojego domu <ArrowRight className="h-4 w-4" />
         </a>
       </div>
 
