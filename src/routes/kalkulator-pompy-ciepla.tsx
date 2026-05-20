@@ -12,6 +12,9 @@ import {
   Droplets,
   Sparkles,
   AlertTriangle,
+  Shield,
+  Clock,
+  Heart,
 } from "lucide-react";
 
 import SiteHeader from "@/components/site/SiteHeader";
