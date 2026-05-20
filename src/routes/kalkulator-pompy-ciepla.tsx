@@ -363,6 +363,27 @@ function CalculatorPage() {
               <p className="mt-3 text-xs text-black/40">
                 CWU wpływa wyłącznie na sugerowany zestaw i cenę — nie zmienia mocy pompy.
               </p>
+
+              <Link
+                to="/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla"
+                className="group mt-4 flex items-start gap-4 rounded-2xl border border-black/10 bg-[#FAFAF7] p-4 transition hover:border-black/30 hover:bg-white md:p-5"
+              >
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-black text-white">
+                  <Droplets className="h-5 w-5" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-[10px] uppercase tracking-[0.25em] text-[#0089CF]">
+                    Strefa wiedzy · Poradnik
+                  </div>
+                  <div className="mt-1 text-sm font-semibold leading-snug md:text-base">
+                    Czym się różnią zbiorniki c.w.u.? Nie wiesz jaki rodzaj i pojemność wybrać?
+                  </div>
+                  <p className="mt-1 text-xs text-black/60 md:text-sm">
+                    Nasi eksperci wyjaśniają różnice między zbiornikami emaliowanymi, ze stali nierdzewnej i buforowymi — oraz jak dobrać pojemność do liczby domowników.
+                  </p>
+                </div>
+                <ArrowRight className="mt-1 h-4 w-4 shrink-0 text-black/40 transition group-hover:translate-x-0.5 group-hover:text-black" />
+              </Link>
             </div>
 
             {/* Krok 5 — lead */}
