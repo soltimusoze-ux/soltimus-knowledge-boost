@@ -4,35 +4,35 @@ import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
 import {
   ArrowRight,
+  ArrowLeft,
   CheckCircle2,
   Flame,
   Home,
   Layers,
-  Phone,
+  Droplets,
   Sparkles,
-  ThermometerSun,
-  Users,
+  AlertTriangle,
 } from "lucide-react";
 
 import SiteHeader from "@/components/site/SiteHeader";
 import SiteFooter from "@/components/site/SiteFooter";
 import { saveRecommendedProduct } from "@/components/heat-pump/RecommendedProducts";
 import {
-  BUILDING_TYPE_LABELS,
-  CLIMATE_ZONE_LABELS,
-  DAIKIN_CATALOG,
+  BUILDING_LABELS,
   HEATING_LABELS,
-  INSULATION_LABELS,
+  TANK_LABELS,
+  SERIES_LABELS,
   calculateHeatPump,
-  getRelatedProducts,
-  type BuildingType,
+  type BuildingStandard,
   type CalcInput,
+  type CustomUnit,
   type HeatingSystem,
-  type Insulation,
+  type TankType,
 } from "@/lib/heat-pump-calc";
 import { submitHeatPumpLead } from "@/lib/heat-pump-lead.functions";
 import { COMPANY } from "@/lib/company";
-import heroImg from "@/assets/kalkulator-hero.jpg";
+
+const ACCENT = "#F6B800";
 
 export const Route = createFileRoute("/kalkulator-pompy-ciepla")({
   head: () => ({
@@ -41,591 +41,536 @@ export const Route = createFileRoute("/kalkulator-pompy-ciepla")({
       {
         name: "description",
         content:
-          "Dobierz pompę ciepła Daikin Altherma dla swojego domu w 60 sekund. Powierzchnia, izolacja, instalacja — otrzymasz moc, model i szacunkową cenę.",
+          "Orientacyjny dobór pompy ciepła Daikin Altherma w 60 sekund: moc, model, szacunkowa cena brutto z montażem.",
       },
       { property: "og:title", content: "Kalkulator doboru pompy ciepła Daikin — Soltimus" },
-      { property: "og:description", content: "Sprawdź jaką pompę ciepła wybrać. Szacunkowa wycena Daikin Altherma." },
-      { property: "og:image", content: heroImg },
+      {
+        property: "og:description",
+        content: "Dobierz pompę ciepła Daikin Altherma i otrzymaj orientacyjną wycenę brutto z montażem.",
+      },
     ],
   }),
   component: CalculatorPage,
 });
 
-const PRESET_AREAS = [100, 120, 150, 180, 220];
+// ─── State ──────────────────────────────────────────────────────────────────
+
+interface FormState {
+  buildingStandard: BuildingStandard;
+  customValue: string;
+  customUnit: CustomUnit;
+  areaM2: string;
+  heating: HeatingSystem;
+  tank: TankType;
+}
+
+const initialForm: FormState = {
+  buildingStandard: "new_wt2021",
+  customValue: "",
+  customUnit: "w_m2",
+  areaM2: "150",
+  heating: "underfloor",
+  tank: "ss_230",
+};
+
+interface LeadState {
+  name: string;
+  phone: string;
+  email: string;
+  city: string;
+  notes: string;
+  rodo: boolean;
+}
+
+const initialLead: LeadState = { name: "", phone: "", email: "", city: "", notes: "", rodo: false };
+
+// ─── Komponenty pomocnicze ──────────────────────────────────────────────────
+
+function Pill({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`w-full rounded-2xl border px-5 py-4 text-left text-sm transition-all ${
+        active
+          ? "border-black bg-black text-white shadow-[0_8px_24px_-12px_rgba(0,0,0,0.4)]"
+          : "border-black/10 bg-white text-black hover:border-black/30"
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function StepHeading({
+  index,
+  title,
+  icon: Icon,
+}: {
+  index: number;
+  title: string;
+  icon: React.ComponentType<{ className?: string }>;
+}) {
+  return (
+    <div className="mb-4 flex items-center gap-3">
+      <div className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-xs font-semibold text-white">
+        {index}
+      </div>
+      <Icon className="h-5 w-5 text-black/60" />
+      <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+    </div>
+  );
+}
+
+function fmtPLN(n: number) {
+  return `${n.toLocaleString("pl-PL")} zł`;
+}
+
+// ─── Strona ─────────────────────────────────────────────────────────────────
 
 function CalculatorPage() {
-  const submit = useServerFn(submitHeatPumpLead);
-
-  const [input, setInput] = useState<CalcInput>({
-    buildingType: "new",
-    areaM2: 150,
-    floors: 1,
-    insulation: "good",
-    heatingSystem: "underfloor",
-    occupants: 4,
-    climateZone: 3,
-  });
-
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [notes, setNotes] = useState("");
-  const [rodo, setRodo] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [form, setForm] = useState<FormState>(initialForm);
+  const [lead, setLead] = useState<LeadState>(initialLead);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
-  const result = useMemo(() => calculateHeatPump(input), [input]);
-  const related = useMemo(() => getRelatedProducts(result.product.id, 2), [result.product.id]);
+  const submitLead = useServerFn(submitHeatPumpLead);
 
-  function update<K extends keyof CalcInput>(key: K, value: CalcInput[K]) {
-    setInput((prev) => ({ ...prev, [key]: value }));
-  }
+  const calcInput: CalcInput | null = useMemo(() => {
+    const area = parseFloat(form.areaM2);
+    if (!area || area <= 0) return null;
+    if (form.buildingStandard === "custom") {
+      const v = parseFloat(form.customValue);
+      if (!v || v <= 0) return null;
+      return {
+        buildingStandard: "custom",
+        customValue: v,
+        customUnit: form.customUnit,
+        areaM2: area,
+        heating: form.heating,
+        tank: form.tank,
+      };
+    }
+    return {
+      buildingStandard: form.buildingStandard,
+      areaM2: area,
+      heating: form.heating,
+      tank: form.tank,
+    };
+  }, [form]);
 
-  async function handleSubmit(e: React.FormEvent) {
+  const result = useMemo(() => (calcInput ? calculateHeatPump(calcInput) : null), [calcInput]);
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!rodo) {
-      toast.error("Wymagana jest zgoda na przetwarzanie danych.");
+    if (!result || !calcInput) return;
+    if (!lead.rodo) {
+      toast.error("Wymagana zgoda RODO.");
       return;
     }
-    setSubmitting(true);
+    setSending(true);
     try {
-      const res = await submit({
+      await submitLead({
         data: {
-          ...input,
-          heatDemandKw: result.heatDemandKw,
-          recommendedPowerKw: result.recommendedPowerKw,
-          recommendedSeries: result.product.shortName,
-          estimatedPriceMin: result.priceMin,
-          estimatedPriceMax: result.priceMax,
-          name,
-          phone,
-          email,
+          buildingStandard: calcInput.buildingStandard,
+          customValue: calcInput.customValue ?? null,
+          customUnit: calcInput.customUnit ?? null,
+          areaM2: calcInput.areaM2,
+          heating: calcInput.heating,
+          tank: calcInput.tank,
+          demandKw: result.demandKw,
+          recommendedPowerKw: result.primary.product.powerKw,
+          recommendedSeries: result.primary.product.series,
+          recommendedModel: result.primary.product.modelName,
+          estimatedPriceMin: result.primary.priceRange.min,
+          estimatedPriceMax: result.primary.priceRange.max,
+          name: lead.name,
+          phone: lead.phone,
+          email: lead.email,
+          city: lead.city,
+          notes: lead.notes || null,
           rodoConsent: true,
-          notes: notes || null,
           sourceUrl: typeof window !== "undefined" ? window.location.href : null,
         },
       });
-      if (res.ok) {
-        saveRecommendedProduct(result.product.id);
-        setSubmitted(true);
-        toast.success("Dziękujemy! Skontaktujemy się w ciągu 24h.");
-      } else {
-        toast.error("Nie udało się zapisać zgłoszenia. Spróbuj ponownie.");
-      }
+      saveRecommendedProduct(result.primary.product.id);
+      setSubmitted(true);
+      toast.success("Wysłano! Skontaktujemy się w 24h.");
     } catch (err) {
       console.error(err);
-      toast.error("Wystąpił błąd. Zadzwoń: " + COMPANY.phone);
+      toast.error("Nie udało się wysłać. Zadzwoń bezpośrednio.");
     } finally {
-      setSubmitting(false);
+      setSending(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-[#F8F7F4] text-black">
-      <SiteHeader variant="solid" />
+    <div className="min-h-screen bg-[#fafafa] text-black">
+      <SiteHeader />
 
-      {/* HERO */}
-      <section className="relative pt-24 md:pt-28">
-        <div className="absolute inset-0 -z-10">
-          <img src={heroImg} alt="" className="h-full w-full object-cover opacity-90" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-[#F8F7F4]" />
-        </div>
-        <div className="mx-auto max-w-5xl px-5 pb-12 pt-10 md:px-8 md:pb-20 md:pt-20">
-          <div className="inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-3 py-1 text-xs font-medium uppercase tracking-wider text-white backdrop-blur">
-            <Sparkles className="h-3.5 w-3.5" /> Kalkulator doboru
+      {/* Hero — minimalist */}
+      <section className="border-b border-black/5 bg-white">
+        <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="max-w-3xl">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-medium text-black/70">
+              <Sparkles className="h-3.5 w-3.5" style={{ color: ACCENT }} /> Kalkulator doboru · Daikin
+            </div>
+            <h1 className="text-4xl font-semibold tracking-tight md:text-6xl">
+              Dobierz pompę ciepła<br />
+              <span className="text-black/40">w 60 sekund.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-black/60">
+              Orientacyjna moc, model Daikin Altherma i szacunkowa cena brutto z montażem (8% VAT). Bez rejestracji.
+            </p>
           </div>
-          <h1 className="mt-4 max-w-3xl text-balance text-4xl font-light leading-[1.05] tracking-tight text-white md:text-6xl">
-            Jaka pompa ciepła do <span className="font-medium">Twojego domu</span>?
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
-            Odpowiedz na kilka pytań, a otrzymasz rekomendowaną moc, model Daikin Altherma
-            i szacunkową cenę. Bez logowania, bez spamu.
-          </p>
         </div>
       </section>
 
-      {/* CALCULATOR + LIVE RESULT */}
-      <section className="mx-auto max-w-7xl px-5 pb-20 md:px-8">
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
-          {/* FORM (3/5) */}
-          <div className="lg:col-span-3 space-y-6">
-            <CalcCard
-              icon={<Home className="h-4 w-4" />}
-              title="1. Typ budynku"
-            >
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                {(Object.keys(BUILDING_TYPE_LABELS) as BuildingType[]).map((t) => (
-                  <OptionPill
-                    key={t}
-                    selected={input.buildingType === t}
-                    onClick={() => update("buildingType", t)}
-                    label={BUILDING_TYPE_LABELS[t]}
-                  />
-                ))}
-              </div>
-            </CalcCard>
-
-            <CalcCard
-              icon={<Layers className="h-4 w-4" />}
-              title="2. Powierzchnia ogrzewana"
-            >
-              <div className="flex items-center gap-3">
-                <input
-                  type="number"
-                  min={20}
-                  max={2000}
-                  value={input.areaM2}
-                  onChange={(e) => update("areaM2", Math.max(20, Math.min(2000, Number(e.target.value) || 0)))}
-                  className="w-32 rounded-xl border border-black/15 bg-white px-4 py-3 text-lg font-medium text-black focus:border-black focus:outline-none"
-                />
-                <span className="text-sm text-black/60">m²</span>
-              </div>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {PRESET_AREAS.map((a) => (
-                  <button
-                    key={a}
-                    type="button"
-                    onClick={() => update("areaM2", a)}
-                    className={`rounded-full px-3 py-1 text-xs transition-colors ${
-                      input.areaM2 === a
-                        ? "bg-black text-white"
-                        : "bg-black/5 text-black/70 hover:bg-black/10"
-                    }`}
+      {/* Główna sekcja: formularz + sticky wynik */}
+      <section className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="grid gap-10 lg:grid-cols-[1fr_420px]">
+          {/* Formularz */}
+          <div className="space-y-10">
+            {/* Krok 1 */}
+            <div>
+              <StepHeading index={1} title="Rodzaj budynku" icon={Home} />
+              <div className="grid gap-3 sm:grid-cols-2">
+                {(Object.keys(BUILDING_LABELS) as BuildingStandard[]).map((b) => (
+                  <Pill
+                    key={b}
+                    active={form.buildingStandard === b}
+                    onClick={() => setForm((f) => ({ ...f, buildingStandard: b }))}
                   >
-                    {a} m²
-                  </button>
-                ))}
-              </div>
-              <div className="mt-5 flex items-center gap-3">
-                <span className="text-sm text-black/60">Kondygnacje:</span>
-                {[1, 2, 3].map((f) => (
-                  <button
-                    key={f}
-                    type="button"
-                    onClick={() => update("floors", f)}
-                    className={`h-9 w-9 rounded-full text-sm transition-colors ${
-                      input.floors === f
-                        ? "bg-black text-white"
-                        : "bg-black/5 text-black/70 hover:bg-black/10"
-                    }`}
-                  >
-                    {f}
-                  </button>
-                ))}
-              </div>
-            </CalcCard>
-
-            <CalcCard
-              icon={<ThermometerSun className="h-4 w-4" />}
-              title="3. Standard izolacji"
-            >
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {(Object.keys(INSULATION_LABELS) as Insulation[]).map((i) => (
-                  <OptionPill
-                    key={i}
-                    selected={input.insulation === i}
-                    onClick={() => update("insulation", i)}
-                    label={INSULATION_LABELS[i]}
-                  />
-                ))}
-              </div>
-            </CalcCard>
-
-            <CalcCard
-              icon={<Flame className="h-4 w-4" />}
-              title="4. Rodzaj instalacji grzewczej"
-            >
-              <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                {(Object.keys(HEATING_LABELS) as HeatingSystem[]).map((h) => (
-                  <OptionPill
-                    key={h}
-                    selected={input.heatingSystem === h}
-                    onClick={() => update("heatingSystem", h)}
-                    label={HEATING_LABELS[h]}
-                  />
-                ))}
-              </div>
-            </CalcCard>
-
-            <CalcCard
-              icon={<Users className="h-4 w-4" />}
-              title="5. Liczba domowników (CWU)"
-            >
-              <div className="flex flex-wrap gap-2">
-                {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    onClick={() => update("occupants", n)}
-                    className={`h-10 w-10 rounded-full text-sm transition-colors ${
-                      input.occupants === n
-                        ? "bg-black text-white"
-                        : "bg-black/5 text-black/70 hover:bg-black/10"
-                    }`}
-                  >
-                    {n}
-                  </button>
-                ))}
-              </div>
-            </CalcCard>
-
-            <CalcCard
-              icon={<ThermometerSun className="h-4 w-4" />}
-              title="6. Strefa klimatyczna"
-            >
-              <select
-                value={input.climateZone}
-                onChange={(e) => update("climateZone", Number(e.target.value))}
-                className="w-full rounded-xl border border-black/15 bg-white px-4 py-3 text-sm text-black focus:border-black focus:outline-none"
-              >
-                {[1, 2, 3, 4, 5].map((z) => (
-                  <option key={z} value={z}>
-                    {CLIMATE_ZONE_LABELS[z]}
-                  </option>
-                ))}
-              </select>
-              <p className="mt-2 text-xs text-black/50">
-                W razie wątpliwości pozostaw strefę III (centralna Polska, Mazowsze).
-              </p>
-            </CalcCard>
-          </div>
-
-          {/* RESULT (2/5) — sticky on desktop */}
-          <div className="lg:col-span-2">
-            <div className="lg:sticky lg:top-24 space-y-5">
-              {/* Recommended product */}
-              <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_20px_60px_-20px_rgba(0,0,0,0.15)]">
-                <div className="aspect-[4/3] bg-neutral-100">
-                  <img
-                    src={result.product.image}
-                    alt={result.product.name}
-                    className="h-full w-full object-contain"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="text-xs font-medium uppercase tracking-wider text-[#F5B800]">
-                    Rekomendacja
-                  </div>
-                  <h3 className="mt-1 text-xl font-semibold tracking-tight">
-                    {result.product.name}
-                  </h3>
-                  <div className="mt-4 grid grid-cols-3 gap-3 text-center">
-                    <Stat label="Zapotrzebowanie" value={`${result.heatDemandKw} kW`} />
-                    <Stat label="Moc pompy" value={`${result.recommendedPowerKw} kW`} />
-                    <Stat label="COP" value={result.product.cop} />
-                  </div>
-                  <div className="mt-4 rounded-xl bg-black/5 p-4 text-center">
-                    <div className="text-xs text-black/60">Szacunkowa inwestycja</div>
-                    <div className="text-xl font-semibold text-black">
-                      {result.priceMin.toLocaleString("pl-PL")} –{" "}
-                      {result.priceMax.toLocaleString("pl-PL")} zł
-                    </div>
-                    <div className="mt-1 text-[11px] text-black/50">
-                      Pompa + zasobnik + montaż standard. Bez dofinansowań.
-                    </div>
-                  </div>
-                  <ul className="mt-4 space-y-1.5">
-                    {result.product.highlights.map((h) => (
-                      <li key={h} className="flex items-start gap-2 text-sm text-black/75">
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-emerald-600" />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                  {result.notes.length > 0 && (
-                    <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs text-amber-900">
-                      {result.notes.map((n) => (
-                        <p key={n} className="leading-relaxed">{n}</p>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {/* Alternatives */}
-              {related.length > 0 && (
-                <div className="rounded-2xl border border-black/10 bg-white p-5">
-                  <div className="text-xs font-medium uppercase tracking-wider text-black/50">
-                    Alternatywne modele
-                  </div>
-                  <div className="mt-3 space-y-3">
-                    {related.map((p) => (
-                      <div key={p.id} className="flex items-center gap-3">
-                        <div className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-lg bg-neutral-100">
-                          <img src={p.image} alt={p.name} className="h-full w-full object-contain" />
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="truncate text-sm font-medium">{p.shortName}</div>
-                          <div className="text-xs text-black/60">
-                            COP {p.cop} · od {p.priceMin.toLocaleString("pl-PL")} zł
-                          </div>
-                        </div>
+                    <div className="font-medium">{BUILDING_LABELS[b]}</div>
+                    {b !== "custom" && (
+                      <div className="mt-1 text-xs opacity-60">
+                        {{ old_pre: "150 W/m²", old_post: "80 W/m²", new_wt2021: "45 W/m²" }[b]}
                       </div>
+                    )}
+                  </Pill>
+                ))}
+              </div>
+
+              {form.buildingStandard === "custom" && (
+                <div className="mt-4 grid gap-3 rounded-2xl border border-black/10 bg-white p-4 sm:grid-cols-[1fr_auto]">
+                  <input
+                    type="number"
+                    placeholder="np. 60"
+                    value={form.customValue}
+                    onChange={(e) => setForm((f) => ({ ...f, customValue: e.target.value }))}
+                    className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm focus:border-black focus:outline-none"
+                  />
+                  <div className="flex rounded-xl bg-black/5 p-1 text-xs">
+                    {(["w_m2", "kwh_m2_yr"] as CustomUnit[]).map((u) => (
+                      <button
+                        key={u}
+                        type="button"
+                        onClick={() => setForm((f) => ({ ...f, customUnit: u }))}
+                        className={`flex-1 rounded-lg px-3 py-2 transition-all ${
+                          form.customUnit === u ? "bg-white shadow-sm font-medium" : "text-black/60"
+                        }`}
+                      >
+                        {u === "w_m2" ? "W/m²" : "kWh/m²/rok"}
+                      </button>
                     ))}
                   </div>
                 </div>
               )}
             </div>
-          </div>
-        </div>
 
-        {/* LEAD FORM */}
-        <div className="mt-16 rounded-3xl bg-black p-8 text-white md:p-12">
-          {submitted ? (
-            <div className="mx-auto max-w-xl text-center">
-              <CheckCircle2 className="mx-auto h-12 w-12 text-emerald-400" />
-              <h2 className="mt-4 text-2xl font-light tracking-tight md:text-3xl">
-                Dziękujemy, {name.split(" ")[0]}!
-              </h2>
-              <p className="mt-3 text-white/70">
-                Wynik kalkulatora zapisaliśmy — nasz inżynier odezwie się do 24h, żeby
-                doprecyzować dobór i przygotować pełną ofertę.
-              </p>
-              <p className="mt-2 text-sm text-white/50">
-                W międzyczasie zapisaliśmy Twoją rekomendację — model{" "}
-                <strong className="text-white">{result.product.shortName}</strong> będzie
-                pojawiał się w stopce strony jako szybki podgląd.
-              </p>
-              <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <a
-                  href={`tel:${COMPANY.phoneE164}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2.5 text-sm hover:bg-white/10"
-                >
-                  <Phone className="h-4 w-4" /> {COMPANY.phone}
-                </a>
-                <Link
-                  to="/wiedza"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#F5B800] px-5 py-2.5 text-sm font-semibold text-black"
-                >
-                  Strefa Wiedzy <ArrowRight className="h-4 w-4" />
-                </Link>
+            {/* Krok 2 */}
+            <div>
+              <StepHeading index={2} title="Powierzchnia ogrzewana" icon={Layers} />
+              <div className="relative">
+                <input
+                  type="number"
+                  value={form.areaM2}
+                  onChange={(e) => setForm((f) => ({ ...f, areaM2: e.target.value }))}
+                  className="w-full rounded-2xl border border-black/10 bg-white px-5 py-4 pr-16 text-2xl font-semibold tracking-tight focus:border-black focus:outline-none"
+                />
+                <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-sm text-black/40">
+                  m²
+                </span>
               </div>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-1 text-xs uppercase tracking-wider">
-                  <Sparkles className="h-3.5 w-3.5 text-[#F5B800]" /> Bezpłatna konsultacja
-                </div>
-                <h2 className="mt-4 text-3xl font-light leading-tight tracking-tight md:text-4xl">
-                  Otrzymaj <span className="font-medium">pełną ofertę</span> dopasowaną do Twojego domu.
-                </h2>
-                <p className="mt-4 text-white/70">
-                  Inżynier Soltimus zweryfikuje dobór, oszacuje koszty dofinansowania
-                  (Czyste Powietrze, Mój Prąd) i przygotuje wycenę pod klucz.
-                </p>
-                <ul className="mt-6 space-y-2 text-sm text-white/80">
-                  <li className="flex gap-2">
-                    <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-emerald-400 mt-0.5" />
-                    Indywidualny dobór mocy z uwzględnieniem audytu
-                  </li>
-                  <li className="flex gap-2">
-                    <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-emerald-400 mt-0.5" />
-                    Pełna obsługa wniosków o dofinansowanie
-                  </li>
-                  <li className="flex gap-2">
-                    <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-emerald-400 mt-0.5" />
-                    Autoryzowany Partner Daikin — 5 lat gwarancji
-                  </li>
-                </ul>
-              </div>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <Field
-                  label="Imię i nazwisko"
-                  value={name}
-                  onChange={setName}
-                  required
-                  autoComplete="name"
-                />
-                <Field
-                  label="Telefon"
-                  type="tel"
-                  value={phone}
-                  onChange={setPhone}
-                  required
-                  autoComplete="tel"
-                />
-                <Field
-                  label="E-mail"
-                  type="email"
-                  value={email}
-                  onChange={setEmail}
-                  required
-                  autoComplete="email"
-                />
-                <div>
-                  <label className="block text-xs font-medium uppercase tracking-wider text-white/60">
-                    Dodatkowe informacje (opcjonalnie)
-                  </label>
+            {/* Krok 3 */}
+            <div>
+              <StepHeading index={3} title="Rodzaj instalacji grzewczej" icon={Flame} />
+              <div className="grid gap-3 sm:grid-cols-3">
+                {(Object.keys(HEATING_LABELS) as HeatingSystem[]).map((h) => (
+                  <Pill key={h} active={form.heating === h} onClick={() => setForm((f) => ({ ...f, heating: h }))}>
+                    <div className="font-medium">{HEATING_LABELS[h]}</div>
+                  </Pill>
+                ))}
+              </div>
+            </div>
+
+            {/* Krok 4 */}
+            <div>
+              <StepHeading index={4} title="Ciepła woda użytkowa" icon={Droplets} />
+              <div className="grid gap-3 sm:grid-cols-2">
+                {(Object.keys(TANK_LABELS) as TankType[]).map((t) => (
+                  <Pill key={t} active={form.tank === t} onClick={() => setForm((f) => ({ ...f, tank: t }))}>
+                    <div className="font-medium">{TANK_LABELS[t]}</div>
+                  </Pill>
+                ))}
+              </div>
+              <p className="mt-3 text-xs text-black/40">
+                CWU wpływa wyłącznie na sugerowany zestaw i cenę — nie zmienia mocy pompy.
+              </p>
+            </div>
+
+            {/* Krok 5 — lead */}
+            <div id="lead" className="rounded-3xl border border-black/10 bg-white p-6 md:p-8">
+              <StepHeading index={5} title="Otrzymaj pełną ofertę" icon={CheckCircle2} />
+
+              {submitted ? (
+                <div className="rounded-2xl bg-black/5 p-6 text-center">
+                  <CheckCircle2 className="mx-auto h-10 w-10 text-black" />
+                  <h4 className="mt-3 text-lg font-semibold">Dziękujemy.</h4>
+                  <p className="mt-1 text-sm text-black/60">
+                    Zespół Soltimus odezwie się w ciągu 24h z pełną wyceną dopasowaną do Twojego budynku.
+                  </p>
+                </div>
+              ) : (
+                <form className="grid gap-3 sm:grid-cols-2" onSubmit={handleLeadSubmit}>
+                  <input
+                    required
+                    placeholder="Imię i nazwisko"
+                    value={lead.name}
+                    onChange={(e) => setLead((l) => ({ ...l, name: e.target.value }))}
+                    className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm focus:border-black focus:outline-none"
+                  />
+                  <input
+                    required
+                    type="tel"
+                    placeholder="Telefon"
+                    value={lead.phone}
+                    onChange={(e) => setLead((l) => ({ ...l, phone: e.target.value }))}
+                    className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm focus:border-black focus:outline-none"
+                  />
+                  <input
+                    required
+                    type="email"
+                    placeholder="E-mail"
+                    value={lead.email}
+                    onChange={(e) => setLead((l) => ({ ...l, email: e.target.value }))}
+                    className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm focus:border-black focus:outline-none"
+                  />
+                  <input
+                    placeholder="Miejscowość / województwo"
+                    value={lead.city}
+                    onChange={(e) => setLead((l) => ({ ...l, city: e.target.value }))}
+                    className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm focus:border-black focus:outline-none"
+                  />
                   <textarea
                     rows={3}
-                    value={notes}
-                    onChange={(e) => setNotes(e.target.value)}
-                    placeholder="Np. preferowany termin montażu, dodatkowe pytania..."
-                    className="mt-1.5 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-white placeholder-white/30 focus:border-white/50 focus:outline-none"
+                    placeholder="Dodatkowe informacje (opcjonalnie)"
+                    value={lead.notes}
+                    onChange={(e) => setLead((l) => ({ ...l, notes: e.target.value }))}
+                    className="rounded-xl border border-black/10 bg-white px-4 py-3 text-sm focus:border-black focus:outline-none sm:col-span-2"
                   />
-                </div>
-                <label className="flex items-start gap-3 text-xs text-white/70">
-                  <input
-                    type="checkbox"
-                    checked={rodo}
-                    onChange={(e) => setRodo(e.target.checked)}
-                    required
-                    className="mt-0.5 h-4 w-4 flex-shrink-0 rounded border-white/30 bg-white/5"
-                  />
-                  <span>
-                    Wyrażam zgodę na przetwarzanie moich danych osobowych przez{" "}
-                    {COMPANY.legalName} w celu kontaktu i przygotowania oferty.
-                  </span>
-                </label>
-                <button
-                  type="submit"
-                  disabled={submitting}
-                  className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#F5B800] px-6 py-3.5 text-sm font-semibold text-black transition-all hover:scale-[1.01] disabled:opacity-60"
-                >
-                  {submitting ? "Wysyłanie..." : "Otrzymaj pełną wycenę"}
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </button>
-                <p className="text-center text-[11px] text-white/40">
-                  Nie wysyłamy spamu. Dane wykorzystamy wyłącznie do przygotowania oferty.
-                </p>
-              </form>
+                  <label className="flex items-start gap-3 text-xs text-black/60 sm:col-span-2">
+                    <input
+                      type="checkbox"
+                      checked={lead.rodo}
+                      onChange={(e) => setLead((l) => ({ ...l, rodo: e.target.checked }))}
+                      className="mt-0.5 h-4 w-4 accent-black"
+                    />
+                    <span>
+                      Wyrażam zgodę na przetwarzanie moich danych przez {COMPANY.legalName} w celu przygotowania
+                      oferty (RODO).
+                    </span>
+                  </label>
+                  <button
+                    type="submit"
+                    disabled={sending || !result}
+                    className="group inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-sm font-semibold transition-transform hover:scale-[1.02] disabled:opacity-50 sm:col-span-2"
+                    style={{ backgroundColor: ACCENT, color: "#000" }}
+                  >
+                    {sending ? "Wysyłanie…" : "Wyślij wynik i otrzymaj pełną ofertę"}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </button>
+                </form>
+              )}
             </div>
-          )}
-        </div>
 
-        {/* Methodology */}
-        <div className="mt-16 rounded-2xl border border-black/10 bg-white p-6 md:p-10">
-          <h2 className="text-2xl font-light tracking-tight md:text-3xl">
-            Jak liczymy dobór?
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-black/70 md:text-base">
-            Korzystamy z uproszczonej metody jednostkowej wg PN-EN 12831, w której
-            zapotrzebowanie cieplne budynku wynosi <strong>powierzchnia × wskaźnik strat</strong>{" "}
-            (W/m²), modyfikowane o poprawkę strefy klimatycznej i dodatek na CWU.
-            Końcowy wynik powiększamy o 10% margines bezpieczeństwa, a następnie
-            dobieramy najbliższy standardowy wariant Daikin Altherma.
-          </p>
-          <p className="mt-4 text-sm leading-relaxed text-black/60 md:text-base">
-            Wynik kalkulatora jest <strong>orientacyjny</strong>. Dokładny dobór
-            wymaga audytu termicznego — wykonujemy go bezpłatnie dla klientów Soltimus.
-          </p>
-        </div>
-
-        {/* Catalog snapshot */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-light tracking-tight md:text-3xl">
-            Cała gama Daikin Altherma
-          </h2>
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {DAIKIN_CATALOG.map((p) => (
-              <div
-                key={p.id}
-                className="overflow-hidden rounded-2xl border border-black/10 bg-white"
-              >
-                <div className="aspect-square bg-neutral-100">
-                  <img src={p.image} alt={p.name} className="h-full w-full object-contain p-3" loading="lazy" />
-                </div>
-                <div className="p-4">
-                  <div className="text-sm font-semibold">{p.shortName}</div>
-                  <div className="mt-1 text-xs text-black/60">COP {p.cop} · {p.energyClass}</div>
-                  <div className="mt-2 text-sm font-medium text-black">
-                    od {p.priceMin.toLocaleString("pl-PL")} zł
-                  </div>
-                </div>
-              </div>
-            ))}
+            <p className="text-xs leading-relaxed text-black/40">
+              Kalkulator ma charakter orientacyjny. Finalny dobór wymaga weryfikacji OZC, instalacji grzewczej,
+              temperatur zasilania i warunków montażowych.
+            </p>
           </div>
+
+          {/* Sticky wynik */}
+          <aside className="lg:sticky lg:top-24 lg:self-start">
+            <ResultCard result={result} heating={form.heating} tank={form.tank} />
+          </aside>
         </div>
       </section>
+
+      {/* Dlaczego taka rekomendacja */}
+      {result && (
+        <section className="border-t border-black/5 bg-white">
+          <div className="mx-auto max-w-6xl px-6 py-16">
+            <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">Dlaczego taka rekomendacja?</h2>
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <Why title="Zapotrzebowanie budynku">
+                Na podstawie powierzchni {form.areaM2} m² i standardu „{BUILDING_LABELS[form.buildingStandard]}"
+                {result.indicatorWperM2 != null && ` (${result.indicatorWperM2} W/m²)`} szacujemy
+                zapotrzebowanie na <strong>{result.demandKw} kW</strong> przy temperaturze projektowej -20°C.
+              </Why>
+              <Why title="Wpływ rodzaju ogrzewania">
+                {form.heating === "underfloor" &&
+                  "Podłogówka pracuje na niskich temperaturach zasilania (35–40°C) — idealnie współpracuje z pompami niskotemperaturowymi (Altherma 3 R, 4 H)."}
+                {form.heating === "radiators" &&
+                  "Grzejniki potrzebują wyższych temperatur zasilania (50–65°C) — rekomendujemy Altherma 4 H lub wysokotemperaturową Altherma 3 H HT."}
+                {form.heating === "mixed" &&
+                  "Instalacja mieszana wymaga elastyczności w doborze — Altherma 4 H lub 3 H HT poradzą sobie z obydwoma obiegami."}
+              </Why>
+              <Why title="Dlaczego ta seria">
+                Wybraliśmy <strong>{SERIES_LABELS[result.primary.product.series]}</strong> jako najlepiej dopasowaną do
+                Twojego typu instalacji. Moc {result.primary.product.powerKw} kW jest najbliższa wyliczonemu
+                zapotrzebowaniu.
+              </Why>
+              <Why title="Kiedy warto rozważyć alternatywę">
+                Alternatywne serie ({result.alternatives.map((a) => SERIES_LABELS[a.product.series]).join(", ")})
+                warto rozważyć, jeśli zależy Ci na innym typie urządzenia (split vs monoblok), wyższych temperaturach
+                zasilania lub ekologicznym czynniku R-290 (Altherma 4 H).
+              </Why>
+            </div>
+
+            {result.notes.length > 0 && (
+              <div className="mt-8 space-y-2">
+                {result.notes.map((n, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white p-4 text-sm text-black/70"
+                  >
+                    <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ color: ACCENT }} />
+                    <span>{n}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       <SiteFooter />
     </div>
   );
 }
 
-function CalcCard({
-  icon,
-  title,
-  children,
+// ─── Wynik ──────────────────────────────────────────────────────────────────
+
+function ResultCard({
+  result,
+  heating,
+  tank,
 }: {
-  icon: React.ReactNode;
-  title: string;
-  children: React.ReactNode;
+  result: ReturnType<typeof calculateHeatPump> | null;
+  heating: HeatingSystem;
+  tank: TankType;
 }) {
-  return (
-    <div className="rounded-2xl border border-black/10 bg-white p-6">
-      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-black/50">
-        {icon}
-        {title}
+  if (!result) {
+    return (
+      <div className="rounded-3xl border border-black/10 bg-white p-8 text-center text-sm text-black/40">
+        Uzupełnij dane, aby zobaczyć rekomendację.
       </div>
-      <div className="mt-4">{children}</div>
+    );
+  }
+
+  const { primary, alternatives } = result;
+
+  return (
+    <div className="overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_30px_80px_-40px_rgba(0,0,0,0.25)]">
+      {/* Header */}
+      <div className="bg-black p-6 text-white">
+        <div className="text-xs uppercase tracking-widest text-white/50">Rekomendacja</div>
+        <div className="mt-2 text-xl font-semibold">{primary.product.modelName}</div>
+        <div className="mt-1 text-sm text-white/70">
+          {primary.product.powerKw} kW · {primary.product.unitType === "split" ? "Split" : "Monoblok"}
+        </div>
+      </div>
+
+      {/* Specs */}
+      <div className="grid grid-cols-2 divide-x divide-y divide-black/5 border-b border-black/5 text-sm">
+        <Spec label="Zapotrzebowanie" value={`${result.demandKw} kW`} />
+        <Spec label="Dobrana moc" value={`${primary.product.powerKw} kW`} />
+        <Spec label="Instalacja" value={HEATING_LABELS[heating]} />
+        <Spec label="CWU" value={TANK_LABELS[tank]} />
+      </div>
+
+      {/* Cena */}
+      <div className="p-6">
+        <div className="text-xs uppercase tracking-widest text-black/40">
+          Cena brutto z montażem (8% VAT)
+        </div>
+        <div className="mt-2 text-3xl font-semibold tracking-tight">
+          {fmtPLN(primary.priceRange.min)} – {fmtPLN(primary.priceRange.max)}
+        </div>
+        <p className="mt-2 text-xs text-black/50">
+          Orientacyjnie: pompa + zasobnik + standardowy montaż. Dokładna wycena po weryfikacji instalacji.
+        </p>
+
+        <a
+          href="#lead"
+          className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-semibold transition-transform hover:scale-[1.02]"
+          style={{ backgroundColor: ACCENT, color: "#000" }}
+        >
+          Otrzymaj pełną ofertę <ArrowRight className="h-4 w-4" />
+        </a>
+      </div>
+
+      {/* Alternatywy */}
+      {alternatives.length > 0 && (
+        <div className="border-t border-black/5 bg-[#fafafa] p-6">
+          <div className="mb-3 text-xs uppercase tracking-widest text-black/40">Alternatywy</div>
+          <div className="space-y-2">
+            {alternatives.map((alt) => (
+              <div
+                key={alt.product.id}
+                className="flex items-center justify-between rounded-xl border border-black/5 bg-white p-3 text-sm"
+              >
+                <div className="min-w-0 flex-1">
+                  <div className="truncate font-medium">{alt.product.modelName}</div>
+                  <div className="text-xs text-black/50">{alt.product.powerKw} kW</div>
+                </div>
+                <div className="text-right text-xs text-black/60">
+                  od {fmtPLN(alt.priceRange.min)}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function OptionPill({
-  selected,
-  onClick,
-  label,
-}: {
-  selected: boolean;
-  onClick: () => void;
-  label: string;
-}) {
+function Spec({ label, value }: { label: string; value: string }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
-        selected
-          ? "border-black bg-black text-white"
-          : "border-black/15 bg-white text-black/80 hover:border-black/40"
-      }`}
-    >
-      {label}
-    </button>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-lg bg-black/5 p-2">
-      <div className="text-[10px] uppercase tracking-wider text-black/50">{label}</div>
-      <div className="mt-0.5 text-sm font-semibold text-black">{value}</div>
+    <div className="p-4">
+      <div className="text-[10px] uppercase tracking-widest text-black/40">{label}</div>
+      <div className="mt-1 font-medium">{value}</div>
     </div>
   );
 }
 
-function Field({
-  label,
-  value,
-  onChange,
-  type = "text",
-  required,
-  autoComplete,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  type?: string;
-  required?: boolean;
-  autoComplete?: string;
-}) {
+function Why({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div>
-      <label className="block text-xs font-medium uppercase tracking-wider text-white/60">
-        {label} {required && <span className="text-[#F5B800]">*</span>}
-      </label>
-      <input
-        type={type}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        required={required}
-        autoComplete={autoComplete}
-        className="mt-1.5 w-full rounded-xl border border-white/15 bg-white/5 px-4 py-3 text-sm text-white focus:border-white/50 focus:outline-none"
-      />
+    <div className="rounded-3xl border border-black/10 bg-white p-6">
+      <div className="text-sm font-semibold tracking-tight">{title}</div>
+      <p className="mt-2 text-sm leading-relaxed text-black/60">{children}</p>
     </div>
   );
 }
