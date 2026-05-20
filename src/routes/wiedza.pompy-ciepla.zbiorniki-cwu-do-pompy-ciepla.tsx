@@ -34,7 +34,7 @@ function ZbiornikiCwuArticle() {
       <KnowledgeNav
         trail={[
           { label: "Knowledge Hub", to: "/wiedza" },
-          { label: cat.name, to: "/wiedza/$category", params: { category: cat.slug } },
+          { label: cat.name, to: `/wiedza/${cat.slug}` },
           { label: "Zbiorniki c.w.u." },
         ]}
       />
