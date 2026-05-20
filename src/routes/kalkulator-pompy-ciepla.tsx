@@ -206,7 +206,7 @@ function CalculatorPage() {
       });
       saveRecommendedProduct(result.primary.product.id);
       setSubmitted(true);
-      toast.success("Wysłano! Skontaktujemy się w 24h.");
+      toast.success("Wysłano! Odezwiemy się w ciągu 24h, by zadbać o Twój komfort.");
     } catch (err) {
       console.error(err);
       toast.error("Nie udało się wysłać. Zadzwoń bezpośrednio.");
@@ -433,7 +433,7 @@ function CalculatorPage() {
                     className="group inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-4 text-sm font-semibold transition-transform hover:scale-[1.02] disabled:opacity-50 sm:col-span-2"
                     style={{ backgroundColor: ACCENT, color: "#000" }}
                   >
-                    {sending ? "Wysyłanie…" : "Wyślij wynik i otrzymaj pełną ofertę"}
+                    {sending ? "Wysyłanie…" : "Wyślij wynik — zadbamy o komfort Twojej rodziny"}
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                   </button>
                 </form>
@@ -563,7 +563,7 @@ function ResultCard({
           className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-2xl px-5 py-3.5 text-sm font-semibold transition-transform hover:scale-[1.02]"
           style={{ backgroundColor: ACCENT, color: "#000" }}
         >
-          Otrzymaj pełną ofertę <ArrowRight className="h-4 w-4" />
+          Sprawdź, jak zapewnić ciepło Twojego domu <ArrowRight className="h-4 w-4" />
         </a>
       </div>
 
