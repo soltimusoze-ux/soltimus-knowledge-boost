@@ -231,7 +231,7 @@ function CalculatorPage() {
               <span className="text-black/40">w 60 sekund.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg text-black/60">
-              Orientacyjna moc, model Daikin Altherma i szacunkowa cena brutto z montażem (8% VAT). Bez rejestracji.
+              Orientacyjna moc, model Daikin Altherma i szacunkowa cena brutto z montażem (8% VAT). Z gwarancją 5-letnią i serwisem 24/7.
             </p>
           </div>
         </div>
