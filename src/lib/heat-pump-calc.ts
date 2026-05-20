@@ -92,6 +92,12 @@ function mk(
   listPriceNet: number,
   recommendedFor: HeatingSystem[],
 ): DaikinProduct {
+  // domyślna cena dla strip-a (bez zasobnika) — realna kalkulacja w calculateHeatPump()
+  const defaultRange = (() => {
+    const raw = listPriceNet * 0.7 + 12000;
+    const min = Math.round((raw * 1.08) / 100) * 100;
+    return { min, max: min + 10000 };
+  })();
   return {
     id: `${series}-${powerKw}`,
     series,
@@ -102,8 +108,8 @@ function mk(
     listPriceNet,
     image: SERIES_IMAGE[series],
     recommendedFor,
-    priceMin: 0,
-    priceMax: 0,
+    priceMin: defaultRange.min,
+    priceMax: defaultRange.max,
   };
 }
 
