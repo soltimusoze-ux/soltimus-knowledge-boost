@@ -1,276 +1,31 @@
 /**
- * Heat pump sizing logic + Daikin product catalog for Soltimus calculator.
- * Values based on PN-EN 12831 unit-area heat-loss method (uproszczony).
+ * Soltimus — kalkulator doboru pompy ciepła Daikin (powietrze-woda).
+ * Orientacyjny dobór; finalny dobór wymaga OZC.
  */
 
 import altherma3R from "@/assets/daikin-altherma-3r.jpg";
 import altherma3M from "@/assets/daikin-altherma-3m.jpg";
 import altherma3H from "@/assets/daikin-altherma-3h.jpg";
 
-export type BuildingType = "new" | "modernized" | "old";
-export type Insulation = "wt2021" | "good" | "average" | "poor";
+// ─── Typy ───────────────────────────────────────────────────────────────────
+
+export type BuildingStandard = "old_pre" | "old_post" | "new_wt2021" | "custom";
+export type CustomUnit = "w_m2" | "kwh_m2_yr";
 export type HeatingSystem = "underfloor" | "radiators" | "mixed";
+export type TankType = "none" | "ss_180" | "ss_230" | "hyg_300" | "hyg_500";
+export type SeriesId = "altherma-3r" | "altherma-3r-mt" | "altherma-3h" | "altherma-3m" | "altherma-4h";
 
-/** Wskaźnik strat ciepła W/m² wg standardu izolacji × typ budynku */
-const HEAT_LOSS_W_PER_M2: Record<BuildingType, Record<Insulation, number>> = {
-  new: { wt2021: 35, good: 45, average: 55, poor: 65 },
-  modernized: { wt2021: 55, good: 65, average: 80, poor: 95 },
-  old: { wt2021: 90, good: 110, average: 130, poor: 160 },
+export const BUILDING_INDICATOR_W_PER_M2: Record<Exclude<BuildingStandard, "custom">, number> = {
+  old_pre: 150,
+  old_post: 80,
+  new_wt2021: 45,
 };
 
-/** Strefa klimatyczna PL (I–V), poprawka na temp. obliczeniową */
-const CLIMATE_FACTOR: Record<number, number> = {
-  1: 0.92, // -16°C
-  2: 0.96, // -18°C
-  3: 1.0, // -20°C
-  4: 1.04, // -22°C
-  5: 1.1, // -24°C
-};
-
-export interface CalcInput {
-  buildingType: BuildingType;
-  areaM2: number;
-  floors: number;
-  insulation: Insulation;
-  heatingSystem: HeatingSystem;
-  occupants: number;
-  climateZone: number;
-}
-
-export interface CalcResult {
-  heatDemandKw: number;
-  recommendedPowerKw: number;
-  series: "altherma-3r" | "altherma-3m" | "altherma-3h";
-  product: DaikinProduct;
-  priceMin: number;
-  priceMax: number;
-  notes: string[];
-}
-
-export function calculateHeatPump(input: CalcInput): CalcResult {
-  const lossPerM2 = HEAT_LOSS_W_PER_M2[input.buildingType][input.insulation];
-  const climate = CLIMATE_FACTOR[input.climateZone] ?? 1;
-
-  // base demand
-  let demandW = input.areaM2 * lossPerM2 * climate;
-  // multi-storey correction (lower envelope per m² for compact buildings)
-  if (input.floors >= 2) demandW *= 0.92;
-
-  // add DHW continuous load contribution (~0.2 kW per person, very rough)
-  const dhwW = Math.max(0, input.occupants - 1) * 200;
-  const totalKw = (demandW + dhwW) / 1000;
-
-  // round to 0.1
-  const heatDemandKw = Math.round(totalKw * 10) / 10;
-  // size with 10% safety margin, round up to standard rating
-  const sizedKw = heatDemandKw * 1.1;
-
-  // pick recommended series
-  // - underfloor + new/modernized → Altherma 3 R (low-temp split, najpopularniejsza)
-  // - mixed → Altherma 3 M (monoblok, brak czynnika w domu)
-  // - radiators / old → Altherma 3 H HT (wysokotemperaturowa)
-  let series: CalcResult["series"];
-  if (input.heatingSystem === "radiators" || input.buildingType === "old") {
-    series = "altherma-3h";
-  } else if (input.heatingSystem === "mixed") {
-    series = "altherma-3m";
-  } else {
-    series = "altherma-3r";
-  }
-
-  const product = pickProductVariant(series, sizedKw);
-  const recommendedPowerKw = product.powerKw;
-
-  const notes: string[] = [];
-  if (input.buildingType === "old" && input.insulation === "poor") {
-    notes.push(
-      "Przy słabej izolacji rekomendujemy termomodernizację przed montażem — obniży to koszty eksploatacji o 30–50%.",
-    );
-  }
-  if (input.heatingSystem === "radiators" && series !== "altherma-3h") {
-    notes.push("Przy grzejnikach warto rozważyć wersję wysokotemperaturową dla pełnego komfortu w mrozie.");
-  }
-  if (sizedKw > 16) {
-    notes.push("Zapotrzebowanie powyżej 16 kW — przygotujemy indywidualną wycenę z doborem kaskadowym.");
-  }
-
-  return {
-    heatDemandKw,
-    recommendedPowerKw,
-    series,
-    product,
-    priceMin: product.priceMin,
-    priceMax: product.priceMax,
-    notes,
-  };
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Catalog
-// ─────────────────────────────────────────────────────────────────────────────
-
-export interface DaikinProduct {
-  id: string;
-  series: "altherma-3r" | "altherma-3m" | "altherma-3h";
-  name: string;
-  shortName: string;
-  powerKw: number;
-  type: "split" | "monoblok" | "monoblok-ht";
-  cop: string;
-  energyClass: string;
-  priceMin: number; // PLN netto (sama pompa + zasobnik)
-  priceMax: number; // PLN brutto + montaż standard
-  image: string;
-  highlights: string[];
-}
-
-export const DAIKIN_CATALOG: DaikinProduct[] = [
-  // Altherma 3 R — split, low-temp (podłogówka, nowe budynki)
-  {
-    id: "altherma-3r-4",
-    series: "altherma-3r",
-    name: "Daikin Altherma 3 R 4 kW",
-    shortName: "Altherma 3 R · 4 kW",
-    powerKw: 4,
-    type: "split",
-    cop: "5,10",
-    energyClass: "A+++",
-    priceMin: 32000,
-    priceMax: 42000,
-    image: altherma3R,
-    highlights: ["Split — wysoki COP", "Podłogówka", "Ciche jednostki"],
-  },
-  {
-    id: "altherma-3r-6",
-    series: "altherma-3r",
-    name: "Daikin Altherma 3 R 6 kW",
-    shortName: "Altherma 3 R · 6 kW",
-    powerKw: 6,
-    type: "split",
-    cop: "5,05",
-    energyClass: "A+++",
-    priceMin: 36000,
-    priceMax: 48000,
-    image: altherma3R,
-    highlights: ["Najczęstszy wybór dla domów 100–150 m²", "R-32", "Bivalent ready"],
-  },
-  {
-    id: "altherma-3r-8",
-    series: "altherma-3r",
-    name: "Daikin Altherma 3 R 8 kW",
-    shortName: "Altherma 3 R · 8 kW",
-    powerKw: 8,
-    type: "split",
-    cop: "4,98",
-    energyClass: "A+++",
-    priceMin: 41000,
-    priceMax: 55000,
-    image: altherma3R,
-    highlights: ["Idealna dla 150–200 m²", "Niski poziom hałasu 35 dB(A)"],
-  },
-  // Altherma 3 M — monoblok
-  {
-    id: "altherma-3m-6",
-    series: "altherma-3m",
-    name: "Daikin Altherma 3 M 6 kW",
-    shortName: "Altherma 3 M · 6 kW",
-    powerKw: 6,
-    type: "monoblok",
-    cop: "4,75",
-    energyClass: "A+++",
-    priceMin: 34000,
-    priceMax: 46000,
-    image: altherma3M,
-    highlights: ["Monoblok — brak czynnika wewnątrz", "Łatwy montaż"],
-  },
-  {
-    id: "altherma-3m-9",
-    series: "altherma-3m",
-    name: "Daikin Altherma 3 M 9 kW",
-    shortName: "Altherma 3 M · 9 kW",
-    powerKw: 9,
-    type: "monoblok",
-    cop: "4,65",
-    energyClass: "A++",
-    priceMin: 42000,
-    priceMax: 56000,
-    image: altherma3M,
-    highlights: ["Dla domów 160–220 m²", "Mieszane instalacje"],
-  },
-  // Altherma 3 H HT — wysokotemperaturowa (grzejniki, stary dom)
-  {
-    id: "altherma-3h-11",
-    series: "altherma-3h",
-    name: "Daikin Altherma 3 H HT 11 kW",
-    shortName: "Altherma 3 H HT · 11 kW",
-    powerKw: 11,
-    type: "monoblok-ht",
-    cop: "4,20",
-    energyClass: "A++",
-    priceMin: 48000,
-    priceMax: 62000,
-    image: altherma3H,
-    highlights: ["Do 70°C na zasilaniu", "Grzejniki bez wymiany"],
-  },
-  {
-    id: "altherma-3h-14",
-    series: "altherma-3h",
-    name: "Daikin Altherma 3 H HT 14 kW",
-    shortName: "Altherma 3 H HT · 14 kW",
-    powerKw: 14,
-    type: "monoblok-ht",
-    cop: "4,10",
-    energyClass: "A++",
-    priceMin: 54000,
-    priceMax: 70000,
-    image: altherma3H,
-    highlights: ["Termomodernizowane domy 200+ m²", "Praca do -28°C"],
-  },
-  {
-    id: "altherma-3h-16",
-    series: "altherma-3h",
-    name: "Daikin Altherma 3 H HT 16 kW",
-    shortName: "Altherma 3 H HT · 16 kW",
-    powerKw: 16,
-    type: "monoblok-ht",
-    cop: "4,00",
-    energyClass: "A++",
-    priceMin: 59000,
-    priceMax: 78000,
-    image: altherma3H,
-    highlights: ["Duże domy", "Możliwość kaskadowania"],
-  },
-];
-
-export function pickProductVariant(
-  series: CalcResult["series"],
-  sizedKw: number,
-): DaikinProduct {
-  const inSeries = DAIKIN_CATALOG.filter((p) => p.series === series);
-  // najmniejszy wariant ≥ sizedKw; jeśli przekracza zakres → największy
-  const fit = inSeries.find((p) => p.powerKw >= sizedKw);
-  return fit ?? inSeries[inSeries.length - 1];
-}
-
-export function getRelatedProducts(productId: string, max = 2): DaikinProduct[] {
-  const main = DAIKIN_CATALOG.find((p) => p.id === productId);
-  if (!main) return [];
-  return DAIKIN_CATALOG.filter((p) => p.id !== productId)
-    .sort((a, b) => Math.abs(a.powerKw - main.powerKw) - Math.abs(b.powerKw - main.powerKw))
-    .slice(0, max);
-}
-
-export const BUILDING_TYPE_LABELS: Record<BuildingType, string> = {
-  new: "Nowy dom (po 2021)",
-  modernized: "Termomodernizowany",
-  old: "Starszy, bez modernizacji",
-};
-
-export const INSULATION_LABELS: Record<Insulation, string> = {
-  wt2021: "Wysoka (WT 2021 / pasywny)",
-  good: "Dobra (po 2010)",
-  average: "Przeciętna",
-  poor: "Słaba",
+export const BUILDING_LABELS: Record<BuildingStandard, string> = {
+  old_pre: "Stary przed termomodernizacją",
+  old_post: "Stary po termomodernizacji",
+  new_wt2021: "Nowy WT2021",
+  custom: "Własne EU / zapotrzebowanie",
 };
 
 export const HEATING_LABELS: Record<HeatingSystem, string> = {
@@ -279,10 +34,224 @@ export const HEATING_LABELS: Record<HeatingSystem, string> = {
   mixed: "Mieszane (podłogówka + grzejniki)",
 };
 
-export const CLIMATE_ZONE_LABELS: Record<number, string> = {
-  1: "I — zachodnia PL (-16°C)",
-  2: "II — centralna zachodnia (-18°C)",
-  3: "III — centralna (-20°C)",
-  4: "IV — wschodnia (-22°C)",
-  5: "V — Suwalszczyzna (-24°C)",
+export const TANK_LABELS: Record<TankType, string> = {
+  none: "Brak zbiornika",
+  ss_180: "Zbiornik nierdzewny 180 l",
+  ss_230: "Zbiornik nierdzewny 230 l",
+  hyg_300: "Zasobnik higieniczny 300 l",
+  hyg_500: "Zasobnik higieniczny 500 l",
 };
+
+export const TANK_PRICE_NET: Record<TankType, number> = {
+  none: 0,
+  ss_180: 4500,
+  ss_230: 5500,
+  hyg_300: 9000,
+  hyg_500: 13000,
+};
+
+export const SERIES_LABELS: Record<SeriesId, string> = {
+  "altherma-3r": "Daikin Altherma 3 R split (ERGA / ERLA)",
+  "altherma-3r-mt": "Daikin Altherma 3 R MT split",
+  "altherma-3h": "Daikin Altherma 3 H MT / HT",
+  "altherma-3m": "Daikin Altherma 3 M monoblok",
+  "altherma-4h": "Daikin Altherma 4 H",
+};
+
+const SERIES_IMAGE: Record<SeriesId, string> = {
+  "altherma-3r": altherma3R,
+  "altherma-3r-mt": altherma3R,
+  "altherma-3h": altherma3H,
+  "altherma-3m": altherma3M,
+  "altherma-4h": altherma3R,
+};
+
+// ─── Katalog produktów ──────────────────────────────────────────────────────
+
+export interface DaikinProduct {
+  id: string;
+  series: SeriesId;
+  /** legacy alias used by RecommendedProductsStrip */
+  name: string;
+  modelName: string;
+  powerKw: number;
+  unitType: "split" | "monoblok";
+  listPriceNet: number;
+  image: string;
+  recommendedFor: HeatingSystem[];
+  /** placeholder values for RecommendedProductsStrip back-compat */
+  priceMin: number;
+  priceMax: number;
+}
+
+function mk(
+  series: SeriesId,
+  modelName: string,
+  powerKw: number,
+  unitType: "split" | "monoblok",
+  listPriceNet: number,
+  recommendedFor: HeatingSystem[],
+): DaikinProduct {
+  return {
+    id: `${series}-${powerKw}`,
+    series,
+    name: `${modelName} ${powerKw} kW`,
+    modelName,
+    powerKw,
+    unitType,
+    listPriceNet,
+    image: SERIES_IMAGE[series],
+    recommendedFor,
+    priceMin: 0,
+    priceMax: 0,
+  };
+}
+
+export const DAIKIN_CATALOG: DaikinProduct[] = [
+  // Altherma 3 R split — podłogówka, niskotemperaturowa
+  mk("altherma-3r", "Altherma 3 R ERGA", 4, "split", 38000, ["underfloor"]),
+  mk("altherma-3r", "Altherma 3 R ERGA", 6, "split", 42000, ["underfloor", "radiators", "mixed"]),
+  mk("altherma-3r", "Altherma 3 R ERGA", 8, "split", 48000, ["underfloor", "radiators", "mixed"]),
+  // Altherma 3 R MT — średniotemperaturowa
+  mk("altherma-3r-mt", "Altherma 3 R MT", 8, "split", 52000, ["radiators", "mixed"]),
+  mk("altherma-3r-mt", "Altherma 3 R MT", 10, "split", 58000, ["radiators", "mixed"]),
+  mk("altherma-3r-mt", "Altherma 3 R MT", 12, "split", 64000, ["radiators", "mixed"]),
+  // Altherma 3 H MT / HT — wysokotemperaturowa
+  mk("altherma-3h", "Altherma 3 H HT", 8, "monoblok", 56000, ["radiators", "mixed"]),
+  mk("altherma-3h", "Altherma 3 H HT", 10, "monoblok", 62000, ["radiators", "mixed"]),
+  mk("altherma-3h", "Altherma 3 H HT", 12, "monoblok", 68000, ["radiators", "mixed"]),
+  mk("altherma-3h", "Altherma 3 H HT", 14, "monoblok", 74000, ["radiators", "mixed"]),
+  mk("altherma-3h", "Altherma 3 H HT", 16, "monoblok", 80000, ["radiators", "mixed"]),
+  // Altherma 3 M monoblok
+  mk("altherma-3m", "Altherma 3 M Monoblok", 4, "monoblok", 36000, ["underfloor"]),
+  mk("altherma-3m", "Altherma 3 M Monoblok", 6, "monoblok", 40000, ["underfloor", "mixed"]),
+  mk("altherma-3m", "Altherma 3 M Monoblok", 8, "monoblok", 46000, ["underfloor", "mixed"]),
+  mk("altherma-3m", "Altherma 3 M Monoblok", 9, "monoblok", 50000, ["underfloor", "mixed", "radiators"]),
+  mk("altherma-3m", "Altherma 3 M Monoblok", 11, "monoblok", 56000, ["mixed", "radiators"]),
+  mk("altherma-3m", "Altherma 3 M Monoblok", 14, "monoblok", 64000, ["mixed", "radiators"]),
+  mk("altherma-3m", "Altherma 3 M Monoblok", 16, "monoblok", 72000, ["mixed", "radiators"]),
+  // Altherma 4 H — nowa generacja, R-290
+  mk("altherma-4h", "Altherma 4 H", 6, "monoblok", 48000, ["underfloor", "radiators", "mixed"]),
+  mk("altherma-4h", "Altherma 4 H", 8, "monoblok", 54000, ["underfloor", "radiators", "mixed"]),
+  mk("altherma-4h", "Altherma 4 H", 10, "monoblok", 60000, ["underfloor", "radiators", "mixed"]),
+  mk("altherma-4h", "Altherma 4 H", 12, "monoblok", 66000, ["radiators", "mixed"]),
+  mk("altherma-4h", "Altherma 4 H", 14, "monoblok", 72000, ["radiators", "mixed"]),
+];
+
+// ─── Dobór ──────────────────────────────────────────────────────────────────
+
+export interface CalcInput {
+  buildingStandard: BuildingStandard;
+  customValue?: number;
+  customUnit?: CustomUnit;
+  areaM2: number;
+  heating: HeatingSystem;
+  tank: TankType;
+}
+
+export interface PriceRange {
+  min: number;
+  max: number;
+}
+
+export interface RecommendationItem {
+  product: DaikinProduct;
+  priceRange: PriceRange;
+}
+
+export interface CalcResult {
+  demandKw: number;
+  indicatorWperM2: number | null;
+  isCustomEnergy: boolean;
+  primary: RecommendationItem;
+  alternatives: RecommendationItem[];
+  undersizedWarning: boolean;
+  notes: string[];
+}
+
+/** ((listPriceNet + tankNet) × 0.7 + 12000) × 1.08 — zaokrąglone do 100 zł */
+export function priceBruttoWithInstall(listPriceNet: number, tankNet: number): PriceRange {
+  const raw = (listPriceNet + tankNet) * 0.7 + 12000;
+  const brutto = raw * 1.08;
+  const min = Math.round(brutto / 100) * 100;
+  return { min, max: min + 10000 };
+}
+
+function computeDemandKw(input: CalcInput): { demandKw: number; indicator: number | null; isCustomEnergy: boolean } {
+  if (input.buildingStandard === "custom") {
+    const v = input.customValue ?? 0;
+    if (input.customUnit === "kwh_m2_yr") {
+      return { demandKw: (input.areaM2 * v) / 2000, indicator: null, isCustomEnergy: true };
+    }
+    return { demandKw: (input.areaM2 * v) / 1000, indicator: v, isCustomEnergy: false };
+  }
+  const ind = BUILDING_INDICATOR_W_PER_M2[input.buildingStandard];
+  return { demandKw: (input.areaM2 * ind) / 1000, indicator: ind, isCustomEnergy: false };
+}
+
+function preferredSeriesOrder(heating: HeatingSystem): SeriesId[] {
+  if (heating === "underfloor") {
+    return ["altherma-3r", "altherma-4h", "altherma-3m"];
+  }
+  // radiators & mixed
+  return ["altherma-4h", "altherma-3r", "altherma-3h", "altherma-3m"];
+}
+
+/** Najbliższa moc (nie zawsze większa) w obrębie serii. */
+function nearestInSeries(series: SeriesId, demandKw: number): DaikinProduct | null {
+  const pool = DAIKIN_CATALOG.filter((p) => p.series === series);
+  if (pool.length === 0) return null;
+  return pool.reduce((best, p) =>
+    Math.abs(p.powerKw - demandKw) < Math.abs(best.powerKw - demandKw) ? p : best,
+  );
+}
+
+export function calculateHeatPump(input: CalcInput): CalcResult {
+  const { demandKw: rawDemand, indicator, isCustomEnergy } = computeDemandKw(input);
+  const demandKw = Math.round(rawDemand * 10) / 10;
+
+  const order = preferredSeriesOrder(input.heating);
+  const picks: DaikinProduct[] = [];
+  for (const s of order) {
+    const p = nearestInSeries(s, demandKw);
+    if (p) picks.push(p);
+  }
+  // fallback safety
+  if (picks.length === 0) picks.push(DAIKIN_CATALOG[0]);
+
+  const tankNet = TANK_PRICE_NET[input.tank];
+  const toItem = (product: DaikinProduct): RecommendationItem => ({
+    product,
+    priceRange: priceBruttoWithInstall(product.listPriceNet, tankNet),
+  });
+
+  const primary = toItem(picks[0]);
+  const alternatives = picks.slice(1, 4).map(toItem);
+
+  const undersizedWarning = (demandKw - primary.product.powerKw) / Math.max(demandKw, 0.1) > 0.1;
+
+  const notes: string[] = [];
+  if (isCustomEnergy) {
+    notes.push(
+      "Wynik ma charakter orientacyjny — dokładny dobór wymaga OZC. Przeliczenie z kWh/m²/rok jest uproszczone.",
+    );
+  }
+  if (undersizedWarning) {
+    notes.push("Wymagana weryfikacja OZC — możliwy dobór wyższej jednostki.");
+  }
+  if (input.heating === "radiators" && primary.product.series === "altherma-3r") {
+    notes.push(
+      "Przy grzejnikach często warto rozważyć Altherma 4 H lub Altherma 3 H HT dla wyższych temperatur zasilania.",
+    );
+  }
+
+  return {
+    demandKw,
+    indicatorWperM2: indicator,
+    isCustomEnergy,
+    primary,
+    alternatives,
+    undersizedWarning,
+    notes,
+  };
+}
