@@ -187,3 +187,110 @@ dynamic route remains reserved for blueprint-driven content.
 - No new functionality beyond IA repair and calculator entry-point.
 - CMS rendering path (Phase 5B QA item) — still pending.
 - Sitemap generation from `cms_*` tables — still pending.
+
+---
+
+## 9. Phase 6D — Navigation IA Cleanup & Human-Centered Header Evolution
+
+### 9.1 Philosophy
+
+The header was behaving like a generic company-site navigation: seven items,
+one of them a utility tool, one a corporate "team" label. We moved toward a
+premium engineering platform architecture:
+
+- **Clarity over completeness.** Six primary items max. Every item earns its
+  place by being a core pillar of the user journey.
+- **Calm authority.** No mega menus, no marketing animations. The nav should
+  feel architectural — precise spacing, subtle active indicators, restrained
+  typography.
+- **Editorial trust.** The Knowledge Hub and Experts are positioned as peer
+  assets, not afterthoughts.
+
+### 9.2 Changes applied
+
+#### Removed from primary nav: Kalkulator
+
+**Rationale:** The heat-pump calculator is a contextual decision-support tool,
+not a primary platform pillar. It now lives inside:
+
+- `/oferta/pompy-ciepla` — as a prominent yellow tile above the fold
+- related Knowledge Hub articles — linked contextually
+- CTA sections — "Sprawdź orientacyjny dobór" embedded in conversion paths
+- future energy advisory flows
+
+The calculator route `/kalkulator-pompy-ciepla` remains fully functional and
+indexed; it simply no longer competes for attention in the top bar.
+
+#### Replaced: Zespół → Eksperci
+
+**Rationale:** "Zespół" is generic corporate language. "Eksperci" supports:
+
+- engineering authority (not "our people", but "our expertise")
+- trust (clients consult experts, not teams)
+- premium advisory positioning
+- educational brand direction (experts teach, teams merely exist)
+
+The route URL remains `/zespol` for SEO stability; the label and page metadata
+now read "Eksperci".
+
+#### New header structure (desktop + mobile)
+
+```
+Start | Oferta | Realizacje | Strefa Wiedzy | Eksperci | Kontakt
+```
+
+Kept intact:
+- phone CTA (visible on desktop, hidden label on small viewports)
+- consultation CTA button (yellow, rightmost, highest visual priority)
+
+### 9.3 Header UX refinements
+
+| Element | Before | After |
+|---------|--------|-------|
+| Active state | `font-semibold` only | `font-medium` + centered 2px dot/line below, `opacity-60` |
+| Hover state | color opacity shift only | same color shift + dot slides in (`w-0 → w-3.5`, `opacity-0 → opacity-35`) |
+| Spacing | `gap-7 lg:gap-9` | `gap-8 lg:gap-10`, slightly tighter text (`text-[13px]`) |
+| Mobile active | none | yellow dot (`bg-[#F5B800]`) beside active item |
+| Focus | browser default | explicit `focus-visible:ring-2` with color-matched ring |
+| CTA button | scale on hover | scale + slight bg lighten (`#FFC629`) |
+| Sticky | solid on scroll | slightly more opaque bg (`bg-white/90`) |
+
+### 9.4 Experts page evolution architecture
+
+The `/zespol` page is now positioned as **Eksperci**. Future iterations should
+avoid:
+- corporate employee directory aesthetics
+- LinkedIn-style profile grids
+- generic "our team" copy
+
+Instead, the page should feel like:
+- engineering experts with verifiable credentials
+- trusted advisors for high-stakes decisions
+- calm authority without self-promotion
+- premium consultancy, not contractor marketplace
+
+Content architecture readiness (for future build):
+- expertise areas per expert
+- certifications and accreditations (Daikin D1+, UDT, F-Gazy, SEP)
+- engineering specializations as tagged taxonomy
+- related articles authored by each expert
+- related case studies led by each expert
+- Soltimus Lab episode appearances
+- LinkedIn profiles (optional, not primary)
+
+### 9.5 Future navigation scalability
+
+The current six-item nav is near the upper limit for readable desktop
+navigation. If more sections are needed later, recommended patterns:
+
+1. **Dropdown for Oferta:** sub-links to `/oferta/pompy-ciepla`,
+   `/oferta/energia`, etc. — only when all service pages are full blueprints.
+2. **Footer-only expansion:** Legal pages, career, press — never in primary nav.
+3. **Strefa Wiedzy as gateway:** Deep content (calculator deep-dives, policy
+   explainers) lives inside the Knowledge Hub, surfaced via search and taxonomy,
+   not top-level links.
+4. **Eksperci as gateway:** Individual expert profiles, specializations, and
+   case-study authorship — all discoverable from the Experts page, not each
+   profile in the header.
+
+Do not add a seventh top-level item without removing one first.
