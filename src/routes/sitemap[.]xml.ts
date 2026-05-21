@@ -23,10 +23,15 @@ const STATIC_ENTRIES: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/oferta", changefreq: "monthly", priority: "0.9" },
   { path: "/oferta/energia", changefreq: "monthly", priority: "0.8" },
+  { path: "/oferta/rekuperacja", changefreq: "monthly", priority: "0.8" },
+  { path: "/oferta/termomodernizacja", changefreq: "monthly", priority: "0.8" },
+  { path: "/oferta/audyty-energetyczne", changefreq: "monthly", priority: "0.8" },
+  { path: "/oferta/serwis", changefreq: "monthly", priority: "0.7" },
   { path: "/kalkulator-pompy-ciepla", changefreq: "monthly", priority: "0.8" },
   { path: "/realizacje", changefreq: "monthly", priority: "0.6" },
   { path: "/zespol", changefreq: "monthly", priority: "0.6" },
   { path: "/kontakt", changefreq: "monthly", priority: "0.7" },
+
   { path: "/wiedza", changefreq: "weekly", priority: "0.8" },
   {
     path: "/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026",

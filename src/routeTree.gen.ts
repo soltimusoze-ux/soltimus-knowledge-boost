@@ -24,7 +24,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as RealizacjeSlugRouteImport } from './routes/realizacje.$slug'
+import { Route as OfertaTermomodernizacjaRouteImport } from './routes/oferta.termomodernizacja'
+import { Route as OfertaSerwisRouteImport } from './routes/oferta.serwis'
+import { Route as OfertaRekuperacjaRouteImport } from './routes/oferta.rekuperacja'
 import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
+import { Route as OfertaAudytyEnergetyczneRouteImport } from './routes/oferta.audyty-energetyczne'
 import { Route as OfertaServiceRouteImport } from './routes/oferta.$service'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
@@ -118,11 +122,32 @@ const RealizacjeSlugRoute = RealizacjeSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => RealizacjeRoute,
 } as any)
+const OfertaTermomodernizacjaRoute = OfertaTermomodernizacjaRouteImport.update({
+  id: '/termomodernizacja',
+  path: '/termomodernizacja',
+  getParentRoute: () => OfertaRoute,
+} as any)
+const OfertaSerwisRoute = OfertaSerwisRouteImport.update({
+  id: '/serwis',
+  path: '/serwis',
+  getParentRoute: () => OfertaRoute,
+} as any)
+const OfertaRekuperacjaRoute = OfertaRekuperacjaRouteImport.update({
+  id: '/rekuperacja',
+  path: '/rekuperacja',
+  getParentRoute: () => OfertaRoute,
+} as any)
 const OfertaEnergiaRoute = OfertaEnergiaRouteImport.update({
   id: '/energia',
   path: '/energia',
   getParentRoute: () => OfertaRoute,
 } as any)
+const OfertaAudytyEnergetyczneRoute =
+  OfertaAudytyEnergetyczneRouteImport.update({
+    id: '/audyty-energetyczne',
+    path: '/audyty-energetyczne',
+    getParentRoute: () => OfertaRoute,
+  } as any)
 const OfertaServiceRoute = OfertaServiceRouteImport.update({
   id: '/$service',
   path: '/$service',
@@ -241,7 +266,11 @@ export interface FileRoutesByFullPath {
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
+  '/oferta/audyty-energetyczne': typeof OfertaAudytyEnergetyczneRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/oferta/rekuperacja': typeof OfertaRekuperacjaRoute
+  '/oferta/serwis': typeof OfertaSerwisRoute
+  '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -276,7 +305,11 @@ export interface FileRoutesByTo {
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
+  '/oferta/audyty-energetyczne': typeof OfertaAudytyEnergetyczneRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/oferta/rekuperacja': typeof OfertaRekuperacjaRoute
+  '/oferta/serwis': typeof OfertaSerwisRoute
+  '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza': typeof WiedzaIndexRoute
@@ -312,7 +345,11 @@ export interface FileRoutesById {
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
+  '/oferta/audyty-energetyczne': typeof OfertaAudytyEnergetyczneRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/oferta/rekuperacja': typeof OfertaRekuperacjaRoute
+  '/oferta/serwis': typeof OfertaSerwisRoute
+  '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -349,7 +386,11 @@ export interface FileRouteTypes {
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/$service'
+    | '/oferta/audyty-energetyczne'
     | '/oferta/energia'
+    | '/oferta/rekuperacja'
+    | '/oferta/serwis'
+    | '/oferta/termomodernizacja'
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
@@ -384,7 +425,11 @@ export interface FileRouteTypes {
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/$service'
+    | '/oferta/audyty-energetyczne'
     | '/oferta/energia'
+    | '/oferta/rekuperacja'
+    | '/oferta/serwis'
+    | '/oferta/termomodernizacja'
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza'
@@ -419,7 +464,11 @@ export interface FileRouteTypes {
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/$service'
+    | '/oferta/audyty-energetyczne'
     | '/oferta/energia'
+    | '/oferta/rekuperacja'
+    | '/oferta/serwis'
+    | '/oferta/termomodernizacja'
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
@@ -567,11 +616,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RealizacjeSlugRouteImport
       parentRoute: typeof RealizacjeRoute
     }
+    '/oferta/termomodernizacja': {
+      id: '/oferta/termomodernizacja'
+      path: '/termomodernizacja'
+      fullPath: '/oferta/termomodernizacja'
+      preLoaderRoute: typeof OfertaTermomodernizacjaRouteImport
+      parentRoute: typeof OfertaRoute
+    }
+    '/oferta/serwis': {
+      id: '/oferta/serwis'
+      path: '/serwis'
+      fullPath: '/oferta/serwis'
+      preLoaderRoute: typeof OfertaSerwisRouteImport
+      parentRoute: typeof OfertaRoute
+    }
+    '/oferta/rekuperacja': {
+      id: '/oferta/rekuperacja'
+      path: '/rekuperacja'
+      fullPath: '/oferta/rekuperacja'
+      preLoaderRoute: typeof OfertaRekuperacjaRouteImport
+      parentRoute: typeof OfertaRoute
+    }
     '/oferta/energia': {
       id: '/oferta/energia'
       path: '/energia'
       fullPath: '/oferta/energia'
       preLoaderRoute: typeof OfertaEnergiaRouteImport
+      parentRoute: typeof OfertaRoute
+    }
+    '/oferta/audyty-energetyczne': {
+      id: '/oferta/audyty-energetyczne'
+      path: '/audyty-energetyczne'
+      fullPath: '/oferta/audyty-energetyczne'
+      preLoaderRoute: typeof OfertaAudytyEnergetyczneRouteImport
       parentRoute: typeof OfertaRoute
     }
     '/oferta/$service': {
@@ -788,12 +865,20 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 
 interface OfertaRouteChildren {
   OfertaServiceRoute: typeof OfertaServiceRoute
+  OfertaAudytyEnergetyczneRoute: typeof OfertaAudytyEnergetyczneRoute
   OfertaEnergiaRoute: typeof OfertaEnergiaRoute
+  OfertaRekuperacjaRoute: typeof OfertaRekuperacjaRoute
+  OfertaSerwisRoute: typeof OfertaSerwisRoute
+  OfertaTermomodernizacjaRoute: typeof OfertaTermomodernizacjaRoute
 }
 
 const OfertaRouteChildren: OfertaRouteChildren = {
   OfertaServiceRoute: OfertaServiceRoute,
+  OfertaAudytyEnergetyczneRoute: OfertaAudytyEnergetyczneRoute,
   OfertaEnergiaRoute: OfertaEnergiaRoute,
+  OfertaRekuperacjaRoute: OfertaRekuperacjaRoute,
+  OfertaSerwisRoute: OfertaSerwisRoute,
+  OfertaTermomodernizacjaRoute: OfertaTermomodernizacjaRoute,
 }
 
 const OfertaRouteWithChildren =
@@ -844,13 +929,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
