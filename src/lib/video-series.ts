@@ -11,21 +11,29 @@ export type VideoSeries = {
 export const VIDEO_SERIES: VideoSeries[] = [
   {
     slug: "engineering-lab",
-    name: "Engineering Lab",
-    tagline: "Fizyka. Pomiary. Eksperymenty.",
+    name: "Pompy ciepła — fizyka i mity",
+    tagline: "Pomiary, eksperymenty i obalanie mitów o pompach ciepła.",
     description:
-      "Pogłębione analizy: bezwładność cieplna, hydraulika, defrost, przepływy, optymalizacja energetyczna.",
-    keywords: ["lab", "fizyka", "defrost", "analiza", "eksperyment", "pomiar", "termiczn", "hydraul"],
+      "Wszystko o pompach ciepła w jednym miejscu: bezwładność cieplna, hydraulika, defrost, COP, taktowanie — oraz mity (czy działa zimą? czy potrzeba bufora? czy grzejniki to problem?) konfrontowane z twardymi danymi z instalacji.",
+    keywords: [
+      "pompa", "pompy", "lab", "fizyka", "defrost", "analiza", "eksperyment",
+      "pomiar", "termiczn", "hydraul", "bufor", "grzejnik", "zima", "cop",
+      "taktowanie", "mit", "czy", "altherma", "daikin",
+    ],
     accent: "#C03B3B",
     kicker: "Seria · 01",
   },
   {
-    slug: "hvac-myths",
-    name: "HVAC Myths",
-    tagline: "Mity vs. dane z instalacji.",
+    slug: "energy-management",
+    name: "Zarządzanie energią",
+    tagline: "Taryfy dynamiczne, PV, magazyny i elektromobilność.",
     description:
-      "Czy pompa działa zimą? Czy bufor jest konieczny? Czy grzejniki to problem? Sprawdzamy mity twardymi liczbami.",
-    keywords: ["mit", "czy", "grzejnik", "bufor", "zima", "działa"],
+      "Jak realnie obniżać rachunki za prąd: taryfa dynamiczna PSTRYK, urządzenia Sigenergy, fotowoltaika, magazyny energii, ładowanie EV i integracja całego ekosystemu energetycznego domu.",
+    keywords: [
+      "pstryk", "taryfa", "dynamiczn", "sigenergy", "fotowolt", "pv",
+      "magazyn", "bess", "bateria", "ev", "elektromob", "ładowarka",
+      "wallbox", "autokonsumpcja", "net-billing", "energia",
+    ],
     accent: "#F5B800",
     kicker: "Seria · 02",
   },

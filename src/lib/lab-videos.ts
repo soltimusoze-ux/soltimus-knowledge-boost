@@ -196,7 +196,7 @@ export const LAB_VIDEOS: LabVideo[] = [
     title: "Czy pompa ciepła działa z grzejnikami?",
     description:
       "Pomiar realny: stary dom z grzejnikami żeliwnymi + pompa monoblok. COP, temperatura zasilania i koszt sezonu grzewczego.",
-    series: "hvac-myths",
+    series: "engineering-lab",
     videoUrl: "",
     duration: "09:55",
     tags: ["grzejniki", "pompa ciepła", "modernizacja", "COP", "mity"],
