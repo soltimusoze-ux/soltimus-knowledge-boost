@@ -26,8 +26,6 @@ import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
-import { Route as WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport } from './routes/wiedza.pompy-ciepla.gruntowa-pompa-ciepla-kompletny-przewodnik'
-import { Route as WiedzaPompyCieplaCennikPompCiepla2026RouteImport } from './routes/wiedza.pompy-ciepla.cennik-pomp-ciepla-2026'
 import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
@@ -118,18 +116,6 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute =
-  WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport.update({
-    id: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik',
-    path: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const WiedzaPompyCieplaCennikPompCiepla2026Route =
-  WiedzaPompyCieplaCennikPompCiepla2026RouteImport.update({
-    id: '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026',
-    path: '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const WiedzaCategorySlugRoute = WiedzaCategorySlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -180,8 +166,6 @@ export interface FileRoutesByFullPath {
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
-  '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026': typeof WiedzaPompyCieplaCennikPompCiepla2026Route
-  '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -205,8 +189,6 @@ export interface FileRoutesByTo {
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
-  '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026': typeof WiedzaPompyCieplaCennikPompCiepla2026Route
-  '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -232,8 +214,6 @@ export interface FileRoutesById {
   '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
-  '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026': typeof WiedzaPompyCieplaCennikPompCiepla2026Route
-  '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -259,8 +239,6 @@ export interface FileRouteTypes {
     | '/admin/new-video'
     | '/api/public/contact'
     | '/wiedza/$category/$slug'
-    | '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
-    | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -284,8 +262,6 @@ export interface FileRouteTypes {
     | '/admin/new-video'
     | '/api/public/contact'
     | '/wiedza/$category/$slug'
-    | '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
-    | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
     | '/admin'
   id:
     | '__root__'
@@ -310,8 +286,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/new-video'
     | '/api/public/contact'
     | '/wiedza/$category/$slug'
-    | '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
-    | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -332,8 +306,6 @@ export interface RootRouteChildren {
   WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
   WiedzaIndexRoute: typeof WiedzaIndexRoute
   ApiPublicContactRoute: typeof ApiPublicContactRoute
-  WiedzaPompyCieplaCennikPompCiepla2026Route: typeof WiedzaPompyCieplaCennikPompCiepla2026Route
-  WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute: typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -457,20 +429,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': {
-      id: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
-      path: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
-      fullPath: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
-      preLoaderRoute: typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026': {
-      id: '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
-      path: '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
-      fullPath: '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
-      preLoaderRoute: typeof WiedzaPompyCieplaCennikPompCiepla2026RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/wiedza/$category/$slug': {
       id: '/wiedza/$category/$slug'
       path: '/$slug'
@@ -567,10 +525,6 @@ const rootRouteChildren: RootRouteChildren = {
   WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,
   WiedzaIndexRoute: WiedzaIndexRoute,
   ApiPublicContactRoute: ApiPublicContactRoute,
-  WiedzaPompyCieplaCennikPompCiepla2026Route:
-    WiedzaPompyCieplaCennikPompCiepla2026Route,
-  WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute:
-    WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

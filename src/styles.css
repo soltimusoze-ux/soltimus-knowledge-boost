@@ -204,3 +204,130 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* =========================================================================
+ * Editorial typography — Knowledge Hub long-form.
+ *
+ * Single source of truth for article rhythm. Used by <ArticleBody> and any
+ * legacy article still rendering raw HTML through `.editorial`.
+ * Premium engineering tone: generous leading, accent rules on H2,
+ * blue list markers, optional dropcap on the first paragraph.
+ * Mobile-first sizing scales to a comfortable desktop reading column.
+ * =======================================================================*/
+.editorial {
+  color: #111;
+  font-size: 1.0625rem;
+  line-height: 1.78;
+}
+.editorial p,
+.editorial ul,
+.editorial ol,
+.editorial h2,
+.editorial h3 {
+  max-width: 72ch;
+}
+
+@media (min-width: 768px) {
+  .editorial {
+    font-size: 1.15rem;
+    line-height: 1.82;
+  }
+}
+.editorial > * + * {
+  margin-top: 1.25em;
+}
+.editorial p {
+  color: rgba(0, 0, 0, 0.78);
+}
+.editorial p.dropcap::first-letter {
+  font-size: 3.2em;
+  float: left;
+  line-height: 0.9;
+  padding: 0.05em 0.12em 0 0;
+  font-weight: 600;
+  color: #0089cf;
+}
+.editorial h2 {
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin: 2.6em 0 0.8em;
+  scroll-margin-top: 7rem;
+  color: #000;
+}
+.editorial h2::before {
+  content: "";
+  display: block;
+  width: 36px;
+  height: 2px;
+  background: #0089cf;
+  margin-bottom: 0.8em;
+}
+.editorial h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 2em 0 0.6em;
+  scroll-margin-top: 7rem;
+  color: #000;
+}
+.editorial .editorial-eyebrow {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.45);
+  margin-bottom: 0.6em;
+  font-weight: 500;
+}
+.editorial strong {
+  color: #000;
+  font-weight: 600;
+}
+.editorial em {
+  font-style: italic;
+  color: rgba(0, 0, 0, 0.85);
+}
+.editorial ul,
+.editorial ol {
+  margin: 0 0 0 1.2em;
+  padding: 0;
+}
+.editorial ul li,
+.editorial ol li {
+  margin: 0.55em 0;
+  color: rgba(0, 0, 0, 0.78);
+  padding-left: 0.3em;
+}
+.editorial ul li::marker {
+  color: #0089cf;
+}
+.editorial ol li::marker {
+  color: #0089cf;
+  font-weight: 600;
+}
+.editorial figure {
+  margin: 2.4em 0;
+}
+.editorial img {
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.25);
+}
+.editorial figcaption {
+  font-size: 0.85em;
+  color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin-top: 0.8em;
+}
+.editorial a {
+  color: #0089cf;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.editorial a:hover {
+  color: #000;
+}
+
