@@ -1,4 +1,5 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { ArrowRight, Calculator } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import {
@@ -22,6 +23,7 @@ import { buildMeta } from "@/config/seo";
 import { breadcrumbSchema, faqSchema } from "@/lib/jsonld";
 import { serviceSchema } from "@/lib/service-jsonld";
 import { SITE } from "@/config/site";
+
 
 export const Route = createFileRoute("/oferta/$service")({
   beforeLoad: ({ params }) => {
@@ -87,6 +89,7 @@ function ServicePage() {
       <TechnicalAdvantages items={s.technicalAdvantages} />
       <ComparisonSection comparison={s.comparison} />
       <MistakesToAvoid items={s.mistakesToAvoid} />
+      {s.slug === "pompy-ciepla" ? <CalculatorPromo /> : null}
       <RelatedCaseStudies slugs={s.related?.caseStudies} />
       <RelatedKnowledgeHub slugs={s.related?.articles} />
       <FAQSection items={s.faq} />
@@ -96,3 +99,58 @@ function ServicePage() {
     </main>
   );
 }
+
+function CalculatorPromo() {
+  return (
+    <section className="border-y border-black/5 bg-[#FAFAF7] px-5 py-20 md:px-8 md:py-28">
+      <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1.2fr_1fr]">
+        <div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-3 py-1.5 text-[10px] font-medium uppercase tracking-[0.25em] text-black/60">
+            <Calculator className="h-3.5 w-3.5" />
+            Narzędzie inżynierskie
+          </div>
+          <h2 className="mt-5 text-[clamp(1.75rem,3.5vw,2.75rem)] font-semibold leading-[1.1] tracking-tight">
+            Sprawdź orientacyjny dobór pompy ciepła dla Twojego domu.
+          </h2>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-black/60">
+            Bezpłatny kalkulator pokazuje orientacyjną moc pompy, roczne
+            zapotrzebowanie na ciepło i przewidywany koszt ogrzewania.
+            To punkt wyjścia do rozmowy z inżynierem — nie zastępuje
+            audytu OZC ani projektu instalacji.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link
+              to="/kalkulator-pompy-ciepla"
+              className="group inline-flex items-center gap-2 rounded-full bg-[#F5B800] px-6 py-3.5 text-sm font-semibold text-black transition-all hover:scale-[1.02]"
+            >
+              Sprawdź orientacyjny dobór pompy
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to="/kontakt"
+              className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-3.5 text-sm font-medium text-black hover:bg-black/5"
+            >
+              Wolę od razu konsultację
+            </Link>
+          </div>
+        </div>
+        <div className="rounded-3xl border border-black/5 bg-white p-8">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-black/40">
+            Co dostajesz z kalkulatora
+          </p>
+          <ul className="mt-5 space-y-3 text-sm text-black/75">
+            <li>· Orientacyjna moc pompy ciepła</li>
+            <li>· Szacowane roczne zapotrzebowanie na ciepło</li>
+            <li>· Przewidywany koszt ogrzewania w skali roku</li>
+            <li>· Rekomendacja kolejnego kroku (audyt / konsultacja)</li>
+          </ul>
+          <p className="mt-6 text-xs leading-relaxed text-black/45">
+            Wynik kalkulatora jest szacunkiem opartym o dane wejściowe.
+            Decyzja inwestycyjna zawsze opiera się o audyt OZC i projekt.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
