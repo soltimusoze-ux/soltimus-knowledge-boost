@@ -10,7 +10,7 @@
 import type { CaseStudy } from "../types";
 
 export const caseStudy: CaseStudy = {
-  slug: "dom-lat-70-glęboka-termomodernizacja-pompa-ciepla",
+  slug: "dom-lat-70-gleboka-termomodernizacja-pompa-ciepla",
   status: "published",
 
   title:
