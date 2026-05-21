@@ -22,6 +22,7 @@ import { Route as KalkulatorPompyCieplaRouteImport } from './routes/kalkulator-p
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
+import { Route as OfertaIndexRouteImport } from './routes/oferta.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as RealizacjeSlugRouteImport } from './routes/realizacje.$slug'
 import { Route as OfertaTermomodernizacjaRouteImport } from './routes/oferta.termomodernizacja'
@@ -111,6 +112,11 @@ const WiedzaIndexRoute = WiedzaIndexRouteImport.update({
   id: '/wiedza/',
   path: '/wiedza/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const OfertaIndexRoute = OfertaIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OfertaRoute,
 } as any)
 const WiedzaCategoryRoute = WiedzaCategoryRouteImport.update({
   id: '/wiedza/$category',
@@ -273,6 +279,7 @@ export interface FileRoutesByFullPath {
   '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
+  '/oferta/': typeof OfertaIndexRoute
   '/wiedza/': typeof WiedzaIndexRoute
   '/admin/editorial': typeof AuthenticatedAdminEditorialRouteWithChildren
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -297,7 +304,6 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
-  '/oferta': typeof OfertaRouteWithChildren
   '/polityka-cookies': typeof PolitykaCookiesRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/realizacje': typeof RealizacjeRouteWithChildren
@@ -312,6 +318,7 @@ export interface FileRoutesByTo {
   '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
+  '/oferta': typeof OfertaIndexRoute
   '/wiedza': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
@@ -352,6 +359,7 @@ export interface FileRoutesById {
   '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
+  '/oferta/': typeof OfertaIndexRoute
   '/wiedza/': typeof WiedzaIndexRoute
   '/_authenticated/admin/editorial': typeof AuthenticatedAdminEditorialRouteWithChildren
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -393,6 +401,7 @@ export interface FileRouteTypes {
     | '/oferta/termomodernizacja'
     | '/realizacje/$slug'
     | '/wiedza/$category'
+    | '/oferta/'
     | '/wiedza/'
     | '/admin/editorial'
     | '/admin/new-article'
@@ -417,7 +426,6 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/lab'
     | '/login'
-    | '/oferta'
     | '/polityka-cookies'
     | '/polityka-prywatnosci'
     | '/realizacje'
@@ -432,6 +440,7 @@ export interface FileRouteTypes {
     | '/oferta/termomodernizacja'
     | '/realizacje/$slug'
     | '/wiedza/$category'
+    | '/oferta'
     | '/wiedza'
     | '/admin/new-article'
     | '/admin/new-pdf'
@@ -471,6 +480,7 @@ export interface FileRouteTypes {
     | '/oferta/termomodernizacja'
     | '/realizacje/$slug'
     | '/wiedza/$category'
+    | '/oferta/'
     | '/wiedza/'
     | '/_authenticated/admin/editorial'
     | '/_authenticated/admin/new-article'
@@ -601,6 +611,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/wiedza/'
       preLoaderRoute: typeof WiedzaIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/oferta/': {
+      id: '/oferta/'
+      path: '/'
+      fullPath: '/oferta/'
+      preLoaderRoute: typeof OfertaIndexRouteImport
+      parentRoute: typeof OfertaRoute
     }
     '/wiedza/$category': {
       id: '/wiedza/$category'
@@ -870,6 +887,7 @@ interface OfertaRouteChildren {
   OfertaRekuperacjaRoute: typeof OfertaRekuperacjaRoute
   OfertaSerwisRoute: typeof OfertaSerwisRoute
   OfertaTermomodernizacjaRoute: typeof OfertaTermomodernizacjaRoute
+  OfertaIndexRoute: typeof OfertaIndexRoute
 }
 
 const OfertaRouteChildren: OfertaRouteChildren = {
@@ -879,6 +897,7 @@ const OfertaRouteChildren: OfertaRouteChildren = {
   OfertaRekuperacjaRoute: OfertaRekuperacjaRoute,
   OfertaSerwisRoute: OfertaSerwisRoute,
   OfertaTermomodernizacjaRoute: OfertaTermomodernizacjaRoute,
+  OfertaIndexRoute: OfertaIndexRoute,
 }
 
 const OfertaRouteWithChildren =

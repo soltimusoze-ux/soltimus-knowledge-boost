@@ -14,6 +14,8 @@ export interface ServicePlaceholderProps {
   title: string;
   italicTail?: string;
   intro: string;
+  primaryCtaLabel?: string;
+  secondaryCtaLabel?: string;
   scope: string[];
   process: { step: string; title: string; text: string }[];
   consultationNote?: string;
@@ -58,15 +60,15 @@ export function ServicePlaceholder(p: ServicePlaceholderProps) {
               to="/kontakt"
               className="group inline-flex items-center gap-2 rounded-full bg-[#F5B800] px-6 py-3.5 text-sm font-semibold text-black transition-all hover:scale-[1.02]"
             >
-              Umów konsultację
+              {p.primaryCtaLabel ?? "Umów konsultację"}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
-            <a
-              href={`tel:${COMPANY.phoneE164}`}
+            <Link
+              to="/kontakt"
               className="inline-flex items-center gap-2 rounded-full border border-black/15 px-6 py-3.5 text-sm font-medium text-black hover:bg-black/5"
             >
-              {COMPANY.phone}
-            </a>
+              {p.secondaryCtaLabel ?? COMPANY.phone}
+            </Link>
           </div>
         </div>
       </section>
