@@ -64,6 +64,7 @@ const SERVICES = [
     icon: Wind,
     title: "Rekuperacja i klimatyzacja",
     lead: "Świeże powietrze i komfort termiczny przez cały rok.",
+    to: "/oferta/rekuperacja",
     points: [
       "Wentylacja z odzyskiem ciepła",
       "Filtracja PM2.5 / HEPA",
@@ -75,6 +76,7 @@ const SERVICES = [
     icon: ClipboardCheck,
     title: "Audyty energetyczne",
     lead: "Inżynierska diagnoza budynku przed inwestycją.",
+    to: "/oferta/audyty-energetyczne",
     points: [
       "Audyt energetyczny i OZC",
       "Badanie kamerą termowizyjną",
@@ -86,6 +88,7 @@ const SERVICES = [
     icon: Layers,
     title: "Termomodernizacja",
     lead: "Mniej energii, więcej komfortu.",
+    to: "/oferta/termomodernizacja",
     points: [
       "Audyt energetyczny budynku",
       "Ocieplenie i wymiana stolarki",
@@ -97,6 +100,7 @@ const SERVICES = [
     icon: Wrench,
     title: "Serwis i opieka",
     lead: "Inżynierowie, nie call center.",
+    to: "/oferta/serwis",
     points: [
       "Przeglądy okresowe",
       "Reakcja serwisu 24h",
@@ -105,6 +109,7 @@ const SERVICES = [
     ],
   },
 ];
+
 
 function OfertaPage() {
   return (
@@ -140,9 +145,7 @@ function OfertaPage() {
                     <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5B800]/15 text-black transition-transform group-hover:scale-110">
                       <s.icon className="h-5 w-5" />
                     </div>
-                    {s.to ? (
-                      <ArrowRight className="h-5 w-5 text-black/30 transition-all group-hover:translate-x-1 group-hover:text-black" />
-                    ) : null}
+                    <ArrowRight className="h-5 w-5 text-black/30 transition-all group-hover:translate-x-1 group-hover:text-black" />
                   </div>
                   <div>
                     <h2 className="text-xl font-semibold tracking-tight">
@@ -161,20 +164,21 @@ function OfertaPage() {
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold uppercase tracking-[0.18em] text-black/70 transition-colors group-hover:text-black">
+                    Zobacz usługę
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                  </div>
                 </>
               );
               const cls =
-                "group flex flex-col gap-5 bg-white p-8 transition-colors hover:bg-[#FAFAF7] md:p-10";
-              return s.to ? (
+                "group flex flex-col gap-5 bg-white p-8 transition-colors hover:bg-[#FAFAF7] md:p-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F5B800] cursor-pointer";
+              return (
                 <Link key={s.title} to={s.to} className={cls}>
                   {inner}
                 </Link>
-              ) : (
-                <article key={s.title} className={cls}>
-                  {inner}
-                </article>
               );
             })}
+
           </div>
 
         </div>
