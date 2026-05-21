@@ -337,6 +337,98 @@ with public funding.
   publicznej** (szkoła, ośrodek zdrowia), **kompleksowa modernizacja
   budynku biurowego** (HVAC + BMS + PV).
 
+## Phase 3D — Premium lifestyle energy independence
+
+Sixth flagship extending the engine into **lifestyle-driven engineering** —
+where technology serves the homeowner's habits, rituals and emotional
+connection to the home, rather than forcing adaptation to the technology.
+
+- **Nowy dom · elastyczne ogrzewanie hybrydowe: kominek + pompa ciepła**
+  (`kompleksowa/dom-nowy-hybryda-kominek-pompa-ciepla`)
+  — dom nowej budowy dla właścicieli prywatnego lasu, którzy cenią rytuał
+  ognia i często podróżują. Axis: kominek jako emocyjne centrum domu →
+  bufor 500 l jako pamięć termiczna → priorytet źródeł (kominek → pompa) →
+  tryb nieobecności jako rozszerzenie normalnej pracy → redukcja kosztów
+  ≈ −40% dzięki darmowemu drewnu.
+
+### Lifestyle-driven storytelling patterns
+
+1. **Lead with the homeowner, not the product.** W pierwszym zdaniu `subtitle`
+   powinien pojawić się człowiek i jego styl życia, nie urządzenie.
+   "Kominek jako emocyjne centrum domu" jest lepsze niż "System Daikin
+   Altherma 3 z buforem".
+2. **Technology serves lifestyle, never replaces tradition.** Każda decyzja
+   inżynierska musi być uzasadniona rytmem życia właściciela: rytuał palenia,
+   częste nieobecności, darmowe drewno, pragnienie prostoty. Technologia jest
+   niewidocznym wsparciem, nie bohaterem.
+3. **Emotional layer is data, not sentiment.** Komfort emocjonalny wyrażaj
+   przez metryki operacyjne: "0 interwencji podczas wyjazdu", "płynne
+   przejście między źródłami", "jeden przycisk po powrocie". Nigdy nie
+   opisuj uczuć właściciela — opisuj system, który je umożliwia.
+4. **`approach` jako łańcuch decyzji zorientowanych na człowieka.** Każdy
+   akapit odpowiada na pytanie: co właściciel potrzebuje, i dlaczego ta
+   decyzja inżynierska mu to daje. Nie "wybraliśmy bufor 500 l", tylko
+   "bufor 500 l pozwala magazynować ciepło z jednego palenia przez 24–36 h,
+   więc właściciel nie musi palić codziennie".
+5. **`beforeAfter` jako porównanie filozofii, nie tylko parametrów.** W
+   studiach lifestyle kluczowe wiersze tabeli to: "Filozofia ogrzewania",
+   "Komfort emocjonalny", "Ogrzewanie podczas nieobecności" — nie tylko
+   zużycie energii. To porównanie sposobu życia, nie tylko liczb.
+
+### Hybrid comfort system storytelling
+
+- **Kominek i pompa to jeden system, nie dwa światy.** W narracji unikaj
+  opozycji "tradycja vs nowoczesność". Opisuj je jako współpracujące
+  źródła w jednym układzie hydraulicznym: kominek jako warstwa emocjonalna
+  i awaryjna, pompa jako warstwa ciągła i automatyczna.
+- **Bufor to pamięć termiczna domu.** Nie opisuj bufora jako "zbiornik".
+  Opisuj go jako magazyn, który zapamiętuje ciepło z kominka i oddaje je
+  stopniowo, gdy dom tego potrzebuje. To metafora techniczna i emocjonalna
+  jednocześnie.
+- **Priorytet źródeł jako hierarchia wartości.** Kominek ma pierwszeństwo,
+  pompa ma pewność. Ta hierarchia jest intuicyjna i buduje zaufanie:
+  właściciel wie, że technologia nie zastąpi ognia, tylko go wesprze.
+- **Tryb nieobecności jako spokój, nie funkcja.** Nie opisuj go jako
+  "funkcję sterowania". Opisuj jako brak niepokoju: "gdy wyjeżdżasz,
+  dom sam się dogrzewa. Gdy wracasz, jest ciepło." Prostota jest
+  luksusem.
+
+### Emotional engineering communication principles
+
+- **Nigdy "technologia zastępuje tradycję"**. Zawsze "technologia wspiera
+  preferowany styl życia". Nawet w nagłówkach, nawet w FAQ.
+- **Nigdy nie opisuj emocji właściciela bezpośrednio.** Nie pisz "był
+  zachwycony". Pisz o systemie, który pozwolił mu zachować rytuał bez
+  kompromisów. Emocja jest konsekwencją, nie treścią.
+- **Liczby niosą emocję.** "0 interwencji podczas wyjazdu" jest bardziej
+  emocjonalne niż "w pełni zautomatyzowany".
+- **Prywatność bez chłodu.** Właściciela nazywaj "Pani M." lub
+  "Właściciel". Nie dramatyzuj jego historii — szanuj jej intymność.
+  Dom opisuj szczegółowo, człowieka oszczędnie.
+- **Ciepło jako motyw przewodni.** Słowo "ciepło" powinno pojawiać się
+  w trzech znaczeniach: temperatura, komfort, relacja z domem. To potrójna
+  warstwa semantyczna, którą AI-asystenci i wyszukiwarki wyciągają jako
+  sygnał tematyczny.
+
+### Future premium-home case study recommendations
+
+- Dla **właścicieli z własnym zasobem biomasy** (las, gospodarstwo)
+  standardem powinien być hybrydowy system: kominek z płaszczem wodnym +
+  pompa ciepła + bufor + priorytetowa automatyka. Bilans ekonomiczny
+  zmienia się fundamentalnie przy darmowym paliwie.
+- Dla **często nieobecnych właścicieli** (praca zdalna z wyjazdami,
+  dom letniskowy) kluczową wartością nie jest SCOP, ale niezawodność
+  trybu nieobecności i prostota powrotu. Każdy dodatkowy krok w obsłudze
+  to punkt rezygnacji.
+- Dla **domów nowej budowy z kominkiem** architektura powinna zakładać
+  kominek z płaszczem wodnym już na etapie projektu, nie jako dopisku.
+  Koszt integracji podczas budowy jest 3–4 razy niższy niż modernizacja.
+- Następne flagshipowe kategorie do uzupełnienia: **dom letniskowy**
+  (autonomia energetyczna + BESS + własne źródło biomasy), **dom
+  pasywny z kominkiem** (jak zachować atmosferę ognia w budynku o
+  znikomym zapotrzebowaniu), **smart home bez przekomplikowania**
+  (automatyzacja, która nie wymaga aplikacji).
+
 ## What is intentionally postponed
 
 - Video embeds (waiting on Lab episode unification).
