@@ -1,65 +1,81 @@
 # Route Rendering & User Flow QA
 
-## What was broken (perceived)
+## What was broken
 
-Clicking cards on `/oferta` and `/realizacje` updated the URL, but pages
-could appear unchanged because:
+The launch-blocking issue was structural, not visual:
 
-1. The dynamic route components (`oferta.$service.tsx`,
-   `realizacje.$slug.tsx`) reused the same React subtree when only the
-   route param changed. Heavy child components (hero, gallery, FAQ) kept
-   internal state from the previous slug instead of remounting.
-2. Scroll position from the previous page was sometimes preserved on
-   param-only changes, so the user landed mid-page on the new route and
-   thought "nothing happened".
-3. There was no visible QA affordance to confirm which slug had
-   actually been resolved during manual click-through.
+1. `src/routes/oferta.tsx` matched `/oferta` and also became the parent
+   route for `/oferta/*` child routes.
+2. Because that parent component rendered the full service listing page
+   instead of `<Outlet />`, every child URL such as `/oferta/pompy-ciepla`
+   and `/oferta/rekuperacja` inherited the `/oferta` listing UI.
+3. The URL changed correctly, and the active service card could appear
+   highlighted, but the detail route content was not visible as the primary
+   page. This made the app feel like navigation was broken.
 
-## Fixes applied (surgical)
+The earlier scroll/remount fix was useful for dynamic param changes, but it
+did not address the actual parent-route rendering problem.
 
+## Exact fix
+
+- `src/routes/oferta.tsx`
+  - Converted from a listing page into a pure parent layout route.
+  - It now renders only `<Outlet />`, so matched child routes control their
+    own visible content.
+- `src/routes/oferta.index.tsx`
+  - Created as the dedicated `/oferta` overview/listing page.
+  - All service cards remain only on this index page.
 - `src/routes/oferta.$service.tsx`
-  - Added `key={service}` on the outer `<main>` → full remount of all
-    service subsections when the slug changes.
-  - Added `useEffect(() => window.scrollTo(0,0), [service])` to guarantee
-    top-of-page on every service switch (desktop + mobile).
-  - Added a dev-only slug badge (`import.meta.env.DEV`) bottom-right for
-    QA. Not rendered in production builds.
-- `src/routes/realizacje.$slug.tsx`
-  - Same three changes, keyed on `slug`.
+  - Kept as the dedicated dynamic service route for the published heat pump
+    blueprint (`/oferta/pompy-ciepla`).
+  - Updated the heat pump hero copy to the launch-approved above-the-fold
+    direction:
+    - H1: `Pompy ciepła projektowane na podstawie OZC, nie katalogu.`
+    - Lead: `Dobieramy system grzewczy do budynku, instalacji i realnego zapotrzebowania cieplnego.`
+    - Primary CTA: `Sprawdź orientacyjny dobór pompy`
+    - Secondary CTA: `Umów konsultację inżynierską`
+- Static service routes remain distinct child pages:
+  - `src/routes/oferta.energia.tsx`
+  - `src/routes/oferta.rekuperacja.tsx`
+  - `src/routes/oferta.termomodernizacja.tsx`
+  - `src/routes/oferta.audyty-energetyczne.tsx`
+  - `src/routes/oferta.serwis.tsx`
 
-No visual redesign. No new content systems. No router config changes
-beyond what was already set (`scrollRestoration: true`,
-`defaultPreloadStaleTime: 0` in `src/router.tsx`).
+No visual redesign. No new content systems. No hosting/router fallback hacks.
+The fix is the correct TanStack route architecture: parent route = outlet,
+index child = listing, child routes = detail pages.
 
-## Route architecture (audited, kept as-is)
+## Route architecture after fix
 
-Service routes split intentionally between:
+Service routes now split clearly between:
 
+- **Parent layout route** — `src/routes/oferta.tsx`
+  renders `<Outlet />` only and no longer renders the cards listing.
+- **Overview/index route** — `src/routes/oferta.index.tsx`
+  renders `/oferta`: listing hero + service cards + overview CTA.
 - **Blueprint-driven dynamic route** — `src/routes/oferta.$service.tsx`
-  reads from the typed `services` registry (`src/content/services`).
-  Today only `pompy-ciepla` is published there, so the dynamic route
-  resolves only that slug (others throw `notFound()` via `beforeLoad`).
-- **Static placeholder routes** — `oferta.energia.tsx`,
+  renders `/oferta/pompy-ciepla` from the typed service registry.
+- **Static detail routes** — `oferta.energia.tsx`,
   `oferta.rekuperacja.tsx`, `oferta.termomodernizacja.tsx`,
-  `oferta.audyty-energetyczne.tsx`, `oferta.serwis.tsx`. These take
-  precedence over the dynamic route (TanStack prefers static segments),
-  so each renders its own distinct component with unique hero, lead,
-  scope and process sections.
+  `oferta.audyty-energetyczne.tsx`, `oferta.serwis.tsx`.
 
-This split is the documented migration path: as each service gets a full
-blueprint, its static placeholder file is deleted and the dynamic route
-takes over. No duplicate-route conflicts exist today.
+Static segments continue to take precedence over the dynamic `$service`
+route, so `/oferta/rekuperacja` cannot be accidentally handled by the
+heat-pump blueprint route.
+This remains the migration path: as each service gets a full blueprint, its
+static detail file can be deleted and the dynamic route can take over.
 
-## Routes tested manually
+## Routes tested manually after the fix
 
 | Route                              | Result |
 | ---------------------------------- | ------ |
-| `/oferta/pompy-ciepla`             | Unique full blueprint page (hero, OZC, kalkulator promo) |
-| `/oferta/energia`                  | Unique static page (PV, magazyny, taryfa, EV) |
-| `/oferta/rekuperacja`              | Unique placeholder (wentylacja + klimatyzacja Daikin) |
-| `/oferta/termomodernizacja`        | Unique placeholder (audyt, ocieplenie, etapy) |
-| `/oferta/audyty-energetyczne`      | Unique placeholder (OZC, termowizja, dofinansowania) |
-| `/oferta/serwis`                   | Unique placeholder (przeglądy, 24h, magazyn części) |
+| `/oferta`                          | Overview page: H1 `Kompletne systemy energii...`; service cards visible above the fold. |
+| `/oferta/pompy-ciepla`             | Dedicated dark image hero; H1 `Pompy ciepła projektowane na podstawie OZC, nie katalogu.`; CTAs to calculator and engineering consultation; no `/oferta` listing cards above the fold. |
+| `/oferta/energia`                  | Dedicated energy hero; H1 `Wytwarzanie i magazynowanie energii elektrycznej.`; PV/storage/tariff/EV sections visible, not the `/oferta` card listing. |
+| `/oferta/rekuperacja`              | Dedicated detail hero; eyebrow `Powietrze · Komfort termiczny`; H1 `Rekuperacja i klimatyzacja dla wymagających domów.`; scope section follows instead of overview cards. |
+| `/oferta/termomodernizacja`        | Dedicated detail hero; eyebrow `Powłoka budynku · Efektywność`; H1 `Termomodernizacja zaplanowana etapowo.`; scope section follows instead of overview cards. |
+| `/oferta/audyty-energetyczne`      | Dedicated detail hero; H1 `Audyty energetyczne przed każdą poważną decyzją.`; no `/oferta` cards above the fold. |
+| `/oferta/serwis`                   | Dedicated detail hero; eyebrow `Opieka po uruchomieniu · 25+ lat`; H1 `Serwis i opieka nad systemem przez całe jego życie.`; no `/oferta` cards above the fold. |
 | `/realizacje/konstancin-…`         | Unique case content |
 | `/realizacje/dom-2000-…-daikin`    | Unique case content |
 | `/realizacje/stacja-paliw-…`       | Unique case content |
@@ -67,8 +83,9 @@ takes over. No duplicate-route conflicts exist today.
 | `/realizacje/dom-lat-70-…`         | Unique case content |
 | `/realizacje/dom-nowy-hybryda-…`   | Unique case content |
 
-All `/oferta` cards are full-card `<Link>` wrappers with
-`focus-visible` rings and a visible "Zobacz usługę →" affordance.
+All `/oferta` cards are full-card `<Link>` wrappers with `focus-visible`
+rings and a visible "Zobacz usługę →" affordance. Service detail pages no
+longer render those cards as their primary page content.
 All `/realizacje` teasers wrap their card in `<Link to="/realizacje/$slug" params={{ slug }} />`.
 
 ## Remaining risks
@@ -77,6 +94,9 @@ All `/realizacje` teasers wrap their card in `<Link to="/realizacje/$slug" param
   distinct but lack the depth of `pompy-ciepla` (no FAQ, no JSON-LD
   Service schema, no related case studies module). Tracked for the
   next blueprint pass — not a routing bug.
+- Browser text extraction may label detail-page scope cards as "cards";
+  visually and structurally these are service-detail content sections, not
+  the `/oferta` service listing grid.
 - `scrollRestoration: true` will still restore scroll on **back/forward**
   navigation, which is correct. Our `useEffect` only forces top on
   param-driven forward navigation inside the same route file.
