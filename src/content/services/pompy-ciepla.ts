@@ -12,15 +12,15 @@ export const service: ServicePage = {
   hero: {
     eyebrow: "Pompy ciepła · Soltimus Engineering",
     title:
-      "Pompa ciepła zaprojektowana, nie dobrana z katalogu.",
+      "Pompy ciepła projektowane na podstawie OZC, nie katalogu.",
     subtitle:
-      "Audyt, OZC, hydraulika, elektryka, uruchomienie i monitoring — jeden inżynierski standard zamiast pięciu osobnych decyzji.",
+      "Dobieramy system grzewczy do budynku, instalacji i realnego zapotrzebowania cieplnego.",
     intro: [
       "Większość problemów z pompami ciepła w Polsce — taktowanie, wysokie rachunki, hałas, awarie sprężarki — to nie problemy urządzeń. To skutki braku obliczeń i braku projektu. U nas projekt zaczyna się od audytu i kończy 30-dniowym monitoringiem po uruchomieniu.",
       "Pracujemy z urządzeniami Daikin Altherma 3. Wybór technologiczny jest świadomy: szerokie okno modulacji, niskie poziomy hałasu, dojrzała platforma serwisowa. Pompa to ostatni element łańcucha — przed nim są OZC, hydraulika i elektryka.",
     ],
-    ctaPrimary: { label: "Umów konsultację inżynierską", to: "/kontakt" },
-    ctaSecondary: { label: "Sprawdź kalkulator mocy", to: "/kalkulator-pompy-ciepla" },
+    ctaPrimary: { label: "Sprawdź orientacyjny dobór pompy", to: "/kalkulator-pompy-ciepla" },
+    ctaSecondary: { label: "Umów konsultację inżynierską", to: "/kontakt" },
     heroImage:
       "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=2000&q=80",
     heroImageAlt:
