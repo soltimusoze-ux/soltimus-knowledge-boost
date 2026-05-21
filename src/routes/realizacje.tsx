@@ -2,23 +2,24 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Construction } from "lucide-react";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
 
 export const Route = createFileRoute("/realizacje")({
-  head: () => ({
-    meta: [
-      { title: "Realizacje — Soltimus | Portfolio domów premium" },
-      {
-        name: "description",
-        content:
-          "Portfolio realizacji Soltimus — pompy ciepła, fotowoltaika, magazyny energii w domach jednorodzinnych i rezydencjach.",
-      },
-      { property: "og:title", content: "Realizacje — Soltimus" },
-      {
-        property: "og:description",
-        content: "Domy, w których pracujemy. Portfolio realizacji Soltimus.",
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: "Realizacje — portfolio domów premium",
+      description:
+        "Portfolio realizacji Soltimus — pompy ciepła, fotowoltaika, magazyny energii w domach jednorodzinnych i rezydencjach.",
+      path: "/realizacje",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Realizacje", url: `${SITE.url}/realizacje` },
+        ]),
+      ],
+    }),
   component: RealizacjePage,
 });
 

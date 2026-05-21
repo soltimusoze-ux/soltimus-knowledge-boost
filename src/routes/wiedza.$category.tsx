@@ -11,6 +11,9 @@ import {
 } from "@/lib/knowledge-categories";
 import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import { CategoryIcon } from "@/components/knowledge/CategoryIcon";
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
 
 export const Route = createFileRoute("/wiedza/$category")({
   beforeLoad: ({ params }) => {
@@ -18,16 +21,21 @@ export const Route = createFileRoute("/wiedza/$category")({
   },
   head: ({ params }) => {
     const cat = categoryBySlug(params.category);
-    const title = `${cat?.name ?? "Wiedza"} — Soltimus Knowledge Hub`;
-    const desc = cat?.description ?? "Premium baza wiedzy HVAC/OZE.";
-    return {
-      meta: [
-        { title },
-        { name: "description", content: desc },
-        { property: "og:title", content: title },
-        { property: "og:description", content: desc },
+    return buildMeta({
+      title: `${cat?.name ?? "Wiedza"} — Knowledge Hub`,
+      description: cat?.description ?? "Premium baza wiedzy HVAC/OZE.",
+      path: `/wiedza/${params.category}`,
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Strefa Wiedzy", url: `${SITE.url}/wiedza` },
+          {
+            name: cat?.name ?? params.category,
+            url: `${SITE.url}/wiedza/${params.category}`,
+          },
+        ]),
       ],
-    };
+    });
   },
   component: CategoryPage,
 });

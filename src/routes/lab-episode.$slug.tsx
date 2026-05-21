@@ -17,32 +17,44 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
+
 export const Route = createFileRoute("/lab-episode/$slug")({
   head: ({ params }) => {
     const v = findLabVideo(params.slug);
-    return {
-      meta: [
-        {
-          title: v
-            ? `${v.title} — Soltimus Lab · Engineering TV`
-            : "Soltimus Lab",
-        },
-        {
-          name: "description",
-          content:
-            v?.description ??
-            "Soltimus Lab — inżynierska platforma wideo o pompach ciepła i OZE.",
-        },
-        {
-          property: "og:title",
-          content: v ? `${v.title} — Soltimus Lab` : "Soltimus Lab",
-        },
-        {
-          property: "og:description",
-          content: v?.description ?? "",
-        },
+    return buildMeta({
+      title: v ? `${v.title} — Soltimus Lab` : "Soltimus Lab",
+      description:
+        v?.description ??
+        "Soltimus Lab — inżynierska platforma wideo o pompach ciepła i OZE.",
+      path: `/lab-episode/${params.slug}`,
+      type: "video.other",
+      image: v?.thumbnail,
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Soltimus Lab", url: `${SITE.url}/lab` },
+          {
+            name: v?.shortTitle || v?.title || params.slug,
+            url: `${SITE.url}/lab-episode/${params.slug}`,
+          },
+        ]),
+        ...(v
+          ? [
+              {
+                "@context": "https://schema.org",
+                "@type": "VideoObject",
+                name: v.title,
+                description: v.description,
+                thumbnailUrl: v.thumbnail,
+                uploadDate: v.publishedAt ?? new Date().toISOString().slice(0, 10),
+              } as Record<string, unknown>,
+            ]
+          : []),
       ],
-    };
+    });
   },
   component: LabEpisodePage,
 });

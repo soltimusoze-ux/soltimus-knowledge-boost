@@ -27,6 +27,10 @@ import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import { CategoryIcon } from "@/components/knowledge/CategoryIcon";
 import { RelatedVideos } from "@/components/knowledge/RelatedVideos";
 
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
+
 // Map WordPress slugs → rich static articles in code.
 const STATIC_ARTICLE_REDIRECTS: Record<string, string> = {
   "gruntowa-pompa-ciepla-jak-dziala-ile-kosztuje-i-czy-ma-wady-kompletny-przewodnik":
@@ -39,16 +43,31 @@ export const Route = createFileRoute("/wiedza/$category/$slug")({
     const target = STATIC_ARTICLE_REDIRECTS[params.slug];
     if (target) throw redirect({ to: target, replace: true });
   },
-  head: ({ params }) => ({
-    meta: [
-      { title: `${decodeURIComponent(params.slug).replace(/-/g, " ")} — Soltimus Knowledge Hub` },
-      {
-        name: "description",
-        content:
-          "Pogłębiona analiza inżynierska Soltimus — pompy ciepła, fotowoltaika, magazyny energii.",
-      },
-    ],
-  }),
+  head: ({ params }) => {
+    const cat = categoryBySlug(params.category);
+    const title = decodeURIComponent(params.slug).replace(/-/g, " ");
+    return buildMeta({
+      title,
+      description:
+        "Pogłębiona analiza inżynierska Soltimus — pompy ciepła, fotowoltaika, magazyny energii.",
+      path: `/wiedza/${params.category}/${params.slug}`,
+      type: "article",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Strefa Wiedzy", url: `${SITE.url}/wiedza` },
+          {
+            name: cat?.name ?? params.category,
+            url: `${SITE.url}/wiedza/${params.category}`,
+          },
+          {
+            name: title,
+            url: `${SITE.url}/wiedza/${params.category}/${params.slug}`,
+          },
+        ]),
+      ],
+    });
+  },
   component: ArticlePage,
 });
 

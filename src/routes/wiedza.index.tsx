@@ -14,6 +14,9 @@ import {
 import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import { CategoryIcon } from "@/components/knowledge/CategoryIcon";
 import gruntowaPompaHero from "@/assets/gruntowa-pompa-hero.jpg";
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
 
 const IMAGE_OVERRIDES: Record<string, string> = {
   "gruntowa-pompa-ciepla-jak-dziala-ile-kosztuje-i-czy-ma-wady-kompletny-przewodnik":
@@ -25,25 +28,20 @@ function postImage(post: any): string {
 }
 
 export const Route = createFileRoute("/wiedza/")({
-  head: () => ({
-    meta: [
-      {
-        title:
-          "Knowledge Hub — Soltimus | Inżynierska wiedza o pompach ciepła, PV i magazynach energii",
-      },
-      {
-        name: "description",
-        content:
-          "Premium baza wiedzy HVAC/OZE: pompy ciepła, fotowoltaika, magazyny energii, dotacje, hydraulika, Engineering Lab. Pisane przez inżynierów Soltimus.",
-      },
-      { property: "og:title", content: "Soltimus Knowledge Hub" },
-      {
-        property: "og:description",
-        content:
-          "Inżynierska wiedza o pompach ciepła, fotowoltaice i magazynach energii — bez marketingu, z liczbami z realnych instalacji.",
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title:
+        "Knowledge Hub — inżynierska wiedza o pompach ciepła, PV i magazynach energii",
+      description:
+        "Premium baza wiedzy HVAC/OZE: pompy ciepła, fotowoltaika, magazyny energii, dotacje, hydraulika, Engineering Lab. Pisane przez inżynierów Soltimus.",
+      path: "/wiedza",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Strefa Wiedzy", url: `${SITE.url}/wiedza` },
+        ]),
+      ],
+    }),
   component: WiedzaIndex,
 });
 
