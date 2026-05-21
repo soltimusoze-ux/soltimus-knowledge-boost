@@ -2,13 +2,13 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Thermometer,
   Sun,
-  Battery,
   Wind,
   Layers,
   Wrench,
   ArrowRight,
   CheckCircle2,
 } from "lucide-react";
+
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { COMPANY } from "@/lib/company";
