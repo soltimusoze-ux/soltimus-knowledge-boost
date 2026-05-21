@@ -91,9 +91,18 @@ function CaseStudyPage() {
   const c = getCase(slug)!;
   const related = getRelatedCases(c, 3);
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [slug]);
+
   return (
-    <main className="min-h-screen bg-white text-[#0E0E10]">
+    <main key={slug} className="min-h-screen bg-white text-[#0E0E10]">
       <SiteHeader variant="solid" />
+      {import.meta.env.DEV ? (
+        <div className="fixed bottom-2 right-2 z-50 rounded bg-black/80 px-2 py-1 text-[10px] font-mono text-white">
+          case: {slug}
+        </div>
+      ) : null}
       <CaseHero c={c} />
       <CaseMetrics items={c.metrics} />
       <CaseOverview c={c} />
