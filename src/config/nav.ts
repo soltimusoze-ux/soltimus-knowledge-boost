@@ -16,8 +16,8 @@ export const PRIMARY_NAV: ReadonlyArray<NavItem> = [
   { label: "Start", to: "/" },
   { label: "Oferta", to: "/oferta" },
   { label: "Realizacje", to: "/realizacje" },
-  { label: "Zespół", to: "/zespol" },
   { label: "Strefa Wiedzy", to: "/wiedza" },
+  { label: "Eksperci", to: "/zespol" },
   { label: "Kontakt", to: "/kontakt" },
 ];
 

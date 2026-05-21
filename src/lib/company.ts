@@ -65,8 +65,7 @@ export const NAV_ITEMS = [
   { label: "Start", to: "/" as const },
   { label: "Oferta", to: "/oferta" as const },
   { label: "Realizacje", to: "/realizacje" as const },
-  { label: "Kalkulator", to: "/kalkulator-pompy-ciepla" as const },
-  { label: "Zespół", to: "/zespol" as const },
   { label: "Strefa Wiedzy", to: "/wiedza" as const },
+  { label: "Eksperci", to: "/zespol" as const },
   { label: "Kontakt", to: "/kontakt" as const },
 ];

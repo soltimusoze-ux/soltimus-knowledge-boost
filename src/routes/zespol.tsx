@@ -12,15 +12,15 @@ import { SITE } from "@/config/site";
 export const Route = createFileRoute("/zespol")({
   head: () =>
     buildMeta({
-      title: "Zespół — inżynierowie i eksperci",
+      title: "Eksperci — inżynierowie i doradcy techniczni",
       description:
-        "Realni inżynierowie i specjaliści Soltimus — projektujemy nowoczesne systemy HVAC, pompy ciepła i instalacje OZE.",
+        "Eksperci Soltimus — inżynierowie Politechniki Warszawskiej i certyfikowani specjaliści HVAC, pomp ciepła i instalacji OZE.",
       path: "/zespol",
       image: bartoszImg,
       jsonLd: [
         breadcrumbSchema([
           { name: "Start", url: `${SITE.url}/` },
-          { name: "Zespół", url: `${SITE.url}/zespol` },
+          { name: "Eksperci", url: `${SITE.url}/zespol` },
         ]),
       ],
     }),
@@ -128,7 +128,7 @@ function ZespolPage() {
           <Link to="/" className="hover:text-neutral-100 transition-colors">
             ← Soltimus
           </Link>
-          <span className="hidden sm:inline">Zespół · Eksperci</span>
+          <span className="hidden sm:inline">Eksperci · Doradcy techniczni</span>
         </div>
       </div>
 
