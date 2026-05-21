@@ -24,13 +24,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as RealizacjeSlugRouteImport } from './routes/realizacje.$slug'
-import { Route as OfertaPompyCieplaRouteImport } from './routes/oferta.pompy-ciepla'
 import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
 import { Route as OfertaServiceRouteImport } from './routes/oferta.$service'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
-import { Route as OfertaPompyCieplaTypeRouteImport } from './routes/oferta.pompy-ciepla.$type'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
 import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
@@ -120,11 +118,6 @@ const RealizacjeSlugRoute = RealizacjeSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => RealizacjeRoute,
 } as any)
-const OfertaPompyCieplaRoute = OfertaPompyCieplaRouteImport.update({
-  id: '/pompy-ciepla',
-  path: '/pompy-ciepla',
-  getParentRoute: () => OfertaRoute,
-} as any)
 const OfertaEnergiaRoute = OfertaEnergiaRouteImport.update({
   id: '/energia',
   path: '/energia',
@@ -149,11 +142,6 @@ const WiedzaCategorySlugRoute = WiedzaCategorySlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => WiedzaCategoryRoute,
-} as any)
-const OfertaPompyCieplaTypeRoute = OfertaPompyCieplaTypeRouteImport.update({
-  id: '/$type',
-  path: '/$type',
-  getParentRoute: () => OfertaPompyCieplaRoute,
 } as any)
 const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   id: '/api/public/contact',
@@ -254,7 +242,6 @@ export interface FileRoutesByFullPath {
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
-  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRouteWithChildren
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -263,7 +250,6 @@ export interface FileRoutesByFullPath {
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
-  '/oferta/pompy-ciepla/$type': typeof OfertaPompyCieplaTypeRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
@@ -291,7 +277,6 @@ export interface FileRoutesByTo {
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
-  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRouteWithChildren
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza': typeof WiedzaIndexRoute
@@ -299,7 +284,6 @@ export interface FileRoutesByTo {
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
-  '/oferta/pompy-ciepla/$type': typeof OfertaPompyCieplaTypeRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
@@ -329,7 +313,6 @@ export interface FileRoutesById {
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
-  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRouteWithChildren
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -338,7 +321,6 @@ export interface FileRoutesById {
   '/_authenticated/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
-  '/oferta/pompy-ciepla/$type': typeof OfertaPompyCieplaTypeRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
@@ -368,7 +350,6 @@ export interface FileRouteTypes {
     | '/lab-episode/$slug'
     | '/oferta/$service'
     | '/oferta/energia'
-    | '/oferta/pompy-ciepla'
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
@@ -377,7 +358,6 @@ export interface FileRouteTypes {
     | '/admin/new-pdf'
     | '/admin/new-video'
     | '/api/public/contact'
-    | '/oferta/pompy-ciepla/$type'
     | '/wiedza/$category/$slug'
     | '/admin/'
     | '/admin/editorial/articles'
@@ -405,7 +385,6 @@ export interface FileRouteTypes {
     | '/lab-episode/$slug'
     | '/oferta/$service'
     | '/oferta/energia'
-    | '/oferta/pompy-ciepla'
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza'
@@ -413,7 +392,6 @@ export interface FileRouteTypes {
     | '/admin/new-pdf'
     | '/admin/new-video'
     | '/api/public/contact'
-    | '/oferta/pompy-ciepla/$type'
     | '/wiedza/$category/$slug'
     | '/admin'
     | '/admin/editorial/articles'
@@ -442,7 +420,6 @@ export interface FileRouteTypes {
     | '/lab-episode/$slug'
     | '/oferta/$service'
     | '/oferta/energia'
-    | '/oferta/pompy-ciepla'
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
@@ -451,7 +428,6 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/new-pdf'
     | '/_authenticated/admin/new-video'
     | '/api/public/contact'
-    | '/oferta/pompy-ciepla/$type'
     | '/wiedza/$category/$slug'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/editorial/articles'
@@ -591,13 +567,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RealizacjeSlugRouteImport
       parentRoute: typeof RealizacjeRoute
     }
-    '/oferta/pompy-ciepla': {
-      id: '/oferta/pompy-ciepla'
-      path: '/pompy-ciepla'
-      fullPath: '/oferta/pompy-ciepla'
-      preLoaderRoute: typeof OfertaPompyCieplaRouteImport
-      parentRoute: typeof OfertaRoute
-    }
     '/oferta/energia': {
       id: '/oferta/energia'
       path: '/energia'
@@ -632,13 +601,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/wiedza/$category/$slug'
       preLoaderRoute: typeof WiedzaCategorySlugRouteImport
       parentRoute: typeof WiedzaCategoryRoute
-    }
-    '/oferta/pompy-ciepla/$type': {
-      id: '/oferta/pompy-ciepla/$type'
-      path: '/$type'
-      fullPath: '/oferta/pompy-ciepla/$type'
-      preLoaderRoute: typeof OfertaPompyCieplaTypeRouteImport
-      parentRoute: typeof OfertaPompyCieplaRoute
     }
     '/api/public/contact': {
       id: '/api/public/contact'
@@ -824,27 +786,14 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
-interface OfertaPompyCieplaRouteChildren {
-  OfertaPompyCieplaTypeRoute: typeof OfertaPompyCieplaTypeRoute
-}
-
-const OfertaPompyCieplaRouteChildren: OfertaPompyCieplaRouteChildren = {
-  OfertaPompyCieplaTypeRoute: OfertaPompyCieplaTypeRoute,
-}
-
-const OfertaPompyCieplaRouteWithChildren =
-  OfertaPompyCieplaRoute._addFileChildren(OfertaPompyCieplaRouteChildren)
-
 interface OfertaRouteChildren {
   OfertaServiceRoute: typeof OfertaServiceRoute
   OfertaEnergiaRoute: typeof OfertaEnergiaRoute
-  OfertaPompyCieplaRoute: typeof OfertaPompyCieplaRouteWithChildren
 }
 
 const OfertaRouteChildren: OfertaRouteChildren = {
   OfertaServiceRoute: OfertaServiceRoute,
   OfertaEnergiaRoute: OfertaEnergiaRoute,
-  OfertaPompyCieplaRoute: OfertaPompyCieplaRouteWithChildren,
 }
 
 const OfertaRouteWithChildren =
