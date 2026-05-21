@@ -62,13 +62,24 @@ const SERVICES = [
 
   {
     icon: Wind,
-    title: "Rekuperacja",
-    lead: "Świeże powietrze przez cały rok.",
+    title: "Rekuperacja i klimatyzacja",
+    lead: "Świeże powietrze i komfort termiczny przez cały rok.",
     points: [
       "Wentylacja z odzyskiem ciepła",
       "Filtracja PM2.5 / HEPA",
-      "Projekt kanałów i nawiewników",
-      "Cisza klasy premium",
+      "Klimatyzacja Daikin — multi-split i kanałowa",
+      "Cisza i komfort klasy premium",
+    ],
+  },
+  {
+    icon: ClipboardCheck,
+    title: "Audyty energetyczne",
+    lead: "Inżynierska diagnoza budynku przed inwestycją.",
+    points: [
+      "Audyt energetyczny i OZC",
+      "Badanie kamerą termowizyjną",
+      "Plan modernizacji etapowej",
+      "Dokumentacja pod dofinansowania",
     ],
   },
   {
