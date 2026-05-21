@@ -89,9 +89,7 @@ export function HomepageTeamSection() {
           {featured.map((m, i) => (
             <figure
               key={m.name}
-              className={`soltimus-rise group ${
-                i === 0 ? "md:col-span-7 md:mt-0" : "md:col-span-5 md:mt-20"
-              }`}
+              className="soltimus-rise group md:col-span-6"
               style={{ animationDelay: `${200 + i * 120}ms` }}
             >
               <div className="soltimus-portrait relative overflow-hidden aspect-[4/5] ring-1 ring-white/10">
