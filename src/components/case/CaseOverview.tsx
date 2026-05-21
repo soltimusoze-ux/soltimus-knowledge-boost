@@ -17,20 +17,24 @@ export function CaseOverview({ c }: { c: CaseStudy }) {
             Co dostaliśmy w punkcie zero.
           </h2>
           <dl className="mt-8 divide-y divide-black/10 rounded-2xl border border-black/10 bg-white">
-            {[
-              ["Typ obiektu", b.type],
-              ["Powierzchnia", `${b.area_m2} m²`],
-              b.floors ? ["Kondygnacje", String(b.floors)] : null,
-              b.year ? ["Rok budowy", String(b.year)] : null,
-              b.occupants ? ["Domownicy", String(b.occupants)] : null,
-              b.insulation ? ["Izolacja", b.insulation] : null,
-              b.previousHeating ? ["Poprzednie ogrzewanie", b.previousHeating] : null,
-              ["Lokalizacja", `${c.location.city}, ${c.location.region}`],
-            ]
-              .filter(Boolean)
+            {(
+              [
+                ["Typ obiektu", b.type],
+                ["Powierzchnia", `${b.area_m2} m²`],
+                b.floors ? ["Kondygnacje", String(b.floors)] : null,
+                b.year ? ["Rok budowy", String(b.year)] : null,
+                b.occupants ? ["Domownicy", String(b.occupants)] : null,
+                b.insulation ? ["Izolacja", b.insulation] : null,
+                b.previousHeating
+                  ? ["Poprzednie ogrzewanie", b.previousHeating]
+                  : null,
+                ["Lokalizacja", `${c.location.city}, ${c.location.region}`],
+              ] as Array<[string, string] | null>
+            )
+              .filter((r): r is [string, string] => r !== null)
               .map(([k, v]) => (
                 <div
-                  key={k as string}
+                  key={k}
                   className="flex items-baseline justify-between gap-6 px-5 py-4 md:px-6"
                 >
                   <dt className="text-xs uppercase tracking-[0.18em] text-black/50">
@@ -42,6 +46,7 @@ export function CaseOverview({ c }: { c: CaseStudy }) {
                 </div>
               ))}
           </dl>
+
         </div>
 
         <div className="lg:col-span-7">
