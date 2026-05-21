@@ -49,9 +49,9 @@ import {
   HelpCircle,
   GitCompare,
   Layers,
-  }),
-  component: PremiumHome,
-});
+  FileText,
+} from "lucide-react";
+
 
 const GOLD = "#F5B800";
 const BLUE = "#0089CF";
