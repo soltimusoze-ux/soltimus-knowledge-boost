@@ -34,25 +34,26 @@ import {
 } from "@/lib/heat-pump-calc";
 import { submitHeatPumpLead } from "@/lib/heat-pump-lead.functions";
 import { COMPANY } from "@/lib/company";
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
 
 const ACCENT = "#F6B800";
 
 export const Route = createFileRoute("/kalkulator-pompy-ciepla")({
-  head: () => ({
-    meta: [
-      { title: "Kalkulator doboru pompy ciepła Daikin — Soltimus" },
-      {
-        name: "description",
-        content:
-          "Orientacyjny dobór pompy ciepła Daikin Altherma w 60 sekund: moc, model, szacunkowa cena brutto z montażem.",
-      },
-      { property: "og:title", content: "Kalkulator doboru pompy ciepła Daikin — Soltimus" },
-      {
-        property: "og:description",
-        content: "Dobierz pompę ciepła Daikin Altherma i otrzymaj orientacyjną wycenę brutto z montażem.",
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: "Kalkulator doboru pompy ciepła Daikin",
+      description:
+        "Orientacyjny dobór pompy ciepła Daikin Altherma w 60 sekund: moc, model, szacunkowa cena brutto z montażem.",
+      path: "/kalkulator-pompy-ciepla",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Kalkulator pompy ciepła", url: `${SITE.url}/kalkulator-pompy-ciepla` },
+        ]),
+      ],
+    }),
   component: CalculatorPage,
 });
 

@@ -12,7 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZespolRouteImport } from './routes/zespol'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RealizacjeRouteImport } from './routes/realizacje'
-import { Route as PremiumRouteImport } from './routes/premium'
+import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as PolitykaCookiesRouteImport } from './routes/polityka-cookies'
 import { Route as OfertaRouteImport } from './routes/oferta'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
@@ -49,9 +50,14 @@ const RealizacjeRoute = RealizacjeRouteImport.update({
   path: '/realizacje',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PremiumRoute = PremiumRouteImport.update({
-  id: '/premium',
-  path: '/premium',
+const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
+  id: '/polityka-prywatnosci',
+  path: '/polityka-prywatnosci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolitykaCookiesRoute = PolitykaCookiesRouteImport.update({
+  id: '/polityka-cookies',
+  path: '/polityka-cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OfertaRoute = OfertaRouteImport.update({
@@ -167,7 +173,8 @@ export interface FileRoutesByFullPath {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
-  '/premium': typeof PremiumRoute
+  '/polityka-cookies': typeof PolitykaCookiesRoute
+  '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -192,7 +199,8 @@ export interface FileRoutesByTo {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
-  '/premium': typeof PremiumRoute
+  '/polityka-cookies': typeof PolitykaCookiesRoute
+  '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -219,7 +227,8 @@ export interface FileRoutesById {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
-  '/premium': typeof PremiumRoute
+  '/polityka-cookies': typeof PolitykaCookiesRoute
+  '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -246,7 +255,8 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
-    | '/premium'
+    | '/polityka-cookies'
+    | '/polityka-prywatnosci'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -271,7 +281,8 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
-    | '/premium'
+    | '/polityka-cookies'
+    | '/polityka-prywatnosci'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -297,7 +308,8 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
-    | '/premium'
+    | '/polityka-cookies'
+    | '/polityka-prywatnosci'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -324,7 +336,8 @@ export interface RootRouteChildren {
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
   OfertaRoute: typeof OfertaRouteWithChildren
-  PremiumRoute: typeof PremiumRoute
+  PolitykaCookiesRoute: typeof PolitykaCookiesRoute
+  PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   RealizacjeRoute: typeof RealizacjeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ZespolRoute: typeof ZespolRoute
@@ -360,11 +373,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RealizacjeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/premium': {
-      id: '/premium'
-      path: '/premium'
-      fullPath: '/premium'
-      preLoaderRoute: typeof PremiumRouteImport
+    '/polityka-prywatnosci': {
+      id: '/polityka-prywatnosci'
+      path: '/polityka-prywatnosci'
+      fullPath: '/polityka-prywatnosci'
+      preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/polityka-cookies': {
+      id: '/polityka-cookies'
+      path: '/polityka-cookies'
+      fullPath: '/polityka-cookies'
+      preLoaderRoute: typeof PolitykaCookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/oferta': {
@@ -559,7 +579,8 @@ const rootRouteChildren: RootRouteChildren = {
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
   OfertaRoute: OfertaRouteWithChildren,
-  PremiumRoute: PremiumRoute,
+  PolitykaCookiesRoute: PolitykaCookiesRoute,
+  PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   RealizacjeRoute: RealizacjeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ZespolRoute: ZespolRoute,

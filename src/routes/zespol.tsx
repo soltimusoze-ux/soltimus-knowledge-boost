@@ -5,25 +5,25 @@ import konradImg from "@/assets/team-konrad.jpg";
 import izaImg from "@/assets/team-iza.jpg";
 import karolinaImg from "@/assets/team-karolina.jpg";
 import { HomepageTeamSection } from "@/components/team/HomepageTeamSection";
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
 
 export const Route = createFileRoute("/zespol")({
-  head: () => ({
-    meta: [
-      { title: "Zespół Soltimus — Inżynierowie i eksperci" },
-      {
-        name: "description",
-        content:
-          "Realni inżynierowie i specjaliści Soltimus — projektujemy nowoczesne systemy HVAC, pompy ciepła i instalacje OZE.",
-      },
-      { property: "og:title", content: "Zespół Soltimus — Inżynierowie i eksperci" },
-      {
-        property: "og:description",
-        content:
-          "Realni inżynierowie i specjaliści stojący za nowoczesnymi instalacjami HVAC oraz OZE.",
-      },
-      { property: "og:image", content: bartoszImg },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: "Zespół — inżynierowie i eksperci",
+      description:
+        "Realni inżynierowie i specjaliści Soltimus — projektujemy nowoczesne systemy HVAC, pompy ciepła i instalacje OZE.",
+      path: "/zespol",
+      image: bartoszImg,
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Zespół", url: `${SITE.url}/zespol` },
+        ]),
+      ],
+    }),
   component: ZespolPage,
 });
 

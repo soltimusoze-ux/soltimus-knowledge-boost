@@ -12,24 +12,24 @@ import {
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { COMPANY } from "@/lib/company";
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
 
 export const Route = createFileRoute("/oferta")({
-  head: () => ({
-    meta: [
-      { title: "Oferta — Soltimus | Pompy ciepła, fotowoltaika, magazyny energii" },
-      {
-        name: "description",
-        content:
-          "Kompleksowe systemy energii dla domu: pompy ciepła, fotowoltaika, magazyny energii, rekuperacja i termomodernizacja. Projekt, montaż, serwis.",
-      },
-      { property: "og:title", content: "Oferta — Soltimus" },
-      {
-        property: "og:description",
-        content:
-          "Nowoczesne systemy ogrzewania, energii i komfortu — projekt, montaż, serwis.",
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: "Oferta — pompy ciepła, fotowoltaika, magazyny energii",
+      description:
+        "Kompleksowe systemy energii dla domu: pompy ciepła, fotowoltaika, magazyny energii, rekuperacja i termomodernizacja. Projekt, montaż, serwis.",
+      path: "/oferta",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Oferta", url: `${SITE.url}/oferta` },
+        ]),
+      ],
+    }),
   component: OfertaPage,
 });
 

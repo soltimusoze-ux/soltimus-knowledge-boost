@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import bartoszImg from "@/assets/team-bartosz.jpg";
 import jarekImg from "@/assets/team-jarek.jpg";
 import konradImg from "@/assets/team-konrad.jpg";
@@ -52,19 +52,6 @@ import {
   FileText,
 } from "lucide-react";
 
-export const Route = createFileRoute("/premium")({
-  head: () => ({
-    meta: [
-      { title: "Soltimus — Nowoczesne systemy energii i komfortu" },
-      {
-        name: "description",
-        content:
-          "Soltimus projektuje i instaluje pompy ciepła, fotowoltaikę, magazyny energii i rekuperację. Autoryzowany Partner Daikin.",
-      },
-    ],
-  }),
-  component: PremiumHome,
-});
 
 const GOLD = "#F5B800";
 const BLUE = "#0089CF";

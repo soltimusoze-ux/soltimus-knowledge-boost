@@ -14,28 +14,28 @@ import {
 import { COMPANY } from "@/lib/company";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
 import heroImg from "@/assets/team-konrad.jpg";
 import trustImg from "@/assets/team-jarek.jpg";
 
 const CONTACT_EMAIL = "zapytania@soltimus.pl";
 
 export const Route = createFileRoute("/kontakt")({
-  head: () => ({
-    meta: [
-      { title: "Kontakt — Soltimus | Umów konsultację techniczną" },
-      {
-        name: "description",
-        content:
-          "Porozmawiaj z zespołem inżynierów Soltimus — pompy ciepła, fotowoltaika, magazyny energii, rekuperacja. Garwolin, tel. +48 500 350 150.",
-      },
-      { property: "og:title", content: "Kontakt — Soltimus" },
-      {
-        property: "og:description",
-        content:
-          "Konsultacja techniczna z zespołem Soltimus. Realni doradcy, realne projekty, realne rozwiązania.",
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: "Kontakt — umów konsultację techniczną",
+      description:
+        "Porozmawiaj z zespołem inżynierów Soltimus — pompy ciepła, fotowoltaika, magazyny energii, rekuperacja. Garwolin, tel. +48 500 350 150.",
+      path: "/kontakt",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Kontakt", url: `${SITE.url}/kontakt` },
+        ]),
+      ],
+    }),
   component: KontaktPage,
 });
 

@@ -24,26 +24,24 @@ import {
   type PlayableVideo,
 } from "@/components/knowledge/VideoPlayerModal";
 
+import { buildMeta } from "@/config/seo";
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
+
 export const Route = createFileRoute("/lab")({
-  head: () => ({
-    meta: [
-      {
-        title:
-          "Soltimus Lab — Engineering TV | Cinematic wiedza o pompach ciepła i OZE",
-      },
-      {
-        name: "description",
-        content:
-          "Soltimus Lab to inżynierska platforma wideo: Engineering Lab, HVAC Myths, Premium Case Studies i Expert Answers. Pomiary, fizyka, realne instalacje.",
-      },
-      { property: "og:title", content: "Soltimus Lab — Engineering TV" },
-      {
-        property: "og:description",
-        content:
-          "Premium video platform Soltimus: eksperymenty inżynierskie, mity HVAC obalane danymi, case studies z liczbami przed/po.",
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: "Soltimus Lab — Engineering TV",
+      description:
+        "Soltimus Lab to inżynierska platforma wideo: Engineering Lab, HVAC Myths, Premium Case Studies i Expert Answers. Pomiary, fizyka, realne instalacje.",
+      path: "/lab",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Soltimus Lab", url: `${SITE.url}/lab` },
+        ]),
+      ],
+    }),
   component: LabPage,
 });
 

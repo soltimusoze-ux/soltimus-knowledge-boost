@@ -10,7 +10,7 @@ import {
 
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/sonner";
-import { RecommendedProductsStrip } from "@/components/heat-pump/RecommendedProducts";
+import { CookieConsent } from "@/components/site/CookieConsent";
 import { SITE } from "@/config/site";
 import { organizationSchema, websiteSchema } from "@/lib/jsonld";
 import appCss from "../styles.css?url";
@@ -125,7 +125,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <Outlet />
-        <RecommendedProductsStrip />
+        <CookieConsent />
         <Toaster richColors position="top-right" />
       </AuthProvider>
     </QueryClientProvider>

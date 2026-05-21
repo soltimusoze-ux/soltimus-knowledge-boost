@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PremiumHome } from "./premium";
+import { PremiumHome } from "@/components/home/PremiumHome";
 import { buildMeta } from "@/config/seo";
 import { SITE } from "@/config/site";
 

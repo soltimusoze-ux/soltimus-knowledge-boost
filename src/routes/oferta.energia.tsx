@@ -15,6 +15,9 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { COMPANY } from "@/lib/company";
 import { buildMeta } from "@/config/seo";
 
+import { breadcrumbSchema } from "@/lib/jsonld";
+import { SITE } from "@/config/site";
+
 export const Route = createFileRoute("/oferta/energia")({
   head: () =>
     buildMeta({
@@ -22,6 +25,13 @@ export const Route = createFileRoute("/oferta/energia")({
       description:
         "Fotowoltaika premium, magazyny energii Sigenergy, taryfa dynamiczna PSTRYK, elektromobilność. Kompletny system zarządzania energią dla Twojego domu.",
       path: "/oferta/energia",
+      jsonLd: [
+        breadcrumbSchema([
+          { name: "Start", url: `${SITE.url}/` },
+          { name: "Oferta", url: `${SITE.url}/oferta` },
+          { name: "Energia", url: `${SITE.url}/oferta/energia` },
+        ]),
+      ],
     }),
   component: EnergiaPage,
 });
