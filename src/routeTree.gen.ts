@@ -30,6 +30,7 @@ import { Route as OfertaServiceRouteImport } from './routes/oferta.$service'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
+import { Route as OfertaPompyCieplaTypeRouteImport } from './routes/oferta.pompy-ciepla.$type'
 import { Route as ApiPublicContactRouteImport } from './routes/api/public/contact'
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
 import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
@@ -149,6 +150,11 @@ const WiedzaCategorySlugRoute = WiedzaCategorySlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => WiedzaCategoryRoute,
 } as any)
+const OfertaPompyCieplaTypeRoute = OfertaPompyCieplaTypeRouteImport.update({
+  id: '/$type',
+  path: '/$type',
+  getParentRoute: () => OfertaPompyCieplaRoute,
+} as any)
 const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   id: '/api/public/contact',
   path: '/api/public/contact',
@@ -248,7 +254,7 @@ export interface FileRoutesByFullPath {
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
-  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRoute
+  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRouteWithChildren
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -257,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
+  '/oferta/pompy-ciepla/$type': typeof OfertaPompyCieplaTypeRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
@@ -284,7 +291,7 @@ export interface FileRoutesByTo {
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
-  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRoute
+  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRouteWithChildren
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza': typeof WiedzaIndexRoute
@@ -292,6 +299,7 @@ export interface FileRoutesByTo {
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
+  '/oferta/pompy-ciepla/$type': typeof OfertaPompyCieplaTypeRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
@@ -321,7 +329,7 @@ export interface FileRoutesById {
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
-  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRoute
+  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRouteWithChildren
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
@@ -330,6 +338,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
+  '/oferta/pompy-ciepla/$type': typeof OfertaPompyCieplaTypeRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
@@ -368,6 +377,7 @@ export interface FileRouteTypes {
     | '/admin/new-pdf'
     | '/admin/new-video'
     | '/api/public/contact'
+    | '/oferta/pompy-ciepla/$type'
     | '/wiedza/$category/$slug'
     | '/admin/'
     | '/admin/editorial/articles'
@@ -403,6 +413,7 @@ export interface FileRouteTypes {
     | '/admin/new-pdf'
     | '/admin/new-video'
     | '/api/public/contact'
+    | '/oferta/pompy-ciepla/$type'
     | '/wiedza/$category/$slug'
     | '/admin'
     | '/admin/editorial/articles'
@@ -440,6 +451,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/new-pdf'
     | '/_authenticated/admin/new-video'
     | '/api/public/contact'
+    | '/oferta/pompy-ciepla/$type'
     | '/wiedza/$category/$slug'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/editorial/articles'
@@ -620,6 +632,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/wiedza/$category/$slug'
       preLoaderRoute: typeof WiedzaCategorySlugRouteImport
       parentRoute: typeof WiedzaCategoryRoute
+    }
+    '/oferta/pompy-ciepla/$type': {
+      id: '/oferta/pompy-ciepla/$type'
+      path: '/$type'
+      fullPath: '/oferta/pompy-ciepla/$type'
+      preLoaderRoute: typeof OfertaPompyCieplaTypeRouteImport
+      parentRoute: typeof OfertaPompyCieplaRoute
     }
     '/api/public/contact': {
       id: '/api/public/contact'
@@ -805,16 +824,27 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface OfertaPompyCieplaRouteChildren {
+  OfertaPompyCieplaTypeRoute: typeof OfertaPompyCieplaTypeRoute
+}
+
+const OfertaPompyCieplaRouteChildren: OfertaPompyCieplaRouteChildren = {
+  OfertaPompyCieplaTypeRoute: OfertaPompyCieplaTypeRoute,
+}
+
+const OfertaPompyCieplaRouteWithChildren =
+  OfertaPompyCieplaRoute._addFileChildren(OfertaPompyCieplaRouteChildren)
+
 interface OfertaRouteChildren {
   OfertaServiceRoute: typeof OfertaServiceRoute
   OfertaEnergiaRoute: typeof OfertaEnergiaRoute
-  OfertaPompyCieplaRoute: typeof OfertaPompyCieplaRoute
+  OfertaPompyCieplaRoute: typeof OfertaPompyCieplaRouteWithChildren
 }
 
 const OfertaRouteChildren: OfertaRouteChildren = {
   OfertaServiceRoute: OfertaServiceRoute,
   OfertaEnergiaRoute: OfertaEnergiaRoute,
-  OfertaPompyCieplaRoute: OfertaPompyCieplaRoute,
+  OfertaPompyCieplaRoute: OfertaPompyCieplaRouteWithChildren,
 }
 
 const OfertaRouteWithChildren =
