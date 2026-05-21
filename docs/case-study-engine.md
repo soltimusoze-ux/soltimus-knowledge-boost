@@ -243,6 +243,100 @@ These are now the house rules for every future flagship:
   without consent for full disclosure: "Właściciel obiektu" + region
   level location ("Mazowsze"), never city + street.
 
+## Phase 3C — Infrastructure-scale & human-centered flagships
+
+Two more flagships extended the engine into axes the first three did not
+cover: community-scale infrastructure and human-centered modernization
+with public funding.
+
+- **Osiedle 252 mieszkań · pompy gruntowe + 12 km odwiertów**
+  (`kompleksowa/osiedle-252-mieszkania-pompy-gruntowe`)
+  — całkowita transformacja źródła ciepła dla wspólnoty po przymusowym
+  odłączeniu od sieci zakładu przemysłowego. Axis: utrata dostawcy →
+  audyt + bilans EED → 120 odwiertów × 100 m → kaskada N+1 → 6
+  niezależnych węzłów → dokumentacja Grant OZE (50% netto).
+- **Dom z lat 70. · głęboka termomodernizacja + Daikin + PV**
+  (`termomodernizacja/dom-lat-70-gleboka-termomodernizacja`)
+  — modernizacja dla 80-letniego właściciela. Axis: ocieplenie koperty
+  → dobór pompy pod nowe (niższe) zapotrzebowanie → modernizacja
+  grzejników pod 45–55 °C → PV → „Czyste Powietrze" 70%.
+
+### New storytelling patterns introduced
+
+1. **Infrastructure-scale spine.** Studies obejmujące wiele budynków lub
+   całą społeczność dodają piąty wymiar do `approach` (redundancja,
+   bilans 25-letni, rozdzielona dystrybucja). `building` jest używane
+   jako profil zbioru obiektów, nie pojedynczego domu — pole `occupants`
+   wówczas oznacza populację, nie domowników.
+2. **Funding decyzja jako jeden z kroków `approach`.** Dokumentacja pod
+   program dofinansowania (Grant OZE, Czyste Powietrze) prowadzona jest
+   równolegle z projektem technicznym i opisywana jako osobna decyzja
+   inżynierska — nie marketingowy dopisek. Bez tego traci się dostęp do
+   programu lub wydłuża projekt o miesiące.
+3. **Human-centered framing bez sentymentu.** Komfort właściciela
+   wyrażony przez metryki operacyjne ("0 codziennych czynności obsługi",
+   "brak otwartego ognia", "stabilność temperatury"), nie przez emocje.
+   To samo źródło E-E-A-T co inżynierskie pull-quotes.
+4. **Bezpieczeństwo jako oddzielny wiersz `beforeAfter`.** W projektach
+   wymagających modernizacji elektryki, c.o. lub źródła ciepła starszej
+   generacji bezpieczeństwo (brak czadu, RCD, brak ryzyka pożaru sadzy)
+   staje się jednym z mierzalnych wierszy tabeli — nie tłem.
+
+### Infrastructure-scale case study standards
+
+- Pole odwiertów / dolne źródło opisuj jako **infrastrukturę**, nie
+  urządzenie. Zawsze podaj długość łączną, liczbę odwiertów i horyzont
+  bilansu cieplnego (typowo 25 lat).
+- Architektura źródła musi nazwać **redundancję** (N+1) i **rozdzielenie
+  dystrybucji** (węzły per budynek). To jest właściwa odpowiedź na
+  pytanie "co się stanie, gdy coś się zepsuje" — i jednocześnie
+  najsilniejszy signal infrastrukturalnego myślenia.
+- `timeline` ma minimum 6 faz — wiercenie pola, dokumentacja programu,
+  uruchomienie i pierwszy sezon walidacyjny są fazami osobnymi.
+- W `metrics` przynajmniej jedna liczba musi opisywać skalę
+  infrastruktury (np. "12 km dolnego źródła", "252 mieszkania"), nie
+  tylko parametr techniczny.
+
+### Human-centered modernization standards
+
+- Otwieraj projektem dla **człowieka**, nie dla domu. "80-letni
+  właściciel, dla którego codzienna obsługa kotła stała się fizycznie
+  trudna" jest właściwą jednostką problemu.
+- Zawsze osadź pompę ciepła **w kontekście termomodernizacji**. Wymiana
+  źródła bez ocieplenia koperty jest błędem inwestycyjnym — i ta zasada
+  ma być powtórzona w `approach`, `lessons` i `faq`.
+- Privacy: pierwsza litera imienia, region (nie miasto + ulica). Nigdy
+  zdjęcia rozpoznawalne bez zgody.
+- Komfort wyrażaj **operacyjnie** ("0 codziennych czynności obsługi",
+  "stabilna temperatura", "brak otwartego ognia"), nie sentymentalnie.
+
+### Grant / dofinansowanie storytelling principles
+
+- Dofinansowanie opisuj jako **decyzję projektową**, nie marketingowy
+  dopisek. Trafia do `approach` jako jeden z kroków, do `metrics` jako
+  jedna z czterech liczb, do `faq` jako oddzielne pytanie.
+- Zawsze podaj **program po nazwie** ("Grant OZE", "Czyste Powietrze")
+  i poziom wsparcia (np. 50% netto, do 70% kosztów kwalifikowanych) —
+  nigdy "dofinansowanie unijne" bez referencji.
+- Nigdy nie obiecuj kwoty — wsparcie jest indywidualne i zależy od
+  kryteriów programu. Pisz "do X%" / "X% kosztów kwalifikowanych".
+- Dokumentacja pod program prowadzona jest **równolegle** z projektem
+  technicznym, nie po nim. Ta zasada powinna być w `lessons`.
+
+### Future community / developer project recommendations
+
+- Dla **wspólnot i deweloperów** powiel architekturę dolne źródło
+  gruntowe + kaskada N+1 + rozdzielona dystrybucja per budynek +
+  dokumentacja programu — sprawdziła się od kilkunastu mieszkań w górę.
+- Dla **właścicieli prywatnych z niskim dochodem** standardem powinien
+  być pakiet: audyt → termomodernizacja → pompa dobrana pod nowe
+  zapotrzebowanie → modernizacja grzejników → PV → "Czyste Powietrze"
+  w wariancie najwyższego wsparcia.
+- Następne flagshipowe kategorie do uzupełnienia: **deweloper
+  mieszkaniowy** (PV + BESS część wspólna), **obiekt użyteczności
+  publicznej** (szkoła, ośrodek zdrowia), **kompleksowa modernizacja
+  budynku biurowego** (HVAC + BMS + PV).
+
 ## What is intentionally postponed
 
 - Video embeds (waiting on Lab episode unification).
