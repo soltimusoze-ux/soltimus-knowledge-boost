@@ -5,6 +5,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { buildMeta } from "@/config/seo";
 import { breadcrumbSchema } from "@/lib/jsonld";
 import { SITE } from "@/config/site";
+import { listCases } from "@/content/case-studies";
 
 export const Route = createFileRoute("/realizacje")({
   head: () =>
@@ -25,12 +26,6 @@ export const Route = createFileRoute("/realizacje")({
 
 const TEASERS = [
   {
-    city: "Konstancin",
-    title: "Rezydencja 350 m² — premium energy system",
-    spec: "Kaskada pomp ciepła Daikin · PV 14 kWp · Magazyn 20 kWh",
-    img: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1600&q=80",
-  },
-  {
     city: "Józefosław",
     title: "Nowoczesny dom 180 m² — kompleksowa instalacja",
     spec: "Daikin Altherma 3 R · Rekuperacja · PV 8 kWp",
@@ -43,6 +38,7 @@ const TEASERS = [
     img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1600&q=80",
   },
 ];
+
 
 function RealizacjePage() {
   return (
