@@ -11,8 +11,16 @@ import type { CaseStudy } from "./types";
 import { caseStudy as konstancin } from "./pompy-ciepla/konstancin-rezydencja-350m2";
 import { caseStudy as dom2000Daikin } from "./pompy-ciepla/dom-2000-naprawa-instalacji-daikin";
 import { caseStudy as stacjaPaliwSigenergy } from "./magazyny-energii/stacja-paliw-ciaglosc-zasilania";
+import { caseStudy as osiedle252 } from "./kompleksowa/osiedle-252-mieszkania-pompy-gruntowe";
+import { caseStudy as domLat70 } from "./termomodernizacja/dom-lat-70-gleboka-termomodernizacja";
 
-const CASES: CaseStudy[] = [konstancin, dom2000Daikin, stacjaPaliwSigenergy];
+const CASES: CaseStudy[] = [
+  konstancin,
+  dom2000Daikin,
+  stacjaPaliwSigenergy,
+  osiedle252,
+  domLat70,
+];
 
 export function listCases(opts: { includeDrafts?: boolean } = {}): CaseStudy[] {
   const list = opts.includeDrafts
