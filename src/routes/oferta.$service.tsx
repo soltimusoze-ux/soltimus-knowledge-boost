@@ -78,9 +78,18 @@ function ServicePage() {
   const { service } = Route.useParams();
   const s = getService(service)!;
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [service]);
+
   return (
-    <main className="min-h-screen bg-white text-[#0E0E10]">
+    <main key={service} className="min-h-screen bg-white text-[#0E0E10]">
       <SiteHeader variant="solid" />
+      {import.meta.env.DEV ? (
+        <div className="fixed bottom-2 right-2 z-50 rounded bg-black/80 px-2 py-1 text-[10px] font-mono text-white">
+          service: {service}
+        </div>
+      ) : null}
       <PremiumHero hero={s.hero} />
       <EngineeringOverview overview={s.overview} />
       <CommonProblems items={s.commonProblems} />
