@@ -218,8 +218,15 @@
   color: #111;
   font-size: 1.0625rem;
   line-height: 1.78;
+}
+.editorial p,
+.editorial ul,
+.editorial ol,
+.editorial h2,
+.editorial h3 {
   max-width: 72ch;
 }
+
 @media (min-width: 768px) {
   .editorial {
     font-size: 1.15rem;
