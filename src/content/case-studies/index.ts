@@ -13,6 +13,7 @@ import { caseStudy as dom2000Daikin } from "./pompy-ciepla/dom-2000-naprawa-inst
 import { caseStudy as stacjaPaliwSigenergy } from "./magazyny-energii/stacja-paliw-ciaglosc-zasilania";
 import { caseStudy as osiedle252 } from "./kompleksowa/osiedle-252-mieszkania-pompy-gruntowe";
 import { caseStudy as domLat70 } from "./termomodernizacja/dom-lat-70-gleboka-termomodernizacja";
+import { caseStudy as domHybrydaKominek } from "./kompleksowa/dom-nowy-hybryda-kominek-pompa-ciepla";
 
 const CASES: CaseStudy[] = [
   konstancin,
@@ -20,6 +21,7 @@ const CASES: CaseStudy[] = [
   stacjaPaliwSigenergy,
   osiedle252,
   domLat70,
+  domHybrydaKominek,
 ];
 
 export function listCases(opts: { includeDrafts?: boolean } = {}): CaseStudy[] {
