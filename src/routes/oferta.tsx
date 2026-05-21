@@ -47,26 +47,17 @@ const SERVICES = [
   },
   {
     icon: Sun,
-    title: "Fotowoltaika",
-    lead: "Premium panele i falowniki.",
+    title: "Wytwarzanie i magazynowanie energii elektrycznej",
+    lead: "Fotowoltaika, magazyny energii, taryfy dynamiczne.",
+    to: "/oferta/energia",
     points: [
-      "Dobór mocy do realnego zużycia",
-      "Montaż na dachach i gruncie",
-      "Monitoring produkcji 24/7",
-      "Optymalizacja autokonsumpcji",
+      "Premium panele i falowniki",
+      "Magazyny energii Sigenergy",
+      "Integracja z pompą ciepła i EV",
+      "Optymalizacja pod taryfę dynamiczną",
     ],
   },
-  {
-    icon: Battery,
-    title: "Magazyny energii",
-    lead: "Niezależność energetyczna.",
-    points: [
-      "Dobór pojemności do PV",
-      "Integracja z pompą ciepła",
-      "Tryb wyspowy (backup)",
-      "Współpraca z net-billingiem",
-    ],
-  },
+
   {
     icon: Wind,
     title: "Rekuperacja",
