@@ -142,13 +142,65 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* Typography stack — system fonts deliberately chosen for premium feel
+   without web-font load cost. Upgrade to Inter Tight + Fraunces in a
+   later sprint. */
+:root {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, "Segoe UI", Inter, Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono:
+    ui-monospace, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono",
+    monospace;
+
+  /* Section rhythm tokens — pair with Tailwind py-* via inline style or
+     bespoke utility classes; new sections should standardise on these. */
+  --space-section: clamp(4rem, 8vw, 7rem);
+  --space-section-tight: clamp(2.5rem, 5vw, 4rem);
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
   }
 
+  html {
+    font-family: var(--font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+
+  /* Tabular numerals everywhere a number appears in a stat/price/metric.
+     Apply via Tailwind `tabular-nums` on the element when needed; this
+     baseline rule covers raw <output>, <time> and <data> nodes. */
+  output, time, data {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Accessible focus indicator across all interactive elements. */
+  :focus-visible {
+    outline: 2px solid var(--brand-yellow);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Honour user's motion preference. Defeats framer-motion + CSS animation
+   site-wide for users who set prefers-reduced-motion: reduce. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

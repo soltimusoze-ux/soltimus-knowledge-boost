@@ -135,12 +135,12 @@ export function SiteFooter() {
               <span>REGON: {COMPANY.regon}</span>
             </div>
             <div className="flex flex-wrap gap-5">
-              <a href="#" className="hover:text-white">
+              <Link to="/polityka-prywatnosci" className="hover:text-white">
                 Polityka prywatności
-              </a>
-              <a href="#" className="hover:text-white">
+              </Link>
+              <Link to="/polityka-cookies" className="hover:text-white">
                 Polityka cookies
-              </a>
+              </Link>
             </div>
           </div>
           <div className="mt-6 text-[11px] text-white/40">
