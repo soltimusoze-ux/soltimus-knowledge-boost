@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, BookOpen } from "lucide-react";
-import { getArticle } from "@/content/articles";
+import { getArticleBySlug } from "@/content/articles";
 
 export function RelatedKnowledgeHub({ slugs }: { slugs?: string[] }) {
   if (!slugs?.length) return null;
-  const articles = slugs.map(getArticle).filter(Boolean);
+  const articles = slugs.map((s) => getArticleBySlug(s)).filter(Boolean);
   if (!articles.length) return null;
 
   return (
