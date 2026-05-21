@@ -22,6 +22,7 @@ import { Route as KalkulatorPompyCieplaRouteImport } from './routes/kalkulator-p
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
+import { Route as RealizacjeIndexRouteImport } from './routes/realizacje.index'
 import { Route as OfertaIndexRouteImport } from './routes/oferta.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as RealizacjeSlugRouteImport } from './routes/realizacje.$slug'
@@ -112,6 +113,11 @@ const WiedzaIndexRoute = WiedzaIndexRouteImport.update({
   id: '/wiedza/',
   path: '/wiedza/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const RealizacjeIndexRoute = RealizacjeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => RealizacjeRoute,
 } as any)
 const OfertaIndexRoute = OfertaIndexRouteImport.update({
   id: '/',
@@ -280,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/oferta/': typeof OfertaIndexRoute
+  '/realizacje/': typeof RealizacjeIndexRoute
   '/wiedza/': typeof WiedzaIndexRoute
   '/admin/editorial': typeof AuthenticatedAdminEditorialRouteWithChildren
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -306,7 +313,6 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/polityka-cookies': typeof PolitykaCookiesRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
-  '/realizacje': typeof RealizacjeRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
@@ -319,6 +325,7 @@ export interface FileRoutesByTo {
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/oferta': typeof OfertaIndexRoute
+  '/realizacje': typeof RealizacjeIndexRoute
   '/wiedza': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
@@ -360,6 +367,7 @@ export interface FileRoutesById {
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/oferta/': typeof OfertaIndexRoute
+  '/realizacje/': typeof RealizacjeIndexRoute
   '/wiedza/': typeof WiedzaIndexRoute
   '/_authenticated/admin/editorial': typeof AuthenticatedAdminEditorialRouteWithChildren
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -402,6 +410,7 @@ export interface FileRouteTypes {
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/oferta/'
+    | '/realizacje/'
     | '/wiedza/'
     | '/admin/editorial'
     | '/admin/new-article'
@@ -428,7 +437,6 @@ export interface FileRouteTypes {
     | '/login'
     | '/polityka-cookies'
     | '/polityka-prywatnosci'
-    | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
     | '/lab-episode/$slug'
@@ -441,6 +449,7 @@ export interface FileRouteTypes {
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/oferta'
+    | '/realizacje'
     | '/wiedza'
     | '/admin/new-article'
     | '/admin/new-pdf'
@@ -481,6 +490,7 @@ export interface FileRouteTypes {
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/oferta/'
+    | '/realizacje/'
     | '/wiedza/'
     | '/_authenticated/admin/editorial'
     | '/_authenticated/admin/new-article'
@@ -611,6 +621,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/wiedza/'
       preLoaderRoute: typeof WiedzaIndexRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/realizacje/': {
+      id: '/realizacje/'
+      path: '/'
+      fullPath: '/realizacje/'
+      preLoaderRoute: typeof RealizacjeIndexRouteImport
+      parentRoute: typeof RealizacjeRoute
     }
     '/oferta/': {
       id: '/oferta/'
@@ -905,10 +922,12 @@ const OfertaRouteWithChildren =
 
 interface RealizacjeRouteChildren {
   RealizacjeSlugRoute: typeof RealizacjeSlugRoute
+  RealizacjeIndexRoute: typeof RealizacjeIndexRoute
 }
 
 const RealizacjeRouteChildren: RealizacjeRouteChildren = {
   RealizacjeSlugRoute: RealizacjeSlugRoute,
+  RealizacjeIndexRoute: RealizacjeIndexRoute,
 }
 
 const RealizacjeRouteWithChildren = RealizacjeRoute._addFileChildren(
@@ -948,3 +967,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
