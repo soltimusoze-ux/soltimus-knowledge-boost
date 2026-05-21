@@ -21,6 +21,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
+import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRouteImport } from './routes/wiedza.pompy-ciepla.zbiorniki-cwu-do-pompy-ciepla'
@@ -91,6 +92,11 @@ const WiedzaCategoryRoute = WiedzaCategoryRouteImport.update({
   path: '/wiedza/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfertaEnergiaRoute = OfertaEnergiaRouteImport.update({
+  id: '/energia',
+  path: '/energia',
+  getParentRoute: () => OfertaRoute,
+} as any)
 const LabEpisodeSlugRoute = LabEpisodeSlugRouteImport.update({
   id: '/lab-episode/$slug',
   path: '/lab-episode/$slug',
@@ -154,11 +160,12 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
-  '/oferta': typeof OfertaRoute
+  '/oferta': typeof OfertaRouteWithChildren
   '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
+  '/oferta/energia': typeof OfertaEnergiaRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -177,11 +184,12 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
-  '/oferta': typeof OfertaRoute
+  '/oferta': typeof OfertaRouteWithChildren
   '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
+  '/oferta/energia': typeof OfertaEnergiaRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -202,11 +210,12 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
-  '/oferta': typeof OfertaRoute
+  '/oferta': typeof OfertaRouteWithChildren
   '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
+  '/oferta/energia': typeof OfertaEnergiaRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
+    | '/oferta/energia'
     | '/wiedza/$category'
     | '/wiedza/'
     | '/admin/new-article'
@@ -255,6 +265,7 @@ export interface FileRouteTypes {
     | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
+    | '/oferta/energia'
     | '/wiedza/$category'
     | '/wiedza'
     | '/admin/new-article'
@@ -279,6 +290,7 @@ export interface FileRouteTypes {
     | '/realizacje'
     | '/zespol'
     | '/lab-episode/$slug'
+    | '/oferta/energia'
     | '/wiedza/$category'
     | '/wiedza/'
     | '/_authenticated/admin/new-article'
@@ -299,7 +311,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
-  OfertaRoute: typeof OfertaRoute
+  OfertaRoute: typeof OfertaRouteWithChildren
   PremiumRoute: typeof PremiumRoute
   RealizacjeRoute: typeof RealizacjeRoute
   ZespolRoute: typeof ZespolRoute
@@ -398,6 +410,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WiedzaCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/oferta/energia': {
+      id: '/oferta/energia'
+      path: '/energia'
+      fullPath: '/oferta/energia'
+      preLoaderRoute: typeof OfertaEnergiaRouteImport
+      parentRoute: typeof OfertaRoute
+    }
     '/lab-episode/$slug': {
       id: '/lab-episode/$slug'
       path: '/lab-episode/$slug'
@@ -489,6 +508,17 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
   AuthenticatedRouteChildren,
 )
 
+interface OfertaRouteChildren {
+  OfertaEnergiaRoute: typeof OfertaEnergiaRoute
+}
+
+const OfertaRouteChildren: OfertaRouteChildren = {
+  OfertaEnergiaRoute: OfertaEnergiaRoute,
+}
+
+const OfertaRouteWithChildren =
+  OfertaRoute._addFileChildren(OfertaRouteChildren)
+
 interface WiedzaCategoryRouteChildren {
   WiedzaCategorySlugRoute: typeof WiedzaCategorySlugRoute
 }
@@ -508,7 +538,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
-  OfertaRoute: OfertaRoute,
+  OfertaRoute: OfertaRouteWithChildren,
   PremiumRoute: PremiumRoute,
   RealizacjeRoute: RealizacjeRoute,
   ZespolRoute: ZespolRoute,
