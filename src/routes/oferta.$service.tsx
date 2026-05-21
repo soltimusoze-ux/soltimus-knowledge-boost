@@ -91,6 +91,7 @@ function ServicePage() {
         </div>
       ) : null}
       <PremiumHero hero={s.hero} />
+      {s.slug === "pompy-ciepla" ? <CalculatorTile /> : null}
       <EngineeringOverview overview={s.overview} />
       <CommonProblems items={s.commonProblems} />
       <EngineeringApproach steps={s.engineeringApproach} />
