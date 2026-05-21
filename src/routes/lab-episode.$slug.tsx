@@ -7,7 +7,7 @@ import {
   BookOpen,
   FileText,
 } from "lucide-react";
-import { findLabVideo } from "@/lib/lab-videos";
+import { findLabVideo, resolveThumbnail } from "@/lib/lab-videos";
 import { seriesBySlug } from "@/lib/video-series";
 import { KnowledgeNav } from "@/components/knowledge/KnowledgeNav";
 import {
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/lab-episode/$slug")({
         "Soltimus Lab — inżynierska platforma wideo o pompach ciepła i OZE.",
       path: `/lab-episode/${params.slug}`,
       type: "video.other",
-      image: v?.thumbnail,
+      image: v ? resolveThumbnail(v) ?? undefined : undefined,
       jsonLd: [
         breadcrumbSchema([
           { name: "Start", url: `${SITE.url}/` },
@@ -48,8 +48,8 @@ export const Route = createFileRoute("/lab-episode/$slug")({
                 "@type": "VideoObject",
                 name: v.title,
                 description: v.description,
-                thumbnailUrl: v.thumbnail,
-                uploadDate: v.publishedAt ?? new Date().toISOString().slice(0, 10),
+                thumbnailUrl: resolveThumbnail(v) ?? undefined,
+                uploadDate: v.publishedAt,
               } as Record<string, unknown>,
             ]
           : []),
