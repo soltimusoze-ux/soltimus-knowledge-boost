@@ -23,6 +23,7 @@ import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
+import { Route as RealizacjeSlugRouteImport } from './routes/realizacje.$slug'
 import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
@@ -101,6 +102,11 @@ const WiedzaCategoryRoute = WiedzaCategoryRouteImport.update({
   path: '/wiedza/$category',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RealizacjeSlugRoute = RealizacjeSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => RealizacjeRoute,
+} as any)
 const OfertaEnergiaRoute = OfertaEnergiaRouteImport.update({
   id: '/energia',
   path: '/energia',
@@ -154,11 +160,12 @@ export interface FileRoutesByFullPath {
   '/oferta': typeof OfertaRouteWithChildren
   '/polityka-cookies': typeof PolitykaCookiesRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
-  '/realizacje': typeof RealizacjeRoute
+  '/realizacje': typeof RealizacjeRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -177,11 +184,12 @@ export interface FileRoutesByTo {
   '/oferta': typeof OfertaRouteWithChildren
   '/polityka-cookies': typeof PolitykaCookiesRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
-  '/realizacje': typeof RealizacjeRoute
+  '/realizacje': typeof RealizacjeRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza': typeof WiedzaIndexRoute
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -202,11 +210,12 @@ export interface FileRoutesById {
   '/oferta': typeof OfertaRouteWithChildren
   '/polityka-cookies': typeof PolitykaCookiesRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
-  '/realizacje': typeof RealizacjeRoute
+  '/realizacje': typeof RealizacjeRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
@@ -232,6 +241,7 @@ export interface FileRouteTypes {
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/energia'
+    | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
     | '/admin/new-article'
@@ -255,6 +265,7 @@ export interface FileRouteTypes {
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/energia'
+    | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza'
     | '/admin/new-article'
@@ -279,6 +290,7 @@ export interface FileRouteTypes {
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/energia'
+    | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
     | '/_authenticated/admin/new-article'
@@ -299,7 +311,7 @@ export interface RootRouteChildren {
   OfertaRoute: typeof OfertaRouteWithChildren
   PolitykaCookiesRoute: typeof PolitykaCookiesRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
-  RealizacjeRoute: typeof RealizacjeRoute
+  RealizacjeRoute: typeof RealizacjeRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ZespolRoute: typeof ZespolRoute
   LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
@@ -408,6 +420,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WiedzaCategoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/realizacje/$slug': {
+      id: '/realizacje/$slug'
+      path: '/$slug'
+      fullPath: '/realizacje/$slug'
+      preLoaderRoute: typeof RealizacjeSlugRouteImport
+      parentRoute: typeof RealizacjeRoute
+    }
     '/oferta/energia': {
       id: '/oferta/energia'
       path: '/energia'
@@ -496,6 +515,18 @@ const OfertaRouteChildren: OfertaRouteChildren = {
 const OfertaRouteWithChildren =
   OfertaRoute._addFileChildren(OfertaRouteChildren)
 
+interface RealizacjeRouteChildren {
+  RealizacjeSlugRoute: typeof RealizacjeSlugRoute
+}
+
+const RealizacjeRouteChildren: RealizacjeRouteChildren = {
+  RealizacjeSlugRoute: RealizacjeSlugRoute,
+}
+
+const RealizacjeRouteWithChildren = RealizacjeRoute._addFileChildren(
+  RealizacjeRouteChildren,
+)
+
 interface WiedzaCategoryRouteChildren {
   WiedzaCategorySlugRoute: typeof WiedzaCategorySlugRoute
 }
@@ -518,7 +549,7 @@ const rootRouteChildren: RootRouteChildren = {
   OfertaRoute: OfertaRouteWithChildren,
   PolitykaCookiesRoute: PolitykaCookiesRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
-  RealizacjeRoute: RealizacjeRoute,
+  RealizacjeRoute: RealizacjeRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ZespolRoute: ZespolRoute,
   LabEpisodeSlugRoute: LabEpisodeSlugRoute,
@@ -529,3 +560,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
