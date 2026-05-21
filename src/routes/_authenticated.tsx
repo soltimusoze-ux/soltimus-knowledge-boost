@@ -28,7 +28,8 @@ function AuthenticatedLayout() {
 
   const path = location.pathname;
   const navItems = [
-    { to: "/admin", label: "Materiały", exact: true },
+    { to: "/admin", label: "Materiały (WP)", exact: true },
+    { to: "/admin/editorial", label: "Editorial" },
     { to: "/admin/new-article", label: "+ Artykuł" },
     { to: "/admin/new-pdf", label: "+ PDF" },
     { to: "/admin/new-video", label: "+ Wideo" },

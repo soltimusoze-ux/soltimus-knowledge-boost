@@ -14,6 +14,318 @@ export type Database = {
   }
   public: {
     Tables: {
+      article_tags: {
+        Row: {
+          article_id: string
+          tag_id: string
+        }
+        Insert: {
+          article_id: string
+          tag_id: string
+        }
+        Update: {
+          article_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_tags_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "cms_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "article_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      authors: {
+        Row: {
+          avatar_url: string | null
+          bio: string | null
+          created_at: string
+          credentials: string | null
+          expertise: string[] | null
+          id: string
+          linkedin_url: string | null
+          name: string
+          role: string | null
+          slug: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          credentials?: string | null
+          expertise?: string[] | null
+          id?: string
+          linkedin_url?: string | null
+          name: string
+          role?: string | null
+          slug: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          bio?: string | null
+          created_at?: string
+          credentials?: string | null
+          expertise?: string[] | null
+          id?: string
+          linkedin_url?: string | null
+          name?: string
+          role?: string | null
+          slug?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      case_study_tags: {
+        Row: {
+          case_study_id: string
+          tag_id: string
+        }
+        Insert: {
+          case_study_id: string
+          tag_id: string
+        }
+        Update: {
+          case_study_id?: string
+          tag_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_study_tags_case_study_id_fkey"
+            columns: ["case_study_id"]
+            isOneToOne: false
+            referencedRelation: "cms_case_studies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "case_study_tags_tag_id_fkey"
+            columns: ["tag_id"]
+            isOneToOne: false
+            referencedRelation: "tags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      categories: {
+        Row: {
+          color: string | null
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cms_articles: {
+        Row: {
+          author_id: string | null
+          body: Json
+          canonical_url: string | null
+          category_id: string | null
+          city: string | null
+          cover_image_url: string | null
+          created_at: string
+          excerpt: string | null
+          faq: Json | null
+          id: string
+          og_image_url: string | null
+          published_at: string | null
+          reading_minutes: number | null
+          region: string | null
+          scheduled_for: string | null
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          status: Database["public"]["Enums"]["content_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          body?: Json
+          canonical_url?: string | null
+          category_id?: string | null
+          city?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          faq?: Json | null
+          id?: string
+          og_image_url?: string | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          region?: string | null
+          scheduled_for?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["content_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          body?: Json
+          canonical_url?: string | null
+          category_id?: string | null
+          city?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          faq?: Json | null
+          id?: string
+          og_image_url?: string | null
+          published_at?: string | null
+          reading_minutes?: number | null
+          region?: string | null
+          scheduled_for?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["content_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_articles_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "authors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_articles_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cms_case_studies: {
+        Row: {
+          author_id: string | null
+          body: Json
+          building_type: string | null
+          canonical_url: string | null
+          category_id: string | null
+          city: string | null
+          created_at: string
+          faq: Json | null
+          hero_image_url: string | null
+          id: string
+          metrics: Json | null
+          og_image_url: string | null
+          published_at: string | null
+          region: string | null
+          scheduled_for: string | null
+          seo_description: string | null
+          seo_title: string | null
+          slug: string
+          status: Database["public"]["Enums"]["content_status"]
+          summary: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          body?: Json
+          building_type?: string | null
+          canonical_url?: string | null
+          category_id?: string | null
+          city?: string | null
+          created_at?: string
+          faq?: Json | null
+          hero_image_url?: string | null
+          id?: string
+          metrics?: Json | null
+          og_image_url?: string | null
+          published_at?: string | null
+          region?: string | null
+          scheduled_for?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug: string
+          status?: Database["public"]["Enums"]["content_status"]
+          summary?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          body?: Json
+          building_type?: string | null
+          canonical_url?: string | null
+          category_id?: string | null
+          city?: string | null
+          created_at?: string
+          faq?: Json | null
+          hero_image_url?: string | null
+          id?: string
+          metrics?: Json | null
+          og_image_url?: string | null
+          published_at?: string | null
+          region?: string | null
+          scheduled_for?: string | null
+          seo_description?: string | null
+          seo_title?: string | null
+          slug?: string
+          status?: Database["public"]["Enums"]["content_status"]
+          summary?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cms_case_studies_author_id_fkey"
+            columns: ["author_id"]
+            isOneToOne: false
+            referencedRelation: "authors"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cms_case_studies_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       contact_submissions: {
         Row: {
           created_at: string
@@ -47,6 +359,39 @@ export type Database = {
           source_url?: string | null
           topic?: string
           user_agent?: string | null
+        }
+        Relationships: []
+      }
+      content_relationships: {
+        Row: {
+          created_at: string
+          id: string
+          relation: string
+          sort_order: number
+          source_slug: string
+          source_type: string
+          target_slug: string
+          target_type: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          relation?: string
+          sort_order?: number
+          source_slug: string
+          source_type: string
+          target_slug: string
+          target_type: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          relation?: string
+          sort_order?: number
+          source_slug?: string
+          source_type?: string
+          target_slug?: string
+          target_type?: string
         }
         Relationships: []
       }
@@ -125,6 +470,66 @@ export type Database = {
         }
         Relationships: []
       }
+      media_assets: {
+        Row: {
+          alt: string | null
+          caption: string | null
+          created_at: string
+          height: number | null
+          id: string
+          mime_type: string | null
+          storage_path: string | null
+          updated_at: string
+          url: string
+          width: number | null
+        }
+        Insert: {
+          alt?: string | null
+          caption?: string | null
+          created_at?: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          storage_path?: string | null
+          updated_at?: string
+          url: string
+          width?: number | null
+        }
+        Update: {
+          alt?: string | null
+          caption?: string | null
+          created_at?: string
+          height?: number | null
+          id?: string
+          mime_type?: string | null
+          storage_path?: string | null
+          updated_at?: string
+          url?: string
+          width?: number | null
+        }
+        Relationships: []
+      }
+      tags: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          slug: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          slug: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          slug?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -133,7 +538,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      content_status: "draft" | "scheduled" | "published" | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -260,6 +665,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      content_status: ["draft", "scheduled", "published", "archived"],
+    },
   },
 } as const
