@@ -33,6 +33,16 @@ import { Route as ApiPublicContactRouteImport } from './routes/api/public/contac
 import { Route as AuthenticatedAdminNewVideoRouteImport } from './routes/_authenticated.admin.new-video'
 import { Route as AuthenticatedAdminNewPdfRouteImport } from './routes/_authenticated.admin.new-pdf'
 import { Route as AuthenticatedAdminNewArticleRouteImport } from './routes/_authenticated.admin.new-article'
+import { Route as AuthenticatedAdminEditorialRouteImport } from './routes/_authenticated.admin.editorial'
+import { Route as AuthenticatedAdminEditorialIndexRouteImport } from './routes/_authenticated.admin.editorial.index'
+import { Route as AuthenticatedAdminEditorialTagsRouteImport } from './routes/_authenticated.admin.editorial.tags'
+import { Route as AuthenticatedAdminEditorialMediaRouteImport } from './routes/_authenticated.admin.editorial.media'
+import { Route as AuthenticatedAdminEditorialCategoriesRouteImport } from './routes/_authenticated.admin.editorial.categories'
+import { Route as AuthenticatedAdminEditorialCaseStudiesRouteImport } from './routes/_authenticated.admin.editorial.case-studies'
+import { Route as AuthenticatedAdminEditorialAuthorsRouteImport } from './routes/_authenticated.admin.editorial.authors'
+import { Route as AuthenticatedAdminEditorialArticlesRouteImport } from './routes/_authenticated.admin.editorial.articles'
+import { Route as AuthenticatedAdminEditorialCaseStudiesIdRouteImport } from './routes/_authenticated.admin.editorial.case-studies.$id'
+import { Route as AuthenticatedAdminEditorialArticlesIdRouteImport } from './routes/_authenticated.admin.editorial.articles.$id'
 
 const ZespolRoute = ZespolRouteImport.update({
   id: '/zespol',
@@ -156,6 +166,66 @@ const AuthenticatedAdminNewArticleRoute =
     path: '/admin/new-article',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedAdminEditorialRoute =
+  AuthenticatedAdminEditorialRouteImport.update({
+    id: '/admin/editorial',
+    path: '/admin/editorial',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedAdminEditorialIndexRoute =
+  AuthenticatedAdminEditorialIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedAdminEditorialRoute,
+  } as any)
+const AuthenticatedAdminEditorialTagsRoute =
+  AuthenticatedAdminEditorialTagsRouteImport.update({
+    id: '/tags',
+    path: '/tags',
+    getParentRoute: () => AuthenticatedAdminEditorialRoute,
+  } as any)
+const AuthenticatedAdminEditorialMediaRoute =
+  AuthenticatedAdminEditorialMediaRouteImport.update({
+    id: '/media',
+    path: '/media',
+    getParentRoute: () => AuthenticatedAdminEditorialRoute,
+  } as any)
+const AuthenticatedAdminEditorialCategoriesRoute =
+  AuthenticatedAdminEditorialCategoriesRouteImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => AuthenticatedAdminEditorialRoute,
+  } as any)
+const AuthenticatedAdminEditorialCaseStudiesRoute =
+  AuthenticatedAdminEditorialCaseStudiesRouteImport.update({
+    id: '/case-studies',
+    path: '/case-studies',
+    getParentRoute: () => AuthenticatedAdminEditorialRoute,
+  } as any)
+const AuthenticatedAdminEditorialAuthorsRoute =
+  AuthenticatedAdminEditorialAuthorsRouteImport.update({
+    id: '/authors',
+    path: '/authors',
+    getParentRoute: () => AuthenticatedAdminEditorialRoute,
+  } as any)
+const AuthenticatedAdminEditorialArticlesRoute =
+  AuthenticatedAdminEditorialArticlesRouteImport.update({
+    id: '/articles',
+    path: '/articles',
+    getParentRoute: () => AuthenticatedAdminEditorialRoute,
+  } as any)
+const AuthenticatedAdminEditorialCaseStudiesIdRoute =
+  AuthenticatedAdminEditorialCaseStudiesIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAdminEditorialCaseStudiesRoute,
+  } as any)
+const AuthenticatedAdminEditorialArticlesIdRoute =
+  AuthenticatedAdminEditorialArticlesIdRouteImport.update({
+    id: '/$id',
+    path: '/$id',
+    getParentRoute: () => AuthenticatedAdminEditorialArticlesRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -175,12 +245,22 @@ export interface FileRoutesByFullPath {
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
+  '/admin/editorial': typeof AuthenticatedAdminEditorialRouteWithChildren
   '/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
+  '/admin/editorial/authors': typeof AuthenticatedAdminEditorialAuthorsRoute
+  '/admin/editorial/case-studies': typeof AuthenticatedAdminEditorialCaseStudiesRouteWithChildren
+  '/admin/editorial/categories': typeof AuthenticatedAdminEditorialCategoriesRoute
+  '/admin/editorial/media': typeof AuthenticatedAdminEditorialMediaRoute
+  '/admin/editorial/tags': typeof AuthenticatedAdminEditorialTagsRoute
+  '/admin/editorial/': typeof AuthenticatedAdminEditorialIndexRoute
+  '/admin/editorial/articles/$id': typeof AuthenticatedAdminEditorialArticlesIdRoute
+  '/admin/editorial/case-studies/$id': typeof AuthenticatedAdminEditorialCaseStudiesIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -206,6 +286,15 @@ export interface FileRoutesByTo {
   '/api/public/contact': typeof ApiPublicContactRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
+  '/admin/editorial/authors': typeof AuthenticatedAdminEditorialAuthorsRoute
+  '/admin/editorial/case-studies': typeof AuthenticatedAdminEditorialCaseStudiesRouteWithChildren
+  '/admin/editorial/categories': typeof AuthenticatedAdminEditorialCategoriesRoute
+  '/admin/editorial/media': typeof AuthenticatedAdminEditorialMediaRoute
+  '/admin/editorial/tags': typeof AuthenticatedAdminEditorialTagsRoute
+  '/admin/editorial': typeof AuthenticatedAdminEditorialIndexRoute
+  '/admin/editorial/articles/$id': typeof AuthenticatedAdminEditorialArticlesIdRoute
+  '/admin/editorial/case-studies/$id': typeof AuthenticatedAdminEditorialCaseStudiesIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -227,12 +316,22 @@ export interface FileRoutesById {
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
   '/wiedza/': typeof WiedzaIndexRoute
+  '/_authenticated/admin/editorial': typeof AuthenticatedAdminEditorialRouteWithChildren
   '/_authenticated/admin/new-article': typeof AuthenticatedAdminNewArticleRoute
   '/_authenticated/admin/new-pdf': typeof AuthenticatedAdminNewPdfRoute
   '/_authenticated/admin/new-video': typeof AuthenticatedAdminNewVideoRoute
   '/api/public/contact': typeof ApiPublicContactRoute
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/editorial/articles': typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
+  '/_authenticated/admin/editorial/authors': typeof AuthenticatedAdminEditorialAuthorsRoute
+  '/_authenticated/admin/editorial/case-studies': typeof AuthenticatedAdminEditorialCaseStudiesRouteWithChildren
+  '/_authenticated/admin/editorial/categories': typeof AuthenticatedAdminEditorialCategoriesRoute
+  '/_authenticated/admin/editorial/media': typeof AuthenticatedAdminEditorialMediaRoute
+  '/_authenticated/admin/editorial/tags': typeof AuthenticatedAdminEditorialTagsRoute
+  '/_authenticated/admin/editorial/': typeof AuthenticatedAdminEditorialIndexRoute
+  '/_authenticated/admin/editorial/articles/$id': typeof AuthenticatedAdminEditorialArticlesIdRoute
+  '/_authenticated/admin/editorial/case-studies/$id': typeof AuthenticatedAdminEditorialCaseStudiesIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -254,12 +353,22 @@ export interface FileRouteTypes {
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
+    | '/admin/editorial'
     | '/admin/new-article'
     | '/admin/new-pdf'
     | '/admin/new-video'
     | '/api/public/contact'
     | '/wiedza/$category/$slug'
     | '/admin/'
+    | '/admin/editorial/articles'
+    | '/admin/editorial/authors'
+    | '/admin/editorial/case-studies'
+    | '/admin/editorial/categories'
+    | '/admin/editorial/media'
+    | '/admin/editorial/tags'
+    | '/admin/editorial/'
+    | '/admin/editorial/articles/$id'
+    | '/admin/editorial/case-studies/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -285,6 +394,15 @@ export interface FileRouteTypes {
     | '/api/public/contact'
     | '/wiedza/$category/$slug'
     | '/admin'
+    | '/admin/editorial/articles'
+    | '/admin/editorial/authors'
+    | '/admin/editorial/case-studies'
+    | '/admin/editorial/categories'
+    | '/admin/editorial/media'
+    | '/admin/editorial/tags'
+    | '/admin/editorial'
+    | '/admin/editorial/articles/$id'
+    | '/admin/editorial/case-studies/$id'
   id:
     | '__root__'
     | '/'
@@ -305,12 +423,22 @@ export interface FileRouteTypes {
     | '/realizacje/$slug'
     | '/wiedza/$category'
     | '/wiedza/'
+    | '/_authenticated/admin/editorial'
     | '/_authenticated/admin/new-article'
     | '/_authenticated/admin/new-pdf'
     | '/_authenticated/admin/new-video'
     | '/api/public/contact'
     | '/wiedza/$category/$slug'
     | '/_authenticated/admin/'
+    | '/_authenticated/admin/editorial/articles'
+    | '/_authenticated/admin/editorial/authors'
+    | '/_authenticated/admin/editorial/case-studies'
+    | '/_authenticated/admin/editorial/categories'
+    | '/_authenticated/admin/editorial/media'
+    | '/_authenticated/admin/editorial/tags'
+    | '/_authenticated/admin/editorial/'
+    | '/_authenticated/admin/editorial/articles/$id'
+    | '/_authenticated/admin/editorial/case-studies/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -502,10 +630,143 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminNewArticleRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin/editorial': {
+      id: '/_authenticated/admin/editorial'
+      path: '/admin/editorial'
+      fullPath: '/admin/editorial'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/admin/editorial/': {
+      id: '/_authenticated/admin/editorial/'
+      path: '/'
+      fullPath: '/admin/editorial/'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialRoute
+    }
+    '/_authenticated/admin/editorial/tags': {
+      id: '/_authenticated/admin/editorial/tags'
+      path: '/tags'
+      fullPath: '/admin/editorial/tags'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialTagsRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialRoute
+    }
+    '/_authenticated/admin/editorial/media': {
+      id: '/_authenticated/admin/editorial/media'
+      path: '/media'
+      fullPath: '/admin/editorial/media'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialMediaRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialRoute
+    }
+    '/_authenticated/admin/editorial/categories': {
+      id: '/_authenticated/admin/editorial/categories'
+      path: '/categories'
+      fullPath: '/admin/editorial/categories'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialCategoriesRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialRoute
+    }
+    '/_authenticated/admin/editorial/case-studies': {
+      id: '/_authenticated/admin/editorial/case-studies'
+      path: '/case-studies'
+      fullPath: '/admin/editorial/case-studies'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialCaseStudiesRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialRoute
+    }
+    '/_authenticated/admin/editorial/authors': {
+      id: '/_authenticated/admin/editorial/authors'
+      path: '/authors'
+      fullPath: '/admin/editorial/authors'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialAuthorsRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialRoute
+    }
+    '/_authenticated/admin/editorial/articles': {
+      id: '/_authenticated/admin/editorial/articles'
+      path: '/articles'
+      fullPath: '/admin/editorial/articles'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialArticlesRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialRoute
+    }
+    '/_authenticated/admin/editorial/case-studies/$id': {
+      id: '/_authenticated/admin/editorial/case-studies/$id'
+      path: '/$id'
+      fullPath: '/admin/editorial/case-studies/$id'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialCaseStudiesIdRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialCaseStudiesRoute
+    }
+    '/_authenticated/admin/editorial/articles/$id': {
+      id: '/_authenticated/admin/editorial/articles/$id'
+      path: '/$id'
+      fullPath: '/admin/editorial/articles/$id'
+      preLoaderRoute: typeof AuthenticatedAdminEditorialArticlesIdRouteImport
+      parentRoute: typeof AuthenticatedAdminEditorialArticlesRoute
+    }
   }
 }
 
+interface AuthenticatedAdminEditorialArticlesRouteChildren {
+  AuthenticatedAdminEditorialArticlesIdRoute: typeof AuthenticatedAdminEditorialArticlesIdRoute
+}
+
+const AuthenticatedAdminEditorialArticlesRouteChildren: AuthenticatedAdminEditorialArticlesRouteChildren =
+  {
+    AuthenticatedAdminEditorialArticlesIdRoute:
+      AuthenticatedAdminEditorialArticlesIdRoute,
+  }
+
+const AuthenticatedAdminEditorialArticlesRouteWithChildren =
+  AuthenticatedAdminEditorialArticlesRoute._addFileChildren(
+    AuthenticatedAdminEditorialArticlesRouteChildren,
+  )
+
+interface AuthenticatedAdminEditorialCaseStudiesRouteChildren {
+  AuthenticatedAdminEditorialCaseStudiesIdRoute: typeof AuthenticatedAdminEditorialCaseStudiesIdRoute
+}
+
+const AuthenticatedAdminEditorialCaseStudiesRouteChildren: AuthenticatedAdminEditorialCaseStudiesRouteChildren =
+  {
+    AuthenticatedAdminEditorialCaseStudiesIdRoute:
+      AuthenticatedAdminEditorialCaseStudiesIdRoute,
+  }
+
+const AuthenticatedAdminEditorialCaseStudiesRouteWithChildren =
+  AuthenticatedAdminEditorialCaseStudiesRoute._addFileChildren(
+    AuthenticatedAdminEditorialCaseStudiesRouteChildren,
+  )
+
+interface AuthenticatedAdminEditorialRouteChildren {
+  AuthenticatedAdminEditorialArticlesRoute: typeof AuthenticatedAdminEditorialArticlesRouteWithChildren
+  AuthenticatedAdminEditorialAuthorsRoute: typeof AuthenticatedAdminEditorialAuthorsRoute
+  AuthenticatedAdminEditorialCaseStudiesRoute: typeof AuthenticatedAdminEditorialCaseStudiesRouteWithChildren
+  AuthenticatedAdminEditorialCategoriesRoute: typeof AuthenticatedAdminEditorialCategoriesRoute
+  AuthenticatedAdminEditorialMediaRoute: typeof AuthenticatedAdminEditorialMediaRoute
+  AuthenticatedAdminEditorialTagsRoute: typeof AuthenticatedAdminEditorialTagsRoute
+  AuthenticatedAdminEditorialIndexRoute: typeof AuthenticatedAdminEditorialIndexRoute
+}
+
+const AuthenticatedAdminEditorialRouteChildren: AuthenticatedAdminEditorialRouteChildren =
+  {
+    AuthenticatedAdminEditorialArticlesRoute:
+      AuthenticatedAdminEditorialArticlesRouteWithChildren,
+    AuthenticatedAdminEditorialAuthorsRoute:
+      AuthenticatedAdminEditorialAuthorsRoute,
+    AuthenticatedAdminEditorialCaseStudiesRoute:
+      AuthenticatedAdminEditorialCaseStudiesRouteWithChildren,
+    AuthenticatedAdminEditorialCategoriesRoute:
+      AuthenticatedAdminEditorialCategoriesRoute,
+    AuthenticatedAdminEditorialMediaRoute:
+      AuthenticatedAdminEditorialMediaRoute,
+    AuthenticatedAdminEditorialTagsRoute: AuthenticatedAdminEditorialTagsRoute,
+    AuthenticatedAdminEditorialIndexRoute:
+      AuthenticatedAdminEditorialIndexRoute,
+  }
+
+const AuthenticatedAdminEditorialRouteWithChildren =
+  AuthenticatedAdminEditorialRoute._addFileChildren(
+    AuthenticatedAdminEditorialRouteChildren,
+  )
+
 interface AuthenticatedRouteChildren {
+  AuthenticatedAdminEditorialRoute: typeof AuthenticatedAdminEditorialRouteWithChildren
   AuthenticatedAdminNewArticleRoute: typeof AuthenticatedAdminNewArticleRoute
   AuthenticatedAdminNewPdfRoute: typeof AuthenticatedAdminNewPdfRoute
   AuthenticatedAdminNewVideoRoute: typeof AuthenticatedAdminNewVideoRoute
@@ -513,6 +774,8 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAdminEditorialRoute:
+    AuthenticatedAdminEditorialRouteWithChildren,
   AuthenticatedAdminNewArticleRoute: AuthenticatedAdminNewArticleRoute,
   AuthenticatedAdminNewPdfRoute: AuthenticatedAdminNewPdfRoute,
   AuthenticatedAdminNewVideoRoute: AuthenticatedAdminNewVideoRoute,
