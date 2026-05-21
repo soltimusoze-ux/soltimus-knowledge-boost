@@ -13,31 +13,16 @@ import {
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { COMPANY } from "@/lib/company";
+import { buildMeta } from "@/config/seo";
 
 export const Route = createFileRoute("/oferta/energia")({
-  head: () => ({
-    meta: [
-      {
-        title:
-          "Wytwarzanie i magazynowanie energii elektrycznej — Soltimus",
-      },
-      {
-        name: "description",
-        content:
-          "Fotowoltaika premium, magazyny energii Sigenergy, taryfa dynamiczna PSTRYK, elektromobilność. Kompletny system zarządzania energią dla Twojego domu.",
-      },
-      {
-        property: "og:title",
-        content:
-          "Wytwarzanie i magazynowanie energii elektrycznej — Soltimus",
-      },
-      {
-        property: "og:description",
-        content:
-          "Zaprojektuj dom, który sam wytwarza, magazynuje i mądrze zużywa energię.",
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: "Wytwarzanie i magazynowanie energii elektrycznej",
+      description:
+        "Fotowoltaika premium, magazyny energii Sigenergy, taryfa dynamiczna PSTRYK, elektromobilność. Kompletny system zarządzania energią dla Twojego domu.",
+      path: "/oferta/energia",
+    }),
   component: EnergiaPage,
 });
 

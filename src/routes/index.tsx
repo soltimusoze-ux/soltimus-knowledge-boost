@@ -1,29 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PremiumHome } from "./premium";
-import { ORG_JSONLD } from "@/lib/company";
+import { buildMeta } from "@/config/seo";
+import { SITE } from "@/config/site";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Soltimus — Nowoczesne systemy energii, ogrzewania i komfortu" },
-      {
-        name: "description",
-        content:
-          "Soltimus — premium engineering company. Pompy ciepła, fotowoltaika, magazyny energii, rekuperacja i termomodernizacja dla wymagających domów.",
-      },
-      { property: "og:title", content: "Soltimus — Premium energy systems" },
-      {
-        property: "og:description",
-        content:
-          "Nowoczesne systemy energii, ogrzewania i komfortu dla wymagających domów.",
-      },
-    ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify(ORG_JSONLD),
-      },
-    ],
-  }),
+  head: () =>
+    buildMeta({
+      title: `${SITE.name} — ${SITE.tagline}`,
+      description: SITE.description,
+      path: "/",
+      suffix: false,
+    }),
   component: PremiumHome,
 });

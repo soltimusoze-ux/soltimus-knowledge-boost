@@ -11,6 +11,8 @@ import {
 import { AuthProvider } from "@/hooks/use-auth";
 import { Toaster } from "@/components/ui/sonner";
 import { RecommendedProductsStrip } from "@/components/heat-pump/RecommendedProducts";
+import { SITE } from "@/config/site";
+import { organizationSchema, websiteSchema } from "@/lib/jsonld";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -73,14 +75,28 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
+    // Sitewide defaults ONLY. Per-page title / description / canonical / og:url
+    // live in each leaf route via buildMeta() — see src/config/seo.ts.
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Strefa wiedzy — Soltimus CMS" },
-      { name: "description", content: "Panel zarządzania materiałami Strefy wiedzy soltimus.pl" },
-      { name: "robots", content: "noindex, nofollow" },
+      { name: "theme-color", content: "#0E0E10" },
+      { property: "og:site_name", content: SITE.name },
+      { property: "og:locale", content: SITE.locale },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(organizationSchema()),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(websiteSchema()),
+      },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
