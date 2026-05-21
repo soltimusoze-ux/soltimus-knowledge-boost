@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate, Outlet, useMatchRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { cms, slugify } from "@/lib/cms";
@@ -11,8 +11,8 @@ export const Route = createFileRoute("/_authenticated/admin/editorial/case-studi
 });
 
 function CasesLayout() {
-  const matchRoute = useMatchRoute();
-  const isList = !matchRoute({ to: "/admin/editorial/case-studies/$id", fuzzy: true });
+  const { pathname } = useLocation();
+  const isList = pathname === "/admin/editorial/case-studies";
   return isList ? <CasesList /> : <Outlet />;
 }
 
