@@ -16,7 +16,6 @@ export const PRIMARY_NAV: ReadonlyArray<NavItem> = [
   { label: "Start", to: "/" },
   { label: "Oferta", to: "/oferta" },
   { label: "Realizacje", to: "/realizacje" },
-  { label: "Kalkulator", to: "/kalkulator-pompy-ciepla" },
   { label: "Zespół", to: "/zespol" },
   { label: "Strefa Wiedzy", to: "/wiedza" },
   { label: "Kontakt", to: "/kontakt" },
