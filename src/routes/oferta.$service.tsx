@@ -111,6 +111,38 @@ function ServicePage() {
   );
 }
 
+function CalculatorTile() {
+  return (
+    <section className="bg-white px-5 pt-10 md:px-8 md:pt-14">
+      <Link
+        to="/kalkulator-pompy-ciepla"
+        className="group mx-auto block max-w-6xl overflow-hidden rounded-3xl border-2 border-black/10 bg-gradient-to-br from-[#F5B800] via-[#FFD24A] to-[#F5B800] p-8 shadow-[0_20px_60px_-20px_rgba(245,184,0,0.5)] transition-all hover:scale-[1.01] hover:shadow-[0_24px_70px_-20px_rgba(245,184,0,0.65)] md:p-12"
+      >
+        <div className="grid items-center gap-8 md:grid-cols-[auto_1fr_auto]">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-black/10 backdrop-blur md:h-24 md:w-24">
+            <Calculator className="h-10 w-10 text-black md:h-12 md:w-12" strokeWidth={2.2} />
+          </div>
+          <div>
+            <div className="text-[10px] font-bold uppercase tracking-[0.3em] text-black/70">
+              Kalkulator · Narzędzie inżynierskie
+            </div>
+            <h2 className="mt-2 text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-black">
+              Sprawdź orientacyjny dobór pompy ciepła dla Twojego domu
+            </h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-black/75 md:text-base">
+              Moc, roczne zapotrzebowanie na ciepło i koszt ogrzewania — w 2 minuty. Bezpłatnie.
+            </p>
+          </div>
+          <div className="inline-flex items-center gap-2 self-start rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition-transform group-hover:translate-x-1 md:self-center">
+            Otwórz kalkulator
+            <ArrowRight className="h-4 w-4" />
+          </div>
+        </div>
+      </Link>
+    </section>
+  );
+}
+
 function CalculatorPromo() {
   return (
     <section className="border-y border-black/5 bg-[#FAFAF7] px-5 py-20 md:px-8 md:py-28">
