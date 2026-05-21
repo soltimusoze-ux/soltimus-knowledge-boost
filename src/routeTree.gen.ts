@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZespolRouteImport } from './routes/zespol'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RealizacjeRouteImport } from './routes/realizacje'
 import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as OfertaRouteImport } from './routes/oferta'
@@ -36,6 +37,11 @@ import { Route as AuthenticatedAdminNewArticleRouteImport } from './routes/_auth
 const ZespolRoute = ZespolRouteImport.update({
   id: '/zespol',
   path: '/zespol',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RealizacjeRoute = RealizacjeRouteImport.update({
@@ -163,6 +169,7 @@ export interface FileRoutesByFullPath {
   '/oferta': typeof OfertaRouteWithChildren
   '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByTo {
   '/oferta': typeof OfertaRouteWithChildren
   '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
@@ -213,6 +221,7 @@ export interface FileRoutesById {
   '/oferta': typeof OfertaRouteWithChildren
   '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
@@ -239,6 +248,7 @@ export interface FileRouteTypes {
     | '/oferta'
     | '/premium'
     | '/realizacje'
+    | '/sitemap.xml'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/energia'
@@ -263,6 +273,7 @@ export interface FileRouteTypes {
     | '/oferta'
     | '/premium'
     | '/realizacje'
+    | '/sitemap.xml'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/energia'
@@ -288,6 +299,7 @@ export interface FileRouteTypes {
     | '/oferta'
     | '/premium'
     | '/realizacje'
+    | '/sitemap.xml'
     | '/zespol'
     | '/lab-episode/$slug'
     | '/oferta/energia'
@@ -314,6 +326,7 @@ export interface RootRouteChildren {
   OfertaRoute: typeof OfertaRouteWithChildren
   PremiumRoute: typeof PremiumRoute
   RealizacjeRoute: typeof RealizacjeRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ZespolRoute: typeof ZespolRoute
   LabEpisodeSlugRoute: typeof LabEpisodeSlugRoute
   WiedzaCategoryRoute: typeof WiedzaCategoryRouteWithChildren
@@ -331,6 +344,13 @@ declare module '@tanstack/react-router' {
       path: '/zespol'
       fullPath: '/zespol'
       preLoaderRoute: typeof ZespolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/realizacje': {
@@ -541,6 +561,7 @@ const rootRouteChildren: RootRouteChildren = {
   OfertaRoute: OfertaRouteWithChildren,
   PremiumRoute: PremiumRoute,
   RealizacjeRoute: RealizacjeRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ZespolRoute: ZespolRoute,
   LabEpisodeSlugRoute: LabEpisodeSlugRoute,
   WiedzaCategoryRoute: WiedzaCategoryRouteWithChildren,

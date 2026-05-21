@@ -1,67 +1,33 @@
+# Soltimus — status wdrożenia
 
-# Soltimus — Publication Readiness Plan
+## Zrobione (architektura, gotowość pod produkcję)
 
-The current state: the real marketing site lives at `/premium` (2120 lines, full homepage). `/` is just a CMS admin landing. `/zespol`, `/lab`, `/wiedza` exist. There is no `/kontakt`, `/oferta`, `/realizacje` route yet.
+- **Konfiguracja sitewide** — `src/config/site.ts`, `src/config/brand.ts`, `src/config/nav.ts`
+- **SEO helper** — `src/config/seo.ts` (`buildMeta`) generujący title/description/og:*/canonical/twitter:* + JSON-LD wg reguł TanStack (canonical tylko na liściach)
+- **JSON-LD biblioteka** — `src/lib/jsonld.ts` z generatorami `organizationSchema`, `websiteSchema`, `articleSchema`, `faqSchema`, `breadcrumbSchema`, `productSchema`
+- **`__root.tsx` posprzątany** — usunięty błędny `noindex, nofollow` na całej stronie (krytyczny błąd SEO) i admin-specyficzny tytuł; w zamian sitewide defaults + Organization & WebSite JSON-LD
+- **Brand tokeny w Tailwind** — `bg-brand-yellow` / `text-brand-ink` / `bg-brand-cream` dostępne globalnie (dotychczasowe hardkody działają, można migrować stopniowo)
+- **`public/robots.txt`** + **`/sitemap.xml`** jako server route (`src/routes/sitemap[.]xml.ts`)
+- **HubSpot stub** — `src/integrations/hubspot/types.ts` + `client.server.ts` (no-op dopóki sekret nie jest ustawiony)
+- **Lead capture abstrakcja** — `src/lib/lead-capture.ts` (typy gotowe; formularze migrujemy w osobnej iteracji)
+- **README.md** — pełna dokumentacja struktury i konwencji
+- **Refaktor `head()`** na `buildMeta` w `index.tsx` i `oferta.energia.tsx` jako wzorzec
 
-I'll bring the site to a clean, publishable state in focused passes.
+## Do zrobienia w kolejnych iteracjach
 
-## 1. Centralize company data
-Create `src/lib/company.ts` with single source of truth:
-- name, address, phone, email, NIP, KRS, REGON, hours
-- import everywhere instead of hardcoded strings.
+### Krótkoterminowo
+- Refaktor pozostałych `head()` na `buildMeta` (oferta, oferta.energia ✓, kontakt, zespol, realizacje, kalkulator, wiedza.index, 3 artykuły)
+- Audyt hierarchii nagłówków (jeden `<h1>` per route, sekcje `<h2>/<h3>`, `aria-labelledby` na `<section>`)
+- Migracja hardkodów kolorów (`#F5B800` → `bg-brand-yellow`) — czysto kosmetyczne, bez zmian wyglądu
+- Premium route — decyzja: usunąć czy zostawić jako redirect do `/`
 
-Update all occurrences in `premium.tsx`, `zespol.tsx`, `__root.tsx`, lab/wiedza pages, footer, contact CTA blocks.
+### Średnioterminowo
+- **Knowledge Hub content model** — przeniesienie artykułów z osobnych route'ów do `src/content/knowledge/*.ts` + jeden dynamiczny renderer
+- **Lead capture pełna implementacja** — wszystkie formularze przez `submitLead()` + mirror do HubSpot po włączeniu konnektora
+- Dostępność — focus-visible, prefers-reduced-motion, audyt alt-textów
+- Wydajność — lazy import kalkulatora i innych ciężkich sekcji
 
-## 2. Promote `/premium` to the real homepage
-- Move the CMS landing currently at `/` to `/admin-home` (or keep at `/admin` which already exists) — replace `src/routes/index.tsx` with the premium homepage content.
-- Delete or repurpose `src/routes/premium.tsx` (redirect `/premium` → `/`).
-- Update internal links accordingly.
-
-## 3. Header & logo polish
-Inside the homepage shell:
-- Use brand PNG (`logoDark` on light, `logoLight` on dark) with fixed `h-9 md:h-10 w-auto`, never stretched, with proper left padding and `gap-10` from nav.
-- Nav items: Start · Oferta · Realizacje · Zespół · Strefa Wiedzy · Kontakt.
-- Primary CTA "Umów konsultację" + phone `+48 500 350 150` (icon button on desktop, sticky bottom CTA on mobile).
-- Refine mobile menu: large tap targets, phone button, single CTA.
-
-## 4. New routes
-- `src/routes/kontakt.tsx` — full contact page: company block, phone, email, hours, address, embedded Google Maps iframe (Garwolin), simple form (name, phone, email, topic dropdown with the 7 options, message), CTA "Umów konsultację". Form posts via a `createServerFn` that stores into Supabase `contact_messages` table (create migration with RLS: insert public, select admin).
-- `src/routes/oferta.tsx` — overview of services (heat pumps, PV, energy storage, ventilation, thermomodernization, premium energy systems). Reuse existing offer cards from premium.
-- `src/routes/realizacje.tsx` — "coming soon / rozwijamy portfolio realizacji" intentional placeholder with 2-3 sample teaser cards.
-
-## 5. Homepage refinements
-- First screen headline updated to: *"Nowoczesne systemy energii, ogrzewania i komfortu dla wymagających domów."*
-- Proof-points strip: Autoryzowany Partner Daikin · Zespół inżynierów · Kompleksowa realizacja · Pomoc w dofinansowaniach · Serwis po montażu.
-- Trim overly busy effects, keep premium calm.
-- Team section uses authentic photos with shared cinematic grading (already in `HomepageTeamSection`), updated intro copy.
-
-## 6. `/zespol` page polish
-- Replace bios with the official copy (Bartosz, Jarek, Konrad, Iza, Karolina).
-- Tighten typography spacing, ensure portrait grading consistent, remove duplication with homepage section.
-
-## 7. Footer redesign (shared component)
-Create `src/components/site/SiteFooter.tsx`:
-- Brand block + tagline
-- Address, phone, email, hours
-- NIP / KRS / REGON
-- Quick links (Start, Oferta, Realizacje, Zespół, Strefa Wiedzy, Kontakt)
-- Services list
-- Polityka prywatności · Polityka cookies (stub routes if missing)
-- Bottom bar with © Soltimus sp. z o.o.
-
-Use on every public route.
-
-## 8. Lab / Knowledge Hub intentional "coming soon"
-- Keep existing content where present; for empty states show clean "Rozwijamy platformę ekspercką — pierwsze materiały już wkrótce" cards rather than blank space.
-
-## 9. Audit pass
-- Remove all placeholder/lorem text, ensure consistent buttons (`rounded-full bg-[#F5B800] text-black` primary, ghost border secondary), heading scale, spacing rhythm, mobile breakpoints, alt text on team photos, structured data (`Organization` JSON-LD with full company info in `__root.tsx` head).
-
-## Technical notes
-- New DB: `contact_messages(id, created_at, name, phone, email, topic, message, status)` with RLS: insert allowed to anon, select restricted to authenticated admin.
-- Single `COMPANY` constant exported from `src/lib/company.ts`.
-- Add `Organization` schema.org JSON-LD in `__root.tsx`.
-- No HubSpot, no automations, no Lab/Knowledge expansion.
-
-## Out of scope (per request)
-HubSpot integration, advanced automations, Lab/Knowledge Hub content expansion.
+### Długoterminowo
+- MDX dla artykułów (gdy wejdzie copywriter)
+- Polityka prywatności + cookies (osobne routes)
+- OG image generator (na razie pomijamy — placeholder jest gorszy niż brak)
