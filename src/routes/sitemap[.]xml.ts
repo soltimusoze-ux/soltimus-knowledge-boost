@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 import { SITE } from "@/config/site";
+import { listCases } from "@/content/case-studies";
+
 
 interface SitemapEntry {
   path: string;
@@ -49,7 +51,14 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const urls = STATIC_ENTRIES.map((e) =>
+        const dynamicEntries: SitemapEntry[] = listCases().map((c) => ({
+          path: `/realizacje/${c.slug}`,
+          lastmod: c.updatedAt ?? c.publishedAt,
+          changefreq: "monthly",
+          priority: "0.7",
+        }));
+        const urls = [...STATIC_ENTRIES, ...dynamicEntries].map((e) =>
+
           [
             `  <url>`,
             `    <loc>${SITE.url}${e.path}</loc>`,
