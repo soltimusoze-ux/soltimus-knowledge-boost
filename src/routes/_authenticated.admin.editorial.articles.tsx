@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate, Outlet, useMatchRoute } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, Outlet, useLocation } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { cms, slugify } from "@/lib/cms";
@@ -11,14 +11,8 @@ export const Route = createFileRoute("/_authenticated/admin/editorial/articles")
 });
 
 function ArticlesLayout() {
-  const matchRoute = useMatchRoute();
-  // Render child (new / edit) when present, otherwise the list.
-  const isChild = matchRoute({ to: "/admin/editorial/articles", fuzzy: true, pending: false });
-  const isList =
-    isChild &&
-    !matchRoute({ to: "/admin/editorial/articles/new" }) &&
-    !matchRoute({ to: "/admin/editorial/articles/$id", fuzzy: true });
-
+  const { pathname } = useLocation();
+  const isList = pathname === "/admin/editorial/articles";
   return isList ? <ArticlesList /> : <Outlet />;
 }
 
