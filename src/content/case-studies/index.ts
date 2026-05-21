@@ -9,8 +9,10 @@
 import type { CaseStudy } from "./types";
 
 import { caseStudy as konstancin } from "./pompy-ciepla/konstancin-rezydencja-350m2";
+import { caseStudy as dom2000Daikin } from "./pompy-ciepla/dom-2000-naprawa-instalacji-daikin";
+import { caseStudy as stacjaPaliwSigenergy } from "./magazyny-energii/stacja-paliw-ciaglosc-zasilania";
 
-const CASES: CaseStudy[] = [konstancin];
+const CASES: CaseStudy[] = [konstancin, dom2000Daikin, stacjaPaliwSigenergy];
 
 export function listCases(opts: { includeDrafts?: boolean } = {}): CaseStudy[] {
   const list = opts.includeDrafts
