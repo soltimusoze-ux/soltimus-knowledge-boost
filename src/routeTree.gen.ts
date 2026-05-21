@@ -25,6 +25,7 @@ import { Route as WiedzaIndexRouteImport } from './routes/wiedza.index'
 import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as RealizacjeSlugRouteImport } from './routes/realizacje.$slug'
 import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
+import { Route as OfertaServiceRouteImport } from './routes/oferta.$service'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
 import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
@@ -112,6 +113,11 @@ const OfertaEnergiaRoute = OfertaEnergiaRouteImport.update({
   path: '/energia',
   getParentRoute: () => OfertaRoute,
 } as any)
+const OfertaServiceRoute = OfertaServiceRouteImport.update({
+  id: '/$service',
+  path: '/$service',
+  getParentRoute: () => OfertaRoute,
+} as any)
 const LabEpisodeSlugRoute = LabEpisodeSlugRouteImport.update({
   id: '/lab-episode/$slug',
   path: '/lab-episode/$slug',
@@ -164,6 +170,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
+  '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -188,6 +195,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
+  '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -214,6 +222,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
   '/lab-episode/$slug': typeof LabEpisodeSlugRoute
+  '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
   '/realizacje/$slug': typeof RealizacjeSlugRoute
   '/wiedza/$category': typeof WiedzaCategoryRouteWithChildren
@@ -240,6 +249,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/zespol'
     | '/lab-episode/$slug'
+    | '/oferta/$service'
     | '/oferta/energia'
     | '/realizacje/$slug'
     | '/wiedza/$category'
@@ -264,6 +274,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/zespol'
     | '/lab-episode/$slug'
+    | '/oferta/$service'
     | '/oferta/energia'
     | '/realizacje/$slug'
     | '/wiedza/$category'
@@ -289,6 +300,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/zespol'
     | '/lab-episode/$slug'
+    | '/oferta/$service'
     | '/oferta/energia'
     | '/realizacje/$slug'
     | '/wiedza/$category'
@@ -434,6 +446,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OfertaEnergiaRouteImport
       parentRoute: typeof OfertaRoute
     }
+    '/oferta/$service': {
+      id: '/oferta/$service'
+      path: '/$service'
+      fullPath: '/oferta/$service'
+      preLoaderRoute: typeof OfertaServiceRouteImport
+      parentRoute: typeof OfertaRoute
+    }
     '/lab-episode/$slug': {
       id: '/lab-episode/$slug'
       path: '/lab-episode/$slug'
@@ -505,10 +524,12 @@ const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
 )
 
 interface OfertaRouteChildren {
+  OfertaServiceRoute: typeof OfertaServiceRoute
   OfertaEnergiaRoute: typeof OfertaEnergiaRoute
 }
 
 const OfertaRouteChildren: OfertaRouteChildren = {
+  OfertaServiceRoute: OfertaServiceRoute,
   OfertaEnergiaRoute: OfertaEnergiaRoute,
 }
 

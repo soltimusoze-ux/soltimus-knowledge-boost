@@ -38,11 +38,12 @@ const SERVICES = [
     icon: Thermometer,
     title: "Pompy ciepła",
     lead: "Daikin Altherma — powietrzne i gruntowe.",
+    to: "/oferta/pompy-ciepla",
     points: [
-      "Bilans cieplny i dobór mocy",
+      "Audyt + OZC + projekt",
       "Powietrze–woda · grunt–woda",
-      "Integracja z istniejącą instalacją",
-      "Niskie koszty eksploatacji",
+      "Hydraulika i elektryka jako część projektu",
+      "Uruchomienie + 30 dni monitoringu",
     ],
   },
   {
