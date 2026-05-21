@@ -191,7 +191,7 @@ export const article: Article = {
         {
           name: "Modernizacja elektryki",
           detail:
-            "Przyłącze 3-fazowe, zabezpieczenia różnicowoprądowe, ochronniki przepięciowe — 2 500–7 000 zł, często pomijane w „cenach od".",
+            "Przyłącze 3-fazowe, zabezpieczenia różnicowoprądowe, ochronniki przepięciowe — 2 500–7 000 zł, często pomijane w „cenach od”.",
         },
       ],
     },
@@ -233,7 +233,7 @@ export const article: Article = {
       type: "key-takeaways",
       items: [
         "Realny budżet 2026: **38–120 tys. zł brutto** z montażem; po dotacji 18–55 tys. zł netto.",
-        "Najtańszy montaż „od ręki" prawie zawsze oznacza wyższe TCO w 10-letnim cyklu.",
+        "Najtańszy montaż „od ręki” prawie zawsze oznacza wyższe TCO w 10-letnim cyklu.",
         "Pompa powietrzna split = standard dla nowych domów; gruntowa = sens powyżej 150 m² i 9 kW.",
         "ROI zależy od tego, co wymieniasz: węgiel (4–7 lat), gaz (7–11), olej (5–8).",
         "Każdy nasz kosztorys zaczyna się od audytu energetycznego — nie od wybranego modelu.",
