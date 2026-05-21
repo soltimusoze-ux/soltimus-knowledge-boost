@@ -130,7 +130,7 @@ function CalculatorTile() {
               Dobierz i wyceń pompę ciepła w 60 sekund
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-black/75 md:text-base">
-              Moc, roczne zapotrzebowanie na ciepło i koszt ogrzewania — w 2 minuty. Bezpłatnie.
+              Moc, roczne zapotrzebowanie na ciepło i koszt ogrzewania — w 1 minutę. Bezpłatnie.
             </p>
           </div>
           <div className="inline-flex items-center gap-2 self-start rounded-full bg-black px-6 py-3.5 text-sm font-semibold text-white transition-transform group-hover:translate-x-1 md:self-center">
