@@ -178,6 +178,71 @@ study — it is a project photo.
 - One flagship example: **Konstancin · Rezydencja 350 m²** demonstrating
   every section, every block, and every JSON-LD payload.
 
+## Phase 3B — Flagship engineering case studies
+
+Two additional flagships were added to validate the engine across very
+different storytelling axes:
+
+- **Stacja paliw · Sigenergy 18 kWh** (`magazyny-energii/stacja-paliw-ciaglosc-zasilania`)
+  — operational continuity for a B2B obiekt, NOT "battery installation".
+  Axis: diagnosis → selective backup → voltage stabilization.
+- **Dom 2003 · naprawa źle dobranej pompy** (`pompy-ciepla/dom-2000-naprawa-instalacji-daikin`)
+  — engineering correction after a failed install. Axis: audit → OZC →
+  electrical safety → properly designed Daikin Altherma 3. Calm,
+  educational, never aggressive toward competitors.
+
+### Storytelling patterns that worked
+
+These are now the house rules for every future flagship:
+
+1. **Lead with the engineering act, not the product.** The first sentence
+   of `subtitle` should name the decision (e.g. "Magazyn energii jako
+   warstwa stabilizująca napięcia"), never the brand.
+2. **Diagnosis-first `challenges`.** Every challenge card describes the
+   measurement or audit finding that revealed the problem — not a
+   marketing pain point. Numbers in the body, not adjectives.
+3. **`approach` as a 3–5 decision chain.** Each paragraph = one
+   engineering decision and the reason it beat the alternative. This is
+   what separates a case study from a project description.
+4. **`metrics` strip as "the four numbers a skeptic would ask for".**
+   Pick metrics where "before" is honestly bad and "after" is honestly
+   measured. Never use a vanity metric (e.g. "satisfaction").
+5. **`engineerCommentary` as a counter-marketing voice.** At least one
+   pull-quote that names the trade-off, not the win. This is the single
+   highest E-E-A-T signal in the format.
+6. **`lessons` as transferable rules.** Written so another engineer
+   could apply them tomorrow — not as case-specific anecdotes.
+7. **`faq` as the AI-search surface.** Every Q is phrased as a search
+   query a homeowner / facility manager would actually type. Every A
+   starts with the answer, not a preamble.
+
+### Reusable structures that proved their value
+
+- **B2B continuity studies** reuse the same spine as residential studies
+  — `building` is repurposed as `obiekt komercyjny` profile, `goals` as
+  operational goals. No new components were needed.
+- **Recovery / correction studies** benefit from a denser `challenges`
+  block (4 items instead of 3) and a longer `approach` (4–5 paragraphs).
+  The fixed spine still holds.
+- **`beforeAfter` works as the central trust device** in correction
+  studies — when "before" is genuinely dangerous (melted insulation,
+  ≈19 500 kWh/yr), the table does more work than any prose paragraph.
+
+### Rules for future case studies
+
+- Never name a competitor or a previous installer. Describe the
+  installation, not the people. ("Poprzednia jednostka", not "firma X".)
+- Never use exclamation marks. Never use "rewelacyjny", "fantastyczny",
+  "niesamowity", "najlepszy". Numbers carry the emotion.
+- Always include at least one `engineerCommentary` pull-quote that
+  reframes the project as an engineering decision.
+- Always include `beforeAfter` for correction / recovery studies and
+  for B2B continuity studies. For new-build studies, `beforeAfter`
+  becomes "scenariusz referencyjny vs zrealizowany".
+- For homeowner privacy: first name + initial maximum. For B2B obiekts
+  without consent for full disclosure: "Właściciel obiektu" + region
+  level location ("Mazowsze"), never city + street.
+
 ## What is intentionally postponed
 
 - Video embeds (waiting on Lab episode unification).
@@ -186,3 +251,4 @@ study — it is a project photo.
 - Admin authoring UI for case studies.
 - Multi-language (PL/EN) — content model is locale-agnostic; add a
   `locale` field when the editorial team is ready.
+
