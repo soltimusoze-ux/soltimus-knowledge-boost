@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZespolRouteImport } from './routes/zespol'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RealizacjeRouteImport } from './routes/realizacje'
+import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as PolitykaCookiesRouteImport } from './routes/polityka-cookies'
 import { Route as OfertaRouteImport } from './routes/oferta'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
@@ -46,6 +48,16 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RealizacjeRoute = RealizacjeRouteImport.update({
   id: '/realizacje',
   path: '/realizacje',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
+  id: '/polityka-prywatnosci',
+  path: '/polityka-prywatnosci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PolitykaCookiesRoute = PolitykaCookiesRouteImport.update({
+  id: '/polityka-cookies',
+  path: '/polityka-cookies',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OfertaRoute = OfertaRouteImport.update({
@@ -161,6 +173,8 @@ export interface FileRoutesByFullPath {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
+  '/polityka-cookies': typeof PolitykaCookiesRoute
+  '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -185,6 +199,8 @@ export interface FileRoutesByTo {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
+  '/polityka-cookies': typeof PolitykaCookiesRoute
+  '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -211,6 +227,8 @@ export interface FileRoutesById {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
+  '/polityka-cookies': typeof PolitykaCookiesRoute
+  '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -237,6 +255,8 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
+    | '/polityka-cookies'
+    | '/polityka-prywatnosci'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -261,6 +281,8 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
+    | '/polityka-cookies'
+    | '/polityka-prywatnosci'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -286,6 +308,8 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
+    | '/polityka-cookies'
+    | '/polityka-prywatnosci'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -312,6 +336,8 @@ export interface RootRouteChildren {
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
   OfertaRoute: typeof OfertaRouteWithChildren
+  PolitykaCookiesRoute: typeof PolitykaCookiesRoute
+  PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
   RealizacjeRoute: typeof RealizacjeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ZespolRoute: typeof ZespolRoute
@@ -345,6 +371,20 @@ declare module '@tanstack/react-router' {
       path: '/realizacje'
       fullPath: '/realizacje'
       preLoaderRoute: typeof RealizacjeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/polityka-prywatnosci': {
+      id: '/polityka-prywatnosci'
+      path: '/polityka-prywatnosci'
+      fullPath: '/polityka-prywatnosci'
+      preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/polityka-cookies': {
+      id: '/polityka-cookies'
+      path: '/polityka-cookies'
+      fullPath: '/polityka-cookies'
+      preLoaderRoute: typeof PolitykaCookiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/oferta': {
@@ -539,6 +579,8 @@ const rootRouteChildren: RootRouteChildren = {
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
   OfertaRoute: OfertaRouteWithChildren,
+  PolitykaCookiesRoute: PolitykaCookiesRoute,
+  PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
   RealizacjeRoute: RealizacjeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ZespolRoute: ZespolRoute,
