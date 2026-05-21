@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ZespolRouteImport } from './routes/zespol'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RealizacjeRouteImport } from './routes/realizacje'
-import { Route as PremiumRouteImport } from './routes/premium'
 import { Route as OfertaRouteImport } from './routes/oferta'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LabRouteImport } from './routes/lab'
@@ -47,11 +46,6 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RealizacjeRoute = RealizacjeRouteImport.update({
   id: '/realizacje',
   path: '/realizacje',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PremiumRoute = PremiumRouteImport.update({
-  id: '/premium',
-  path: '/premium',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OfertaRoute = OfertaRouteImport.update({
@@ -167,7 +161,6 @@ export interface FileRoutesByFullPath {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
-  '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -192,7 +185,6 @@ export interface FileRoutesByTo {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
-  '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -219,7 +211,6 @@ export interface FileRoutesById {
   '/lab': typeof LabRoute
   '/login': typeof LoginRoute
   '/oferta': typeof OfertaRouteWithChildren
-  '/premium': typeof PremiumRoute
   '/realizacje': typeof RealizacjeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/zespol': typeof ZespolRoute
@@ -246,7 +237,6 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
-    | '/premium'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -271,7 +261,6 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
-    | '/premium'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -297,7 +286,6 @@ export interface FileRouteTypes {
     | '/lab'
     | '/login'
     | '/oferta'
-    | '/premium'
     | '/realizacje'
     | '/sitemap.xml'
     | '/zespol'
@@ -324,7 +312,6 @@ export interface RootRouteChildren {
   LabRoute: typeof LabRoute
   LoginRoute: typeof LoginRoute
   OfertaRoute: typeof OfertaRouteWithChildren
-  PremiumRoute: typeof PremiumRoute
   RealizacjeRoute: typeof RealizacjeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ZespolRoute: typeof ZespolRoute
@@ -358,13 +345,6 @@ declare module '@tanstack/react-router' {
       path: '/realizacje'
       fullPath: '/realizacje'
       preLoaderRoute: typeof RealizacjeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/premium': {
-      id: '/premium'
-      path: '/premium'
-      fullPath: '/premium'
-      preLoaderRoute: typeof PremiumRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/oferta': {
@@ -559,7 +539,6 @@ const rootRouteChildren: RootRouteChildren = {
   LabRoute: LabRoute,
   LoginRoute: LoginRoute,
   OfertaRoute: OfertaRouteWithChildren,
-  PremiumRoute: PremiumRoute,
   RealizacjeRoute: RealizacjeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ZespolRoute: ZespolRoute,
@@ -577,3 +556,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
