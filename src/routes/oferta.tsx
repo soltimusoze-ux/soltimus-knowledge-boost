@@ -120,36 +120,50 @@ function OfertaPage() {
       <section className="px-5 py-20 md:px-8 md:py-28">
         <div className="mx-auto max-w-6xl">
           <div className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-black/5 bg-black/5 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((s) => (
-              <article
-                key={s.title}
-                className="group flex flex-col gap-5 bg-white p-8 transition-colors hover:bg-[#FAFAF7] md:p-10"
-              >
-                <div
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5B800]/15 text-black transition-transform group-hover:scale-110"
-                >
-                  <s.icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <h2 className="text-xl font-semibold tracking-tight">
-                    {s.title}
-                  </h2>
-                  <p className="mt-1 text-sm text-black/60">{s.lead}</p>
-                </div>
-                <ul className="mt-2 space-y-2 text-sm text-black/70">
-                  {s.points.map((p) => (
-                    <li key={p} className="flex items-start gap-2">
-                      <CheckCircle2
-                        className="mt-0.5 h-4 w-4 flex-shrink-0"
-                        style={{ color: "#F5B800" }}
-                      />
-                      <span>{p}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+            {SERVICES.map((s) => {
+              const inner = (
+                <>
+                  <div className="flex items-start justify-between">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5B800]/15 text-black transition-transform group-hover:scale-110">
+                      <s.icon className="h-5 w-5" />
+                    </div>
+                    {s.to ? (
+                      <ArrowRight className="h-5 w-5 text-black/30 transition-all group-hover:translate-x-1 group-hover:text-black" />
+                    ) : null}
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold tracking-tight">
+                      {s.title}
+                    </h2>
+                    <p className="mt-1 text-sm text-black/60">{s.lead}</p>
+                  </div>
+                  <ul className="mt-2 space-y-2 text-sm text-black/70">
+                    {s.points.map((p) => (
+                      <li key={p} className="flex items-start gap-2">
+                        <CheckCircle2
+                          className="mt-0.5 h-4 w-4 flex-shrink-0"
+                          style={{ color: "#F5B800" }}
+                        />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              );
+              const cls =
+                "group flex flex-col gap-5 bg-white p-8 transition-colors hover:bg-[#FAFAF7] md:p-10";
+              return s.to ? (
+                <Link key={s.title} to={s.to} className={cls}>
+                  {inner}
+                </Link>
+              ) : (
+                <article key={s.title} className={cls}>
+                  {inner}
+                </article>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
