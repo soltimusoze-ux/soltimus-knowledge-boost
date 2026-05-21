@@ -7,6 +7,7 @@ import {
   Wrench,
   ArrowRight,
   CheckCircle2,
+  ClipboardCheck,
 } from "lucide-react";
 
 import { SiteHeader } from "@/components/site/SiteHeader";
