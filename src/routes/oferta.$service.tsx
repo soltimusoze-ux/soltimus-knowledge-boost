@@ -127,7 +127,7 @@ function CalculatorTile() {
               Kalkulator · Narzędzie inżynierskie
             </div>
             <h2 className="mt-2 text-[clamp(1.5rem,3vw,2.25rem)] font-bold leading-[1.1] tracking-tight text-black">
-              Sprawdź orientacyjny dobór pompy ciepła dla Twojego domu
+              Dobierz i wyceń pompę ciepła w 60 sekund
             </h2>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-black/75 md:text-base">
               Moc, roczne zapotrzebowanie na ciepło i koszt ogrzewania — w 2 minuty. Bezpłatnie.
