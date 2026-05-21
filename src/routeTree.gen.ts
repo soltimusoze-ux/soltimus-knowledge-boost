@@ -26,7 +26,6 @@ import { Route as WiedzaCategoryRouteImport } from './routes/wiedza.$category'
 import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
 import { Route as LabEpisodeSlugRouteImport } from './routes/lab-episode.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated.admin.index'
-import { Route as WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRouteImport } from './routes/wiedza.pompy-ciepla.zbiorniki-cwu-do-pompy-ciepla'
 import { Route as WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport } from './routes/wiedza.pompy-ciepla.gruntowa-pompa-ciepla-kompletny-przewodnik'
 import { Route as WiedzaPompyCieplaCennikPompCiepla2026RouteImport } from './routes/wiedza.pompy-ciepla.cennik-pomp-ciepla-2026'
 import { Route as WiedzaCategorySlugRouteImport } from './routes/wiedza.$category.$slug'
@@ -119,12 +118,6 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute =
-  WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRouteImport.update({
-    id: '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla',
-    path: '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute =
   WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRouteImport.update({
     id: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik',
@@ -189,7 +182,6 @@ export interface FileRoutesByFullPath {
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026': typeof WiedzaPompyCieplaCennikPompCiepla2026Route
   '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
-  '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla': typeof WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -215,7 +207,6 @@ export interface FileRoutesByTo {
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026': typeof WiedzaPompyCieplaCennikPompCiepla2026Route
   '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
-  '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla': typeof WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -243,7 +234,6 @@ export interface FileRoutesById {
   '/wiedza/$category/$slug': typeof WiedzaCategorySlugRoute
   '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026': typeof WiedzaPompyCieplaCennikPompCiepla2026Route
   '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
-  '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla': typeof WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -271,7 +261,6 @@ export interface FileRouteTypes {
     | '/wiedza/$category/$slug'
     | '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
     | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
-    | '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -297,7 +286,6 @@ export interface FileRouteTypes {
     | '/wiedza/$category/$slug'
     | '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
     | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
-    | '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla'
     | '/admin'
   id:
     | '__root__'
@@ -324,7 +312,6 @@ export interface FileRouteTypes {
     | '/wiedza/$category/$slug'
     | '/wiedza/pompy-ciepla/cennik-pomp-ciepla-2026'
     | '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
-    | '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -347,7 +334,6 @@ export interface RootRouteChildren {
   ApiPublicContactRoute: typeof ApiPublicContactRoute
   WiedzaPompyCieplaCennikPompCiepla2026Route: typeof WiedzaPompyCieplaCennikPompCiepla2026Route
   WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute: typeof WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute
-  WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute: typeof WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -471,13 +457,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla': {
-      id: '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla'
-      path: '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla'
-      fullPath: '/wiedza/pompy-ciepla/zbiorniki-cwu-do-pompy-ciepla'
-      preLoaderRoute: typeof WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik': {
       id: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
       path: '/wiedza/pompy-ciepla/gruntowa-pompa-ciepla-kompletny-przewodnik'
@@ -592,8 +571,6 @@ const rootRouteChildren: RootRouteChildren = {
     WiedzaPompyCieplaCennikPompCiepla2026Route,
   WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute:
     WiedzaPompyCieplaGruntowaPompaCieplaKompletnyPrzewodnikRoute,
-  WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute:
-    WiedzaPompyCieplaZbiornikiCwuDoPompyCieplaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
