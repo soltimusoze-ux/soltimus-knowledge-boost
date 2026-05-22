@@ -10,6 +10,7 @@
  * operacyjna, nie sentyment.
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-osiedle-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "osiedle-252-mieszkania-pompy-gruntowe",
