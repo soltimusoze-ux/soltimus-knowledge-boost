@@ -92,39 +92,59 @@ function RealizacjeIndexPage() {
             ))}
           </div>
 
-          <div className="mt-16 text-[10px] uppercase tracking-[0.3em] text-black/40">
-            Pozostałe realizacje
+          {/* REAL IMPLEMENTATION ARCHIVE — proof of scale & repeatability */}
+          <div className="mt-20 flex flex-col gap-4 md:mt-24 md:flex-row md:items-end md:justify-between">
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
+                Archiwum realizacji
+              </div>
+              <h2 className="mt-3 max-w-2xl text-2xl font-semibold tracking-tight md:text-3xl">
+                Setki projektów. Polska codzienność inżynierska.
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-black/55">
+              Wybór z archiwum: domy, modernizacje, obiekty publiczne i
+              komercyjne. Każda pozycja to realna instalacja w polskich
+              warunkach.
+            </p>
           </div>
-          <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-            {TEASERS.map((t) => (
+
+          <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {PORTFOLIO.map((p) => (
               <figure
-                key={t.title}
-                className="group relative overflow-hidden rounded-3xl bg-black"
+                key={p.id}
+                className="group relative overflow-hidden rounded-2xl bg-black"
               >
-                <div className="relative aspect-[16/10] overflow-hidden">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <img
-                    src={t.img}
-                    alt={t.title}
+                    src={p.image}
+                    alt={p.alt}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-105"
+                    width={1024}
+                    height={768}
+                    className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.04]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                  <figcaption className="absolute inset-x-0 bottom-0 p-6 text-white">
-                    <div
-                      className="text-[10px] uppercase tracking-[0.3em]"
-                      style={{ color: "#F5B800" }}
-                    >
-                      {t.city}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent" />
+                  <figcaption className="absolute inset-x-0 bottom-0 p-4 text-white md:p-5">
+                    <div className="flex items-center gap-2 text-[9px] uppercase tracking-[0.25em] text-white/70">
+                      <span style={{ color: "#F5B800" }}>{p.location}</span>
+                      <span className="text-white/30">·</span>
+                      <span>{p.type}</span>
                     </div>
-                    <div className="mt-2 text-lg font-semibold leading-tight tracking-tight">
-                      {t.title}
+                    <div className="mt-1.5 text-[15px] font-medium leading-snug tracking-tight">
+                      {p.title}
                     </div>
-                    <div className="mt-2 text-xs text-white/70">{t.spec}</div>
+                    {p.system && (
+                      <div className="mt-1 text-[11px] text-white/60">
+                        {p.system}
+                      </div>
+                    )}
                   </figcaption>
                 </div>
               </figure>
             ))}
           </div>
+
 
           {/* COMING SOON STRIP */}
           <div className="mt-20 overflow-hidden rounded-3xl border border-black/10 bg-[#FAFAF7] p-8 md:p-14">
