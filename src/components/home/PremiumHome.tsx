@@ -6,6 +6,10 @@ import karolinaImg from "@/assets/team-karolina.jpg";
 import izaImg from "@/assets/team-iza.jpg";
 import logoDark from "@/assets/soltimus-logo.png";
 import logoLight from "@/assets/soltimus-logo-white.png";
+import outcomeBezobslugowosc from "@/assets/outcome-bezobslugowosc.jpg";
+import outcomeAppSigen from "@/assets/outcome-app-sigen.jpg";
+import outcomePrzewidywalneKoszty from "@/assets/outcome-przewidywalne-koszty.jpg";
+import outcomeKomfort from "@/assets/outcome-komfort-caly-rok.jpg";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -421,24 +425,24 @@ function TrustIndicators() {
 function ComfortStrip() {
   const shots = [
     {
-      img: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=1200&q=80",
-      label: "Cicho",
-      sub: "23 dB w salonie",
+      img: outcomeBezobslugowosc,
+      label: "Bezobsługowość",
+      sub: "Dom działa sam — bez kotłowni, opału i codziennej obsługi systemu.",
     },
     {
-      img: "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80",
-      label: "Ciepło",
-      sub: "21°C całą zimę",
+      img: outcomeAppSigen,
+      label: "Inteligentne zarządzanie energią",
+      sub: "Sterowanie ogrzewaniem, chłodzeniem i energią z jednej aplikacji.",
     },
     {
-      img: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200&q=80",
-      label: "Świeżo",
-      sub: "Powietrze jak po burzy",
+      img: outcomePrzewidywalneKoszty,
+      label: "Przewidywalne koszty",
+      sub: "Stabilne rachunki dzięki poprawnemu OZC i dobrze dobranemu systemowi.",
     },
     {
-      img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80",
-      label: "Tanio",
-      sub: "Rachunki niższe o 70%",
+      img: outcomeKomfort,
+      label: "Komfort przez cały rok",
+      sub: "Ogrzewanie, chłodzenie, świeże powietrze i ciepła woda w jednym systemie.",
     },
   ];
   return (
@@ -448,7 +452,7 @@ function ComfortStrip() {
         <h2 className="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-semibold leading-[1.05] tracking-tight">
           Nie sprzedajemy pomp ciepła. <span className="italic font-light text-black/60">Sprzedajemy efekt.</span>
         </h2>
-        <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
+        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
           {shots.map((s, i) => (
             <motion.div
               key={s.label}
@@ -456,17 +460,18 @@ function ComfortStrip() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ delay: i * 0.08, duration: 0.7 }}
-              className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-black md:aspect-[4/5]"
+              className="group relative aspect-[4/5] overflow-hidden rounded-2xl bg-black"
             >
               <img
                 src={s.img}
                 alt={s.label}
-                className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-110"
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.06]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-                <div className="text-lg font-semibold text-white md:text-xl">{s.label}</div>
-                <div className="text-xs text-white/70 md:text-sm">{s.sub}</div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                <div className="text-lg font-semibold leading-tight text-white md:text-xl">{s.label}</div>
+                <div className="mt-2 text-[13px] leading-relaxed text-white/75 md:text-sm">{s.sub}</div>
               </div>
             </motion.div>
           ))}

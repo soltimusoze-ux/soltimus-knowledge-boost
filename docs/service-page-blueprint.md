@@ -215,3 +215,63 @@ service page.
 - A dedicated `getEpisode(slug)` Lab lookup so `RelatedLabEpisodes`
   can resolve from slugs (today the component takes pre-resolved data).
 - Multi-language (PL/EN) — content model is locale-agnostic.
+
+---
+
+## Phase 6H — Customer outcomes over technical features
+
+Value/outcome sections on service pages communicate **how a well-designed
+energy system changes everyday life**, not which product or spec we install.
+The product page lists features; outcome cards translate engineering into
+lived experience.
+
+### Emotional engineering principles
+
+1. **Outcomes, not features.** "Bezobsługowość" beats "monoblok R32".
+   "Przewidywalne koszty" beats "SCOP 4.6". The technical proof lives
+   elsewhere on the page (`technicalAdvantages`, `outcomes` strip).
+2. **Five emotional anchors** that map to real homeowner priorities:
+   peace of mind, control, comfort, predictability, independence.
+   Every outcome card should land on one of them.
+3. **No marketing intensifiers.** No "rewelacyjny", no "najlepszy",
+   no exclamation marks. The image carries the emotion; the copy stays
+   factual and short (one sentence, ≤ 20 words).
+4. **Numbers belong on the metrics strip, not on outcome cards.**
+   "23 dB", "−70% rachunków" are claims that need evidence; outcome
+   cards are about lived experience, not benchmarks.
+
+### Smart-energy UX communication
+
+When showing the smart-energy layer (mySigen-class app, monitoring,
+automation), the visual must read as **real software in a real home**:
+
+- Real-looking dashboard with believable metrics (PV production curve,
+  battery SOC, heat-pump status, grid import/export).
+- Polish-language UI labels.
+- Phone held in-hand inside a real Polish interior — never floating
+  product render or sci-fi hologram.
+- Subtle brand-aligned accent (Soltimus yellow) — never neon or rainbow.
+
+The message is **control + visibility + automation**, not "futurism".
+
+### Visual standards for value / outcome sections
+
+- 4 cards, aspect 4:5, dark gradient overlay (`from-black/90 via-black/40`),
+  white title + 75% white description.
+- Imagery must be **authentic, architectural, restrained** — Polish
+  reality, documentary tone, no stock-photo smiles, no luxury staging,
+  no generic HVAC catalogue shots.
+- Each card pairs one emotional anchor with one believable visual:
+  effortless evening home, smart-energy app in hand, PV + heat pump on a
+  real house, calm modern interior with discreet floor heating /
+  rekuperator diffuser.
+- Copy never names a product brand. The system's brand identity comes
+  from the visual treatment, not from logos.
+
+### What to avoid
+
+- Unsplash interiors, smiling families, fake app mockups.
+- "Money-saving advertisement" vibes (piggy banks, cash, big arrows down).
+- Florida/California luxury references — see `case-study-visual-direction.md`
+  for the full Polish-realism rule set.
+
