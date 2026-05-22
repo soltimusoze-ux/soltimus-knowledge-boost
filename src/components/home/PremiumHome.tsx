@@ -449,8 +449,12 @@ function ComfortStrip() {
     <section className="bg-white px-5 py-20 md:px-8 md:py-28">
       <div className="mx-auto max-w-7xl">
         <SectionLabel>Co dostajesz</SectionLabel>
-        <h2 className="mt-4 max-w-3xl text-[clamp(1.75rem,4vw,3rem)] font-semibold leading-[1.05] tracking-tight">
-          Nie sprzedajemy pomp ciepła. <span className="italic font-light text-black/60">Sprzedajemy efekt.</span>
+        <h2 className="mt-4 max-w-4xl text-[clamp(1.6rem,3.8vw,2.8rem)] font-semibold leading-[1.08] tracking-tight">
+          Nie jesteśmy sprzedawcami pomp ciepła i fotowoltaiki.
+          <span className="block mt-2 italic font-light text-black/60">
+            Projektujemy nowoczesny komfort,<br className="hidden md:block" />
+            bezpieczeństwo i niezależność energetyczną domu.
+          </span>
         </h2>
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-5 lg:grid-cols-4">
           {shots.map((s, i) => (
