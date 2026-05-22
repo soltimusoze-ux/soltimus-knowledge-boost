@@ -84,7 +84,90 @@ When adding a new case study, choose / generate an image as follows:
 
 | Case | Hero |
 | --- | --- |
+| `konstancin-rezydencja-350m2` | Współczesna polska rezydencja, kremowa elewacja z grafitem, brzozy, mazowiecki krajobraz, mglisty świt — `case-konstancin-hero.jpg` |
+| `stacja-paliw-ciaglosc-zasilania-sigenergy` | Polska stacja paliw o zmierzchu, dostawczy van, mokry asfalt, brak widocznych logotypów — `case-stacja-paliw-hero.jpg` |
 | `dom-nowy-hybryda-kominek-pompa-ciepla` | Nowoczesna stodoła, grafitowy dach, zintegrowane PV, wieczór, łąka — `case-stodola-hero.jpg` |
+| `dom-lat-70-gleboka-termomodernizacja-pompa-ciepla` | Kostka PRL po termomodernizacji, jasna elewacja z szarymi akcentami, podmiejska Polska — `case-kostka-prl-hero.jpg` |
+| `osiedle-252-mieszkania-pompy-gruntowe` | Drone shot polskiego osiedla średnio-wysokiego po modernizacji, zieleń, place zabaw — `case-osiedle-hero.jpg` |
+| `dom-2000-naprawa-instalacji-daikin` | Inżynier serwisowy przy Daikin Altherma, czapka z subtelnie wyhaftowanym SOLTIMUS — `case-daikin-engineer-hero.jpg` |
+
+## Phase 6F — Polish realism (extension)
+
+Phase 6F sharpens the realism bar after a round of imagery that drifted
+toward US / Florida / luxury-real-estate aesthetics. The rules below are
+additive to everything above and override any earlier ambiguity.
+
+### Polish realism guidelines
+
+- Architecture vocabulary is Polish: kostka, parterowiec, nowoczesna
+  stodoła, dwór, blok 4–5 kondygnacji, stacja paliw przy drodze
+  wojewódzkiej, hala usługowa na obrzeżach miasta. Anything that reads
+  as "California ranch", "Miami villa", "alpine chalet", "Mediterranean
+  estate", or "Dubai modern" is rejected outright.
+- Vegetation is Polish: brzoza, dąb, sosna, świerk, klon, trawnik
+  koszony ale nie idealny, czasem zaniedbany żywopłot. No palm trees,
+  no agaves, no olive groves, no tropical broadleaf.
+- Climate reads as Central Europe: soft overcast, hazy sun, wet asphalt
+  after rain, low autumn light, late spring green. No saturated
+  Mediterranean blue sky, no Floridian humidity haze, no desert clarity.
+- Scale stays believable: a "premium" home is ~200–400 m² with one
+  carport, not a 1 500 m² estate with circular drive.
+
+### Anti-stock-photo principles
+
+- ❌ Center-framed, perfectly symmetrical "hero shots" with empty
+  foreground and dramatic sky — that is a stock template.
+- ❌ Generic "happy family in front of solar panels" cliché.
+- ❌ Same Unsplash photo across multiple case studies, or any Unsplash
+  CDN URL for a case hero (always import a local asset).
+- ✅ Off-center framing, real foreground (path, fence, kerb, gutter,
+  parked car), and incidental detail that proves the photo was taken
+  on a real site.
+
+### Anti-luxury-render principles
+
+- ❌ Floor-to-ceiling glass on every facade, infinity pools, cantilevered
+  second floors, exposed concrete sculptural walls.
+- ❌ Twilight shots with every interior light on and a perfectly graded
+  purple-orange sky — that is a real-estate listing render.
+- ❌ Empty driveways with one parked supercar.
+- ✅ Restrained glazing proportionate to a Polish climate (energy code,
+  not Instagram). Real fences, gutters, downpipes, mailbox, antenna.
+  Lights on in one or two rooms, not all of them.
+
+### Architecture realism checklist
+
+Before accepting an image, confirm:
+
+1. Could this building plausibly stand on a Polish plot governed by
+   miejscowy plan zagospodarowania?
+2. Do the roof, gutter, chimney, snow guards, and downpipes exist and
+   make sense for Polish winter?
+3. Are the windows the right proportion and quantity for the era and
+   stated building area in the case study text?
+4. Does the surrounding landscape (fence, kerb, road, neighbours,
+   vegetation) read as Polish suburbia / countryside / town edge?
+5. Is the light a kind of light that actually happens in Poland for
+   most of the year (overcast, hazy sun, wet evening), not a kind that
+   only happens in marketing renders?
+
+If any answer is "no", regenerate the image — do not ship it.
+
+### Regional authenticity rules (Phase 6F additions)
+
+- Commercial / infrastructure scenes (fuel stations, warehouses,
+  service yards) must show generic Polish-road environment: krawężnik,
+  barierka energochłonna, znaki D-23 / E-22b w tle, mokry asfalt,
+  pojazdy dostawcze typowe dla PL (Sprinter, Crafter, Master, Daily).
+  No US-style pickup trucks, no European cars with non-PL plates as
+  hero subjects.
+- Branding constraint stays absolute: no visible logos or trademarks
+  on hero imagery — neither competitors' nor Soltimus's, beyond the
+  embroidered-cap level approved in Phase 6E.
+- When in doubt, prefer overcast and slightly wet conditions —
+  they read as Poland and they ground the image in operational reality
+  (a real workday, not a brochure).
+
 | `dom-lat-70-gleboka-termomodernizacja-pompa-ciepla` | Kostka PRL po termomodernizacji, jasna elewacja z szarymi akcentami, podmiejska Polska — `case-kostka-prl-hero.jpg` |
 | `osiedle-252-mieszkania-pompy-gruntowe` | Drone shot polskiego osiedla średnio-wysokiego po modernizacji, zieleń, place zabaw — `case-osiedle-hero.jpg` |
 | `dom-2000-naprawa-instalacji-daikin` | Inżynier serwisowy przy Daikin Altherma, czapka z subtelnie wyhaftowanym SOLTIMUS — `case-daikin-engineer-hero.jpg` |
