@@ -6,6 +6,7 @@ import { buildMeta } from "@/config/seo";
 import { breadcrumbSchema } from "@/lib/jsonld";
 import { SITE } from "@/config/site";
 import { listCases } from "@/content/case-studies";
+import { PORTFOLIO } from "@/content/portfolio";
 
 export const Route = createFileRoute("/realizacje/")({
   head: () =>
@@ -23,21 +24,6 @@ export const Route = createFileRoute("/realizacje/")({
     }),
   component: RealizacjeIndexPage,
 });
-
-const TEASERS = [
-  {
-    city: "Józefosław",
-    title: "Nowoczesny dom 180 m² — kompleksowa instalacja",
-    spec: "Daikin Altherma 3 R · Rekuperacja · PV 8 kWp",
-    img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1600&q=80",
-  },
-  {
-    city: "Pruszków",
-    title: "Dom 220 m² — modernizacja ogrzewania i PV",
-    spec: "Pompa ciepła + PV 9.8 kWp + magazyn 10 kWh",
-    img: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=1600&q=80",
-  },
-];
 
 function RealizacjeIndexPage() {
   return (
