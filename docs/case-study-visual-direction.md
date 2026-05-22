@@ -183,3 +183,69 @@ If any answer is "no", regenerate the image — do not ship it.
 - Card thumbnails on `/realizacje` use the same hero asset — pick images
   whose bottom-third works under a black gradient (where the card
   caption sits).
+
+## Phase 6G — Real implementation archive
+
+A second tier of visual content was introduced below the flagship case
+studies on `/realizacje`: the **real implementation archive**. It exists
+to communicate scale, repeatability and operational experience — proof
+that the engineering work has been done many times, in real Polish
+locations.
+
+### Visual hierarchy (flagship vs archive)
+
+1. **Flagship case studies** — large editorial cards (`16/11`),
+   premium grading, full headline + excerpt + CTA. Tell a story.
+   Heavy overlay (`from-black/95 via-black/40`).
+2. **Real implementation archive** — calmer 3-up / 4-up grid of small
+   cards (`4/3`), one-line title + location + type chip + optional
+   system summary. No long copy. Lighter overlay
+   (`from-black/85 via-black/25`). Smaller typography (15px title,
+   9px eyebrow). Tighter spacing.
+
+The two tiers must read as deliberately different: editorial story vs
+documentary archive. Do not blur the line by adding excerpts/CTAs to
+archive cards or by shrinking the flagship cards.
+
+### Authenticity over perfection
+
+Archive imagery is held to the same Phase 6E / 6F realism bar — but
+with one additional rule: **prefer the imperfect, real photo over the
+polished AI-perfect render**. Visible scaffolding, downpipes, a parked
+van, an asymmetric facade, mud on the driveway — these all increase
+trust. They are not flaws to be retouched out.
+
+The user must think _"these are real projects from a company that has
+actually done a lot of work"_, not _"these are stock renders"_.
+
+### Enhancement limits (archive)
+
+Allowed on archive images:
+- gentle color correction and contrast balancing
+- subtle sky / weather clean-up (lift haze, recover blue band)
+- light cinematic grading for consistency across the grid
+- minor noise reduction
+
+Not allowed:
+- changing architecture (roof shape, window count, facade material)
+- adding luxury features (pools, second carport, designer cladding)
+- replacing surrounding context with anything more upscale than reality
+- aggressive HDR, oversaturation, fake bokeh, fake sun flares
+- removing real-world detail that proves the photo is real (gutter,
+  downpipe, antenna, satellite dish, neighbour's roof)
+
+### Portfolio grid standards
+
+- Aspect ratio: `4/3` for every archive card. Do not mix ratios.
+- Grid: 1 col mobile, 2 col `sm`, 3 col `lg`, 4 col `xl`. Gap `gap-5`.
+- Overlay: `bg-gradient-to-t from-black/85 via-black/25 to-transparent`.
+  This is the minimum to keep title + eyebrow AA-contrast on mobile.
+- Title font size: `text-[15px]` with `font-medium`. Never bold, never
+  larger — that is reserved for flagship cards.
+- Eyebrow: location (in `#F5B800`) · type (in white/70), all uppercase
+  `tracking-[0.25em]` at 9–10px.
+- Hover: `scale-[1.04]` over `duration-[1200ms]`. Subtler than
+  flagship's `scale-105 / 1400ms`.
+- Each card must lazy-load (`loading="lazy"`) and declare explicit
+  `width={1024} height={768}` to avoid CLS in the grid.
+
