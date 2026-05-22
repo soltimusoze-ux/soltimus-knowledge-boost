@@ -7,6 +7,7 @@
  * Tone: educational, authoritative, calm. Never aggressive toward competitors.
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-daikin-engineer-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "dom-2000-naprawa-instalacji-daikin",
