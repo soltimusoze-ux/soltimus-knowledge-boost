@@ -275,3 +275,44 @@ The message is **control + visibility + automation**, not "futurism".
 - Florida/California luxury references — see `case-study-visual-direction.md`
   for the full Polish-realism rule set.
 
+### “Systems over products” communication principle
+
+The headline and surrounding copy must make one thing unmistakable:
+Soltimus designs and installs **integrated living systems**, not devices.
+
+- **Never open with a product category.** “Pompy ciepła” is what the industry
+  sells; “nowoczesny komfort” is what the homeowner receives.
+- **Lead with the role, not the SKU.** “Projektujemy…” positions engineering
+  authority before any hardware is named.
+- **Bundle the stack in one sentence.** Ogrzewanie + chłodzenie + energia +
+  woda + powietrze = one coherent system. The copy should feel like a single
+  design discipline, not a shopping list of installations.
+
+### Anti-sales positioning guidelines
+
+Soltimus copy must feel like a trusted advisor, not a vendor:
+
+1. **No product-first identity.** “Sprzedajemy efekt” is acceptable only when
+   it explicitly rejects product-centrism. Prefer “projektujemy systemy”.
+2. **No vendor verbs in headlines.** Avoid: sprzedajemy, dostarczamy,
+   oferujemy, montujemy (as the lead verb). Use: projektujemy, doradzamy,
+   zapewniamy, tworzymy.
+3. **No competitor comparison in the hero.** The anti-positioning lives in
+   `comparison` and `mistakesToAvoid`, not in the emotional opening.
+4. **No urgency or scarcity anywhere.** No countdowns, no “ostatnie miejsca”,
+   no seasonal pressure. The tone is calm permanence.
+5. **Engineer-first, salesman-second.** If a sentence sounds like it could be
+   spoken by a showroom employee, rewrite it as if spoken by a project lead.
+
+### Modern comfort positioning philosophy
+
+The emotional layer of the page should communicate **what life feels like**
+inside a Soltimus-designed home:
+
+- **Predictability over savings.** Stable bills matter more than “−70%” claims.
+- **Invisibility over spectacle.** The best system is the one nobody notices.
+- **Autonomy over luxury.** Independence from fuel deliveries and grid anxiety
+  is the premium signal, not marble bathrooms.
+- **Timelessness over trends.** The copy should feel as valid in 10 years as
+  today. No references to current programmes, deadlines, or political cycles.
+
