@@ -6,6 +6,7 @@
  * and energy reliability for a business that cannot stop operating.
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-stacja-paliw-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "stacja-paliw-ciaglosc-zasilania-sigenergy",
@@ -36,10 +37,9 @@ export const caseStudy: CaseStudy = {
     countryCode: "PL",
   },
 
-  heroImage:
-    "https://images.unsplash.com/photo-1545459720-aac8509eb02c?w=2000&q=80",
+  heroImage: heroImg,
   heroImageAlt:
-    "Stacja paliw z systemem magazynu energii Sigenergy — stabilizacja zasilania",
+    "Polska stacja paliw o zmierzchu — dostawczy van przy dystrybutorze, atmosfera ciągłości operacyjnej",
 
   building: {
     type: "Obiekt komercyjny — stacja paliw",

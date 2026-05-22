@@ -3,6 +3,7 @@
  * Konstancin · Rezydencja 350 m² · Premium energy system.
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-konstancin-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "konstancin-rezydencja-350m2",
@@ -27,10 +28,9 @@ export const caseStudy: CaseStudy = {
     countryCode: "PL",
   },
 
-  heroImage:
-    "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=2000&q=80",
+  heroImage: heroImg,
   heroImageAlt:
-    "Nowoczesna rezydencja w Konstancinie z systemem pompy ciepła Soltimus",
+    "Współczesna polska rezydencja w Konstancinie — kremowa elewacja z grafitowymi akcentami, mazowiecki krajobraz z brzozami",
 
   gallery: [
     {
