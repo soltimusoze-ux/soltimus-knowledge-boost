@@ -39,10 +39,9 @@ export const caseStudy: CaseStudy = {
     countryCode: "PL",
   },
 
-  heroImage:
-    "https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=2000&q=80",
+  heroImage: heroImg,
   heroImageAlt:
-    "Dom jednorodzinny z lat 70. po głębokiej termomodernizacji Soltimus",
+    "Kostka PRL z lat 70. po głębokiej termomodernizacji — realizacja Soltimus",
 
   building: {
     type: "Dom jednorodzinny",
