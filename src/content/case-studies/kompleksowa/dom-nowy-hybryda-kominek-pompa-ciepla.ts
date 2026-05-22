@@ -9,6 +9,7 @@
  * Technology serves the homeowner. Never "technology replaces tradition".
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-stodola-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "dom-nowy-hybryda-kominek-pompa-ciepla",
