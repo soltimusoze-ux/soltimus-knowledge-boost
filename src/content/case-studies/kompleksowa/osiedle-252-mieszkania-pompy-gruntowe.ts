@@ -10,6 +10,7 @@
  * operacyjna, nie sentyment.
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-osiedle-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "osiedle-252-mieszkania-pompy-gruntowe",
@@ -41,10 +42,9 @@ export const caseStudy: CaseStudy = {
     countryCode: "PL",
   },
 
-  heroImage:
-    "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=2000&q=80",
+  heroImage: heroImg,
   heroImageAlt:
-    "Osiedle wielorodzinne zasilane gruntowymi pompami ciepła Soltimus",
+    "Ujęcie z drona — osiedle 252 mieszkań po modernizacji infrastruktury ciepła Soltimus",
 
   gallery: [
     {

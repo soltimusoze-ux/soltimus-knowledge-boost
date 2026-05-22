@@ -7,6 +7,7 @@
  * Tone: educational, authoritative, calm. Never aggressive toward competitors.
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-daikin-engineer-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "dom-2000-naprawa-instalacji-daikin",
@@ -37,10 +38,9 @@ export const caseStudy: CaseStudy = {
     countryCode: "PL",
   },
 
-  heroImage:
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=2000&q=80",
+  heroImage: heroImg,
   heroImageAlt:
-    "Dom jednorodzinny z poprawnie zaprojektowaną pompą ciepła Daikin po audycie Soltimus",
+    "Inżynier Soltimus w czapce z subtelnym logo, podczas serwisu Daikin Altherma",
 
   building: {
     type: "Dom jednorodzinny",

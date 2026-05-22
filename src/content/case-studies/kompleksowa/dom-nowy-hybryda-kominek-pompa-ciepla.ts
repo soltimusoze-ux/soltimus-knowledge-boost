@@ -9,6 +9,7 @@
  * Technology serves the homeowner. Never "technology replaces tradition".
  */
 import type { CaseStudy } from "../types";
+import heroImg from "@/assets/case-stodola-hero.jpg";
 
 export const caseStudy: CaseStudy = {
   slug: "dom-nowy-hybryda-kominek-pompa-ciepla",
@@ -41,10 +42,9 @@ export const caseStudy: CaseStudy = {
     countryCode: "PL",
   },
 
-  heroImage:
-    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=2000&q=80",
+  heroImage: heroImg,
   heroImageAlt:
-    "Nowoczesny dom jednorodzinny z kominkiem i systemem pompy ciepła Soltimus",
+    "Nowoczesna stodoła z grafitowym dachem i panelami PV — realizacja Soltimus",
 
   gallery: [
     {
