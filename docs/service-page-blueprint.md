@@ -316,3 +316,100 @@ inside a Soltimus-designed home:
 - **Timelessness over trends.** The copy should feel as valid in 10 years as
   today. No references to current programmes, deadlines, or political cycles.
 
+
+---
+
+## Phase 6I — Investor concerns over lifestyle aesthetics
+
+The mid-page section that previously communicated lifestyle ("Komfort,
+którego nie słychać") is repositioned as an **engineering-trust layer**.
+Visitors enter this section after the inspirational opening; here they
+need risk reduction, not more aesthetics.
+
+### Fear → engineering solution → life outcome framework
+
+Each trust card follows a fixed three-beat structure:
+
+1. **Fear** — the real customer concern, written as a quoted sentence in
+   the homeowner's own voice ("Co jeśli pompa przestanie działać zimą?").
+   Never a marketing pain point. Never a feature gap.
+2. **Engineering solution** — what Soltimus actually does about it.
+   Concrete: certification, process, partner, infrastructure. Avoid
+   adjectives; lead with the mechanism.
+3. **Real-life effect** — the lived outcome, not a benchmark. "90% usterek
+   usuwanych podczas pierwszej wizyty" beats a vague promise of speed.
+
+Order matters: fear → solution → effect mirrors the reader's own
+decision path (worry → evidence → relief). Reversing it sounds like a
+sales pitch.
+
+### Trust-building UX principles
+
+- **Quote the fear.** Render the homeowner's concern in quotation marks
+  and slightly larger type than the answer. This signals "we heard you"
+  before "here is our pitch".
+- **Visual hierarchy of evidence.** Solution is anchored by a gold
+  vertical rule (engineering authority); effect sits under a hairline
+  divider (calm conclusion). Eyebrows in 10px/0.3em uppercase keep the
+  card scannable.
+- **One brand colour, used sparingly.** A single Soltimus-yellow accent
+  per card (dot in the pill, rule under the solution). No multicolour
+  iconography, no decorative gradients.
+- **Image as context, not decoration.** Each card uses one documentary
+  visual that depicts the *moment of trust* (technician in the field,
+  engineers reviewing plans, app in hand, finished home at dusk).
+
+### Investor psychology layer
+
+The section answers a single question the buyer is asking silently:
+*"Why should I trust this system to actually work well for years?"*
+
+Map the four cards to the four dominant fears of a Polish premium
+investor:
+
+| Card                 | Underlying fear        | Emotional payoff       |
+| -------------------- | ---------------------- | ---------------------- |
+| Serwis 24h           | Breakdown in winter    | Continuity of comfort  |
+| Jedna odpowiedzialność | Coordination chaos   | Cognitive offload      |
+| Smart energy         | Rising energy prices   | Financial autonomy     |
+| Bezobsługowość       | Becoming the operator  | Freedom from the house |
+
+If a future card cannot be assigned a fear in this register, it does not
+belong in this section — it belongs in `outcomes`, `technicalAdvantages`,
+or `engineeringApproach`.
+
+### Risk-reduction communication strategy
+
+- **Name the risk before the answer.** Naming the fear first disarms it;
+  hiding it amplifies it.
+- **Specificity over reassurance.** "Autoryzowany Serwis Fabryczny Daikin
+  + własny magazyn części" reads as evidence. "Szybki i niezawodny
+  serwis" reads as marketing.
+- **No fear without a remedy.** Never describe a risk this section cannot
+  resolve. The reader must leave each card feeling *handled*, not warned.
+- **No competitor naming.** The contrast lives in `comparison`. Here the
+  contrast is implicit: this is the standard, not a comparison.
+
+### Engineering authority storytelling rules
+
+- **Lead with the act, not the product.** "Projektujemy i integrujemy"
+  beats any device-led headline. The hero of the section is the
+  engineering team, not the SKU.
+- **Numbers carry weight only when verifiable.** Use percentages and
+  hard counts (90%, 24h) — never round adjectives ("najszybciej",
+  "najlepszy", "rewelacyjny").
+- **The visual must look like work, not like a campaign.** Field
+  technicians in real workwear, plans on a folding table, app in a real
+  hand at dusk, a home that could exist on a Polish suburban street.
+  Anything that reads as a stock-photo set undermines the entire layer.
+
+### What this section is NOT
+
+- Not a lifestyle gallery. No "kawa pachnie świeżym powietrzem".
+- Not a metrics strip. dB / kW / SCOP claims belong in `MetricsAndOutcomes`.
+- Not a comparison. Industry vs Soltimus framing belongs in `comparison`.
+- Not an FAQ. Questions in `<details>` form belong in `FAQSection`.
+
+This section's only job is to convert *aesthetic interest* into
+*engineering trust* — so that everything after it (process, FAQ, CTA)
+is read by someone who already believes the system will hold for years.
