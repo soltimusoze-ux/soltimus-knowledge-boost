@@ -1757,109 +1757,130 @@ function StickyMobileCTA() {
   );
 }
 
-/* ------------------------ MODERN LIVING MANIFESTO ------------------------ */
+/* ---------------- INVESTOR CONCERNS & ENGINEERING ANSWERS ---------------- */
 function ModernLivingManifesto() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1.05, 1, 1.05]);
+  const concerns = [
+    {
+      img: trustSerwis,
+      alt: "Technik Autoryzowanego Serwisu Daikin przy jednostce zewnętrznej pompy ciepła zimą",
+      eyebrow: "Serwis · Reakcja 24h",
+      fear: "Co jeśli pompa przestanie działać zimą?",
+      solution:
+        "Autoryzowany Serwis Fabryczny Daikin i własny magazyn części. Gwarancja reakcji do 24 godzin.",
+      effect:
+        "90% usterek usuwanych podczas pierwszej wizyty — bez tygodni czekania na komponent.",
+    },
+    {
+      img: trustJednaOdp,
+      alt: "Inżynierowie analizujący projekt instalacji i schemat systemu na placu budowy",
+      eyebrow: "Jedna odpowiedzialność",
+      fear: "Nie chcę koordynować pięciu różnych ekip.",
+      solution:
+        "Jeden partner odpowiedzialny za pompę ciepła, fotowoltaikę, magazyn energii, rekuperację i integrację systemów.",
+      effect:
+        "Jeden system. Jedna odpowiedzialność. Brak chaosu między wykonawcami i wzajemnego zrzucania winy.",
+    },
+    {
+      img: trustSmartEnergy,
+      alt: "Smartfon z aplikacją Sigenergy — produkcja PV, stan baterii, status pompy ciepła",
+      eyebrow: "Smart energy · Sigenergy",
+      fear: "Co jeśli ceny energii znowu wzrosną?",
+      solution:
+        "System Sigenergy oparty na AI — analizuje produkcję PV, zużycie, prognozę pogody i taryfy dynamiczne.",
+      effect:
+        "Dom samodzielnie zarządza energią, obniżając rachunki i zwiększając autokonsumpcję bez Twojej ingerencji.",
+    },
+    {
+      img: trustBezobslug,
+      alt: "Nowoczesny polski dom jednorodzinny o zmierzchu — bez kotłowni i obsługi",
+      eyebrow: "Bezobsługowość",
+      fear: "Nie chcę znowu zajmować się kotłownią.",
+      solution:
+        "W pełni bezobsługowy system ogrzewania, chłodzenia i zarządzania energią — projektowany jako jedna całość.",
+      effect:
+        "Dom działa sam. Bez opału, popiołu, bez codziennych decyzji o trybie pracy.",
+    },
+  ];
 
   return (
-    <section
-      ref={ref}
-      className="relative isolate overflow-hidden bg-white"
-    >
-      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 px-5 py-24 md:grid-cols-12 md:gap-12 md:px-8 md:py-40">
-        <div className="md:col-span-5 md:sticky md:top-32 md:self-start">
-          <SectionLabel>Modern living</SectionLabel>
-          <h2 className="mt-4 text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
-            Komfort, którego <span className="italic font-light text-black/60">nie słychać</span>.
+    <section className="relative isolate overflow-hidden bg-white">
+      <div className="mx-auto max-w-7xl px-5 py-24 md:px-8 md:py-40">
+        <div className="max-w-4xl">
+          <SectionLabel>Obawy inwestorów · Odpowiedzi inżynierskie</SectionLabel>
+          <h2 className="mt-4 text-[clamp(1.9rem,4.6vw,3.8rem)] font-semibold leading-[1.05] tracking-tight">
+            Największym problemem inwestorów{" "}
+            <span className="italic font-light text-black/55">
+              nie jest wybór pompy ciepła.
+            </span>{" "}
+            Tylko to,{" "}
+            <span className="italic font-light text-black/55">
+              czy cały system będzie działał dobrze przez lata.
+            </span>
           </h2>
-          <p className="mt-6 max-w-md text-base leading-relaxed text-black/60 md:text-lg">
-            Projektujemy systemy dla domów, w których dziecko zasypia przy
-            21°C, kawa pachnie świeżym powietrzem, a rachunek za prąd nie
-            psuje niedzielnego śniadania.
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-black/60 md:text-lg">
+            Dlatego zaczynamy od audytu, projektu i integracji całego
+            systemu — a nie od sprzedaży urządzenia.
           </p>
-          <p className="mt-4 max-w-md text-base leading-relaxed text-black/60 md:text-lg">
-            To nie jest sprzęt. To architektura codziennego dobrostanu.
-          </p>
-          <div className="mt-10 grid grid-cols-2 gap-6 border-t border-black/5 pt-8">
-            <div>
-              <div className="text-2xl font-semibold tracking-tight md:text-3xl">21°C</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-black/40">
-                stała temperatura — cały rok
-              </div>
-            </div>
-            <div>
-              <div className="text-2xl font-semibold tracking-tight md:text-3xl">23 dB</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-black/40">
-                ciszej niż szept
-              </div>
-            </div>
-          </div>
         </div>
-        <div className="mt-12 md:col-span-7 md:mt-0">
-          <div className="grid grid-cols-6 gap-3 md:gap-5">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
+
+        <div className="mt-14 grid grid-cols-1 gap-6 md:mt-20 md:grid-cols-2 md:gap-7">
+          {concerns.map((c, i) => (
+            <motion.article
+              key={c.eyebrow}
+              initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="col-span-4 aspect-[4/5] overflow-hidden rounded-3xl bg-black"
+              transition={{ duration: 0.8, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="group overflow-hidden rounded-3xl border border-black/5 bg-[#FAFAF7]"
             >
-              <motion.img
-                style={{ scale }}
-                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1400&q=85"
-                alt="Wieczorny salon"
-                className="h-full w-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="col-span-2 mt-12 aspect-[3/4] overflow-hidden rounded-3xl bg-black md:mt-20"
-            >
-              <motion.img
-                style={{ y }}
-                src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=900&q=85"
-                alt="Naturalne światło"
-                className="h-[120%] w-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              className="col-span-3 aspect-[5/4] overflow-hidden rounded-3xl bg-black"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=1200&q=85"
-                alt="Rodzina"
-                className="h-full w-full object-cover"
-              />
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="col-span-3 aspect-[5/4] overflow-hidden rounded-3xl bg-black"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=1200&q=85"
-                alt="Wieczorne wnętrze"
-                className="h-full w-full object-cover"
-              />
-            </motion.div>
-          </div>
+              <div className="relative aspect-[16/10] overflow-hidden bg-black">
+                <img
+                  src={c.img}
+                  alt={c.alt}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-[1.04]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
+                <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full bg-black/60 px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-white/90 backdrop-blur">
+                  <span className="h-1.5 w-1.5 rounded-full" style={{ background: GOLD }} />
+                  {c.eyebrow}
+                </div>
+              </div>
+
+              <div className="p-7 md:p-9">
+                <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
+                  Obawa inwestora
+                </div>
+                <p className="mt-2 text-xl font-medium leading-snug tracking-tight text-black md:text-[1.55rem]">
+                  „{c.fear}”
+                </p>
+
+                <div className="mt-7 border-l-2 pl-5" style={{ borderColor: GOLD }}>
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
+                    Rozwiązanie inżynierskie
+                  </div>
+                  <p className="mt-2 text-[15px] leading-relaxed text-black/80 md:text-base">
+                    {c.solution}
+                  </p>
+                </div>
+
+                <div className="mt-6 border-t border-black/5 pt-5">
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
+                    Realny efekt
+                  </div>
+                  <p className="mt-2 text-[15px] leading-relaxed text-black/65 md:text-base">
+                    {c.effect}
+                  </p>
+                </div>
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
     </section>
   );
 }
+
 
 /* --------------------------- LIFESTYLE GALLERY --------------------------- */
 function LifestyleGallery() {
