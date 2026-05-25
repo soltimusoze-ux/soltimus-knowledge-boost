@@ -122,6 +122,7 @@ export function PremiumHome() {
       <ModernLivingManifesto />
       <SocialProofStats />
       <LifestyleGallery />
+      <ShowroomSection />
       <Team />
       <HowWeWork />
       <CinematicQuote
