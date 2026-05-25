@@ -413,3 +413,69 @@ or `engineeringApproach`.
 This section's only job is to convert *aesthetic interest* into
 *engineering trust* — so that everything after it (process, FAQ, CTA)
 is read by someone who already believes the system will hold for years.
+
+---
+
+## Phase 6K — Human Trust & Engineering Culture Layer
+
+The final trust block before pipeline / CRM automation. It exists to
+convert "premium engineering brand" into "real engineering company we
+can trust for 15 years."
+
+### Positioning
+
+> "Za tymi realizacjami stoją konkretni ludzie, własny serwis, własny
+> showroom i realne doświadczenie."
+
+Soltimus is NOT: anonymous installers, salespeople, lead-gen company.
+Soltimus IS: engineering partner, technical advisor, long-term service
+company, premium HVAC/OZE engineering team.
+
+### The "People · Infrastructure · Responsibility" section
+
+Required composition (top to bottom):
+
+1. **Eyebrow + headline + intro** — calm, engineering tone. Headline
+   names the three pillars (ludzie / zaplecze / odpowiedzialność);
+   sub-copy explicitly rejects "pośrednik" / "lead-gen" framing.
+2. **HQ hero photo** — team in front of building with SOLTIMUS Energy
+   Efficiency + Daikin Salon Partnerski signage. Full-bleed inside the
+   container, 16:9, with overlaid caption tying photo to the message
+   ("Realna firma. Realny zespół. Realna odpowiedzialność.").
+3. **Micro-proof pills** — five short trust signals as pill chips,
+   gold dot + text, no icons, no CTAs:
+   - Autoryzowany Serwis Fabryczny Daikin
+   - Własne ekipy montażowe
+   - Ponad 260 opinii Google
+   - Showroom i centrum projektowe
+   - Jedna odpowiedzialność za cały system
+4. **Three pillars grid** — Własne ekipy / Autoryzowany serwis Daikin /
+   Jedna odpowiedzialność. Each: short eyebrow, one strong sentence,
+   one explanatory sentence. No icons, no buttons.
+5. **Restrained founder/team quote** — monochrome, left gold rule.
+   Tone: documentary, not slogan. Example: "Najczęściej nie naprawiamy
+   pomp ciepła. Naprawiamy błędy projektowe i montażowe innych firm."
+
+### Visual rules
+
+- Dark editorial canvas (#0E0E10), faint white grid overlay.
+- Team photo is THE hero of the section — never crop the signage out,
+  never overlay marketing badges on top of it.
+- No smiling-team stock vibe, no "About Us" feel, no recruitment cards.
+- No CTAs inside this section — it sells nothing. Trust only.
+- Pills use border `white/12` + bg `white/[0.03]`; pillars use a
+  1px-gap grid on `white/10` to read as a single engineering panel.
+
+### What NOT to do
+
+- Do not paste an "O nas" bio onto the homepage.
+- Do not show individual portraits here (that's the Team section).
+- Do not add awards/logos to the pills row — keep it textual.
+- Do not animate the quote; documentary tone requires stillness.
+
+### Asset rule
+
+`src/assets/team/team-hq-soltimus.jpg` is the canonical path. Replacing
+the file (same path, same name) swaps the photo across the whole site
+without any code change. Photo must show real company signage —
+generic team-on-white-background shots break the entire section's job.

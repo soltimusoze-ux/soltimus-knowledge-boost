@@ -18,6 +18,7 @@ import showroomMain from "@/assets/showroom/showroom-daikin-main.jpg";
 import showroomEquipment from "@/assets/showroom/showroom-equipment-wall.jpg";
 import engineerMechRoom from "@/assets/showroom/engineer-mechanical-room.jpg";
 import realPolishHome from "@/assets/showroom/real-polish-home.jpg";
+import teamHqSoltimus from "@/assets/team/team-hq-soltimus.jpg";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -123,6 +124,7 @@ export function PremiumHome() {
       <SocialProofStats />
       <LifestyleGallery />
       <ShowroomSection />
+      <PeopleAndResponsibility />
       <Team />
       <HowWeWork />
       <CinematicQuote
@@ -2013,6 +2015,161 @@ function ShowroomSection() {
             </p>
           </div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+/* ----------------- PEOPLE, INFRASTRUCTURE & RESPONSIBILITY ----------------- */
+/**
+ * Phase 6K — Human trust & engineering culture layer.
+ * Hero asset: real team photo in front of Soltimus HQ (SOLTIMUS Energy
+ * Efficiency + Daikin Salon Partnerski signage). Communicates that real
+ * people, own service, own showroom stand behind every installation.
+ *
+ * NOTE: src/assets/team/team-hq-soltimus.jpg is a placeholder. Replace
+ * the file (same path, same name) with the real client-supplied photo
+ * once it is uploaded — no code change needed.
+ */
+function PeopleAndResponsibility() {
+  const proofs = [
+    "Autoryzowany Serwis Fabryczny Daikin",
+    "Własne ekipy montażowe",
+    "Ponad 260 opinii Google",
+    "Showroom i centrum projektowe",
+    "Jedna odpowiedzialność za cały system",
+  ];
+
+  const pillars = [
+    {
+      eyebrow: "Własne ekipy",
+      title: "Montaż prowadzą nasi inżynierowie.",
+      body: "Nie zlecamy realizacji podwykonawcom z ogłoszenia. Te same osoby projektują, uruchamiają i serwisują system u klienta.",
+    },
+    {
+      eyebrow: "Autoryzowany serwis Daikin",
+      title: "Serwis fabryczny — nie pośrednik.",
+      body: "Posiadamy autoryzację fabryczną Daikin, własny magazyn części i procedurę reakcji do 24 h w sezonie grzewczym.",
+    },
+    {
+      eyebrow: "Jedna odpowiedzialność",
+      title: "Cały system — jeden partner.",
+      body: "Pompa ciepła, fotowoltaika, magazyn energii, rekuperacja i sterowanie. Jeden numer telefonu również po montażu.",
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden bg-[#0E0E10] px-5 py-28 text-white md:px-8 md:py-40">
+      {/* faint grid */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right,#fff 1px,transparent 1px),linear-gradient(to bottom,#fff 1px,transparent 1px)",
+          backgroundSize: "96px 96px",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-7xl">
+        {/* Header */}
+        <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <SectionLabel dark>Ludzie · Zaplecze · Odpowiedzialność</SectionLabel>
+            <h2 className="mt-4 text-[clamp(2rem,5vw,4.2rem)] font-semibold leading-[1.04] tracking-tight">
+              Za każdą instalacją stoi{" "}
+              <span className="italic font-light text-white/60">
+                realny zespół, własny serwis i odpowiedzialność za cały system.
+              </span>
+            </h2>
+          </div>
+          <p className="text-base text-white/60 md:col-span-5 md:text-lg">
+            Nie jesteśmy pośrednikiem ani firmą generującą leady. Projektujemy,
+            montujemy i serwisujemy sami — w jednej strukturze, pod jednym
+            numerem telefonu, również po zakończeniu montażu.
+          </p>
+        </div>
+
+        {/* HERO — team photo */}
+        <figure className="group relative mt-14 overflow-hidden rounded-3xl bg-black md:mt-20">
+          <div className="relative aspect-[16/9]">
+            <img
+              src={teamHqSoltimus}
+              alt="Zespół Soltimus przed siedzibą firmy — szyld SOLTIMUS Energy Efficiency oraz Daikin Salon Partnerski"
+              loading="lazy"
+              width={1920}
+              height={1080}
+              className="h-full w-full object-cover transition-transform duration-[1600ms] group-hover:scale-[1.02]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+            <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-12">
+              <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-12">
+                <div className="md:col-span-8">
+                  <div
+                    className="text-[10px] uppercase tracking-[0.3em]"
+                    style={{ color: GOLD }}
+                  >
+                    Siedziba Soltimus · Daikin Salon Partnerski
+                  </div>
+                  <div className="mt-2 text-2xl font-semibold tracking-tight md:text-4xl">
+                    Realna firma. Realny zespół. Realna odpowiedzialność.
+                  </div>
+                </div>
+                <div className="text-sm leading-relaxed text-white/70 md:col-span-4">
+                  Showroom, centrum projektowe, magazyn części i serwis
+                  fabryczny — w jednym miejscu, pod jednym dachem.
+                </div>
+              </div>
+            </figcaption>
+          </div>
+        </figure>
+
+        {/* Micro-proof strip */}
+        <ul className="mt-10 flex flex-wrap gap-x-3 gap-y-3 md:mt-12">
+          {proofs.map((p) => (
+            <li
+              key={p}
+              className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-4 py-2 text-xs tracking-wide text-white/70 backdrop-blur-sm"
+            >
+              <span
+                aria-hidden
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ background: GOLD }}
+              />
+              {p}
+            </li>
+          ))}
+        </ul>
+
+        {/* Three pillars */}
+        <div className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] md:mt-20 md:grid-cols-3">
+          {pillars.map((p) => (
+            <div key={p.eyebrow} className="bg-[#0E0E10] p-8 md:p-10">
+              <div
+                className="text-[10px] uppercase tracking-[0.3em]"
+                style={{ color: GOLD }}
+              >
+                {p.eyebrow}
+              </div>
+              <h3 className="mt-4 text-xl font-semibold leading-snug tracking-tight md:text-2xl">
+                {p.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/60">{p.body}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Founders' quote — restrained, documentary */}
+        <figure className="mt-16 border-l-2 pl-6 md:mt-20 md:pl-10" style={{ borderColor: GOLD }}>
+          <Quote className="h-6 w-6 text-white/30" />
+          <blockquote className="mt-4 max-w-3xl text-2xl font-light leading-snug tracking-tight text-white/90 md:text-3xl">
+            „Najczęściej nie naprawiamy pomp ciepła. Naprawiamy błędy projektowe
+            i montażowe innych firm."
+          </blockquote>
+          <figcaption className="mt-4 text-[11px] uppercase tracking-[0.28em] text-white/40">
+            Zespół inżynierski Soltimus
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
