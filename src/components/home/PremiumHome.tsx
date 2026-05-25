@@ -124,6 +124,7 @@ export function PremiumHome() {
       <SocialProofStats />
       <LifestyleGallery />
       <ShowroomSection />
+      <PeopleAndResponsibility />
       <Team />
       <HowWeWork />
       <CinematicQuote
