@@ -14,6 +14,10 @@ import trustSerwis from "@/assets/trust-serwis-24h.jpg";
 import trustJednaOdp from "@/assets/trust-jedna-odpowiedzialnosc.jpg";
 import trustSmartEnergy from "@/assets/trust-smart-energy.jpg";
 import trustBezobslug from "@/assets/trust-bezobslugowosc.jpg";
+import showroomMain from "@/assets/showroom/showroom-daikin-main.jpg";
+import showroomEquipment from "@/assets/showroom/showroom-equipment-wall.jpg";
+import engineerMechRoom from "@/assets/showroom/engineer-mechanical-room.jpg";
+import realPolishHome from "@/assets/showroom/real-polish-home.jpg";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
@@ -118,6 +122,7 @@ export function PremiumHome() {
       <ModernLivingManifesto />
       <SocialProofStats />
       <LifestyleGallery />
+      <ShowroomSection />
       <Team />
       <HowWeWork />
       <CinematicQuote
@@ -1882,6 +1887,137 @@ function ModernLivingManifesto() {
 }
 
 
+/* ----------------- SHOWROOM & ENGINEERING CENTER (Phase 6J) ----------------- */
+function ShowroomSection() {
+  return (
+    <section className="relative overflow-hidden bg-[#0E0E10] px-5 py-28 text-white md:px-8 md:py-40">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
+          <div className="md:col-span-7">
+            <SectionLabel dark>Showroom i centrum projektowe</SectionLabel>
+            <h2 className="mt-4 text-[clamp(2rem,5vw,4.2rem)] font-semibold leading-[1.04] tracking-tight">
+              Tu projektujemy systemy{" "}
+              <span className="italic font-light text-white/60">
+                w miejscu, gdzie technologia spotyka się z realnym komfortem życia.
+              </span>
+            </h2>
+          </div>
+          <p className="text-base text-white/60 md:col-span-5 md:text-lg">
+            Salon firmowy Daikin, ściana hydrauliczna, zestawione pompy ciepła,
+            zbiorniki c.w.u. i magazyny energii. Klient widzi i dotyka tych
+            samych urządzeń, które trafią do jego domu.
+          </p>
+        </div>
+
+        <div className="mt-14 grid grid-cols-1 gap-5 md:mt-20 md:grid-cols-12 md:gap-6">
+          {/* Main showroom — large */}
+          <figure className="group relative overflow-hidden rounded-3xl bg-black md:col-span-8 md:row-span-2">
+            <div className="relative aspect-[16/11] md:aspect-auto md:h-full">
+              <img
+                src={showroomMain}
+                alt="Salon firmowy Daikin Soltimus — strefa konsultacji"
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-7 md:p-9">
+                <div
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: GOLD }}
+                >
+                  Salon Daikin · Strefa konsultacji
+                </div>
+                <div className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+                  Tu zaczyna się każdy projekt.
+                </div>
+              </figcaption>
+            </div>
+          </figure>
+
+          {/* Equipment wall */}
+          <figure className="group relative overflow-hidden rounded-3xl bg-black md:col-span-4">
+            <div className="relative aspect-[4/3]">
+              <img
+                src={showroomEquipment}
+                alt="Ściana ekspozycyjna z pompami ciepła Daikin, zbiornikami c.w.u. i hydrauliką demonstracyjną"
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                <div
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: GOLD }}
+                >
+                  Ekspozycja techniczna
+                </div>
+                <div className="mt-1.5 text-lg font-semibold tracking-tight md:text-xl">
+                  Pompy ciepła. Zbiorniki. Hydraulika.
+                </div>
+              </figcaption>
+            </div>
+          </figure>
+
+          {/* Engineer at work */}
+          <figure className="group relative overflow-hidden rounded-3xl bg-black md:col-span-4">
+            <div className="relative aspect-[4/3]">
+              <img
+                src={engineerMechRoom}
+                alt="Inżynier Soltimus przy pompie ciepła Daikin w kotłowni — uruchomienie systemu"
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-[1400ms] group-hover:scale-[1.03]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+                <div
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: GOLD }}
+                >
+                  Inżynier na obiekcie
+                </div>
+                <div className="mt-1.5 text-lg font-semibold tracking-tight md:text-xl">
+                  Uruchomienie i serwis Daikin.
+                </div>
+              </figcaption>
+            </div>
+          </figure>
+        </div>
+
+        {/* Footer strip — three engineering claims */}
+        <div className="mt-12 grid grid-cols-1 gap-6 border-t border-white/10 pt-10 text-sm text-white/70 md:mt-16 md:grid-cols-3 md:gap-10">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+              Salon firmowy
+            </div>
+            <p className="mt-2 leading-relaxed">
+              Autoryzowany Salon Daikin — pełna gama pomp ciepła, klimatyzacji
+              i rekuperacji w jednym miejscu.
+            </p>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+              Centrum projektowe
+            </div>
+            <p className="mt-2 leading-relaxed">
+              Projektujemy systemy hybrydowe: pompa ciepła + PV + magazyn
+              energii + rekuperacja, sterowane jednym ekosystemem.
+            </p>
+          </div>
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+              Serwis fabryczny
+            </div>
+            <p className="mt-2 leading-relaxed">
+              Własny magazyn części, autoryzacja serwisowa Daikin, reakcja
+              do 24 godzin w okresie grzewczym.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* --------------------------- LIFESTYLE GALLERY --------------------------- */
 function LifestyleGallery() {
   const ref = useRef<HTMLDivElement>(null);
@@ -1892,23 +2028,23 @@ function LifestyleGallery() {
 
   const tiles = [
     {
-      img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=85",
-      tag: "Dom jednorodzinny",
-      sub: "Konstancin",
+      img: realPolishHome,
+      tag: "Realny dom jednorodzinny",
+      sub: "Polska · realizacja",
       y: yA,
       h: "h-[420px] md:h-[560px]",
     },
     {
-      img: "https://images.unsplash.com/photo-1618219740975-d40978bb7378?w=1200&q=85",
-      tag: "Apartament premium",
-      sub: "Mokotów",
+      img: showroomMain,
+      tag: "Salon firmowy Daikin",
+      sub: "Showroom Soltimus",
       y: yB,
       h: "h-[340px] md:h-[440px]",
     },
     {
-      img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85",
-      tag: "Rezydencja",
-      sub: "Józefosław",
+      img: engineerMechRoom,
+      tag: "Inżynier na obiekcie",
+      sub: "Kotłownia · Daikin Altherma",
       y: yC,
       h: "h-[460px] md:h-[600px]",
     },
@@ -1919,17 +2055,17 @@ function LifestyleGallery() {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
           <div className="md:col-span-7">
-            <SectionLabel>Domy, w których pracujemy</SectionLabel>
+            <SectionLabel>Miejsca, w których pracujemy</SectionLabel>
             <h2 className="mt-4 text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
               Architektura.
               <br />
-              <span className="italic font-light text-black/60">Komfort.</span> Niezależność.
+              <span className="italic font-light text-black/60">Technologia.</span> Ludzie.
             </h2>
           </div>
           <p className="text-base text-black/60 md:col-span-5 md:text-lg">
-            Współpracujemy z architektami, generalnymi wykonawcami i właścicielami
-            nieruchomości premium. Każdy dom traktujemy jak jednorazowy projekt
-            inżynierski — bo nim jest.
+            Realne polskie domy, salon firmowy Daikin i nasi inżynierowie na obiekcie.
+            Każdy projekt to ten sam zestaw kompetencji: audyt, projekt, montaż,
+            uruchomienie i serwis — w jednej odpowiedzialności.
           </p>
         </div>
 

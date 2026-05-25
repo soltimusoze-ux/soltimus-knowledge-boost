@@ -249,3 +249,53 @@ Not allowed:
 - Each card must lazy-load (`loading="lazy"`) and declare explicit
   `width={1024} height={768}` to avoid CLS in the grid.
 
+
+## Phase 6J — Homepage authenticity & trust refactor
+
+Phase 6J shifts the homepage from "luxury architecture magazine" to
+"premium engineering documentary". Real Soltimus assets — Daikin
+showroom, equipment wall, engineer in a mechanical room, real Polish
+homes — become the visual backbone of the homepage instead of generic
+Unsplash interiors.
+
+### Visual mix target (homepage)
+
+- 60% authentic realizations / real projects
+- 20% showroom & engineering spaces (Daikin salon, hydraulic wall)
+- 20% restrained lifestyle / architectural context
+
+Anything outside this mix on the homepage (Mediterranean villas,
+Pinterest interiors, glossy AI renders) is rejected.
+
+### Updated sections
+
+- **"Architektura. Technologia. Ludzie."** (was "Architektura. Komfort.
+  Niezależność.") — three tiles now read: real Polish single-family home
+  → Daikin showroom → engineer at a mechanical room. Old Unsplash
+  Konstancin / Mokotów / Józefosław tiles removed. Section now
+  communicates the full chain: object → infrastructure → people.
+- **New: "Showroom i centrum projektowe Soltimus"** — dark editorial
+  band (black background) placed directly under the gallery. One
+  large showroom tile + two supporting tiles (equipment wall +
+  engineer). Bottom strip carries three engineering claims:
+  Salon firmowy / Centrum projektowe / Serwis fabryczny. Tone:
+  premium engineering studio, not retail showroom.
+
+### Asset rules added in Phase 6J
+
+- Real on-site photography always beats AI generation on the homepage.
+  When AI is used to fill a gap, it must pass the same Phase 6E/6F
+  realism bar (Polish architecture, overcast / soft light, real
+  fences and downpipes, no Mediterranean sky, no luxury cliché).
+- Showroom / engineering imagery must show actual Soltimus / Daikin
+  context — never staged stock photography of generic HVAC equipment.
+- Engineer-on-site shots must show recognizable workwear, real tools,
+  real piping, real Daikin units. Branding stays at the embroidered-
+  cap / jacket level — never billboard.
+
+### What to avoid going forward (homepage)
+
+- Glass-box Pinterest villas, infinity pools, Florida light.
+- Smiling-family-with-installer stock photos.
+- AI renders of "modern HVAC technology" without a real referent.
+- Generic Daikin marketing artwork (use our own showroom instead).
