@@ -18,6 +18,7 @@ import showroomMain from "@/assets/showroom/showroom-daikin-main.jpg";
 import showroomEquipment from "@/assets/showroom/showroom-equipment-wall.jpg";
 import engineerMechRoom from "@/assets/showroom/engineer-mechanical-room.jpg";
 import realPolishHome from "@/assets/showroom/real-polish-home.jpg";
+import teamHqSoltimus from "@/assets/team/team-hq-soltimus.jpg";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
