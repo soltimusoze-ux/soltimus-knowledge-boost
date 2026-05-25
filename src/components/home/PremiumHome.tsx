@@ -1896,23 +1896,23 @@ function LifestyleGallery() {
 
   const tiles = [
     {
-      img: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1400&q=85",
-      tag: "Dom jednorodzinny",
-      sub: "Konstancin",
+      img: realPolishHome,
+      tag: "Realny dom jednorodzinny",
+      sub: "Polska · realizacja",
       y: yA,
       h: "h-[420px] md:h-[560px]",
     },
     {
-      img: "https://images.unsplash.com/photo-1618219740975-d40978bb7378?w=1200&q=85",
-      tag: "Apartament premium",
-      sub: "Mokotów",
+      img: showroomMain,
+      tag: "Salon firmowy Daikin",
+      sub: "Showroom Soltimus",
       y: yB,
       h: "h-[340px] md:h-[440px]",
     },
     {
-      img: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1400&q=85",
-      tag: "Rezydencja",
-      sub: "Józefosław",
+      img: engineerMechRoom,
+      tag: "Inżynier na obiekcie",
+      sub: "Kotłownia · Daikin Altherma",
       y: yC,
       h: "h-[460px] md:h-[600px]",
     },
