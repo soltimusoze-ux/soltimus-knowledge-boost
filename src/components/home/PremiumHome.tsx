@@ -2090,39 +2090,74 @@ function PeopleAndResponsibility() {
           </p>
         </div>
 
-        {/* HERO — team photo */}
-        <figure className="group relative mt-14 overflow-hidden rounded-3xl bg-black md:mt-20">
-          <div className="relative aspect-[16/9]">
-            <img
-              src={teamHqSoltimus}
-              alt="Zespół Soltimus przed siedzibą firmy — szyld SOLTIMUS Energy Efficiency oraz Daikin Salon Partnerski"
-              loading="lazy"
-              width={1920}
-              height={1080}
-              className="h-full w-full object-cover transition-transform duration-[1600ms] group-hover:scale-[1.02]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
-            <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-12">
-              <div className="grid grid-cols-1 items-end gap-6 md:grid-cols-12">
-                <div className="md:col-span-8">
-                  <div
-                    className="text-[10px] uppercase tracking-[0.3em]"
-                    style={{ color: GOLD }}
-                  >
-                    Siedziba Soltimus · Daikin Salon Partnerski
-                  </div>
-                  <div className="mt-2 text-2xl font-semibold tracking-tight md:text-4xl">
-                    Realna firma. Realny zespół. Realna odpowiedzialność.
-                  </div>
+        {/* HERO — real team photo (portrait, in front of HQ) + caption block */}
+        <div className="mt-14 grid grid-cols-1 gap-6 md:mt-20 md:grid-cols-12 md:gap-8">
+          <figure className="group relative overflow-hidden rounded-3xl bg-black md:col-span-7">
+            <div className="relative aspect-[4/5]">
+              <img
+                src={teamHqSoltimus}
+                alt="Zespół Soltimus przed siedzibą firmy — szyldy SOLTIMUS Energy Efficiency i Daikin Salon Partnerski"
+                loading="lazy"
+                className="h-full w-full object-cover object-center transition-transform duration-[1600ms] group-hover:scale-[1.02]"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 p-6 md:p-8">
+                <div
+                  className="text-[10px] uppercase tracking-[0.3em]"
+                  style={{ color: GOLD }}
+                >
+                  Siedziba Soltimus · Daikin Salon Partnerski
                 </div>
-                <div className="text-sm leading-relaxed text-white/70 md:col-span-4">
-                  Showroom, centrum projektowe, magazyn części i serwis
-                  fabryczny — w jednym miejscu, pod jednym dachem.
+                <div className="mt-2 text-xl font-semibold tracking-tight md:text-2xl">
+                  Realna firma. Realny zespół. Realna odpowiedzialność.
                 </div>
+              </figcaption>
+            </div>
+          </figure>
+
+          {/* Caption / context column */}
+          <div className="flex flex-col justify-between gap-10 md:col-span-5">
+            <div>
+              <div
+                className="text-[10px] uppercase tracking-[0.3em]"
+                style={{ color: GOLD }}
+              >
+                Garwolin · ul. Kościuszki 62
               </div>
-            </figcaption>
+              <p className="mt-4 text-lg leading-relaxed text-white/80 md:text-xl">
+                Zespół Soltimus przed naszym salonem partnerskim Daikin.
+                Showroom, centrum projektowe, magazyn części i serwis
+                fabryczny — w jednym miejscu, pod jednym dachem.
+              </p>
+              <p className="mt-5 text-sm leading-relaxed text-white/55">
+                Te same osoby, które poznasz na konsultacji, projektują
+                instalację, uruchamiają system i odbierają telefon, kiedy
+                potrzebujesz serwisu — również po latach.
+              </p>
+            </div>
+
+            <dl className="grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
+              <div>
+                <dt className="text-[10px] uppercase tracking-[0.28em] text-white/40">
+                  Lat na rynku
+                </dt>
+                <dd className="mt-2 text-2xl font-light tracking-tight">10+</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] uppercase tracking-[0.28em] text-white/40">
+                  Opinii Google
+                </dt>
+                <dd className="mt-2 text-2xl font-light tracking-tight">260+</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] uppercase tracking-[0.28em] text-white/40">
+                  Reakcja serwisu
+                </dt>
+                <dd className="mt-2 text-2xl font-light tracking-tight">24h</dd>
+              </div>
+            </dl>
           </div>
-        </figure>
+        </div>
 
         {/* Micro-proof strip */}
         <ul className="mt-10 flex flex-wrap gap-x-3 gap-y-3 md:mt-12">
