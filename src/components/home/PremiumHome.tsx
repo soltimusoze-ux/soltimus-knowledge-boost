@@ -1923,17 +1923,17 @@ function LifestyleGallery() {
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 items-end gap-8 md:grid-cols-12">
           <div className="md:col-span-7">
-            <SectionLabel>Domy, w których pracujemy</SectionLabel>
+            <SectionLabel>Miejsca, w których pracujemy</SectionLabel>
             <h2 className="mt-4 text-[clamp(2rem,5vw,4.5rem)] font-semibold leading-[1.02] tracking-tight">
               Architektura.
               <br />
-              <span className="italic font-light text-black/60">Komfort.</span> Niezależność.
+              <span className="italic font-light text-black/60">Technologia.</span> Ludzie.
             </h2>
           </div>
           <p className="text-base text-black/60 md:col-span-5 md:text-lg">
-            Współpracujemy z architektami, generalnymi wykonawcami i właścicielami
-            nieruchomości premium. Każdy dom traktujemy jak jednorazowy projekt
-            inżynierski — bo nim jest.
+            Realne polskie domy, salon firmowy Daikin i nasi inżynierowie na obiekcie.
+            Każdy projekt to ten sam zestaw kompetencji: audyt, projekt, montaż,
+            uruchomienie i serwis — w jednej odpowiedzialności.
           </p>
         </div>
 
