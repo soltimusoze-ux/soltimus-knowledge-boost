@@ -826,22 +826,21 @@ function ServiceLayer() {
         <div className="grid items-start gap-12 md:grid-cols-2">
           <div>
             <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
-              Autoryzowany Fabryczny Serwis Daikin Altherma
+              AFSDA · Autoryzowany Fabryczny Serwis Daikin Altherma
             </div>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-              Pompa ciepła pracuje 15 lat.{" "}
+              Nawet najlepsza pompa ciepła{" "}
               <span className="italic font-light text-black/50">
-                Serwis decyduje, jak.
+                może kiedyś wymagać serwisu.
               </span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-              Soltimus jest{" "}
-              <strong className="font-semibold text-black">
-                Autoryzowanym Fabrycznym Serwisem Daikin Altherma (AFSDA)
-              </strong>
-              . Mamy własne ekipy serwisowe, własny magazyn części,
-              diagnostykę zdalną i dokumentację każdej zaprojektowanej
-              przez nas instalacji.
+              Dlatego warto mieć pewność, że w środku zimy ktoś odbierze
+              telefon i realnie pomoże. Soltimus jest{" "}
+              <strong className="font-semibold text-black">AFSDA</strong> —
+              Autoryzowanym Fabrycznym Serwisem Daikin Altherma. Mamy własne
+              ekipy serwisowe, własny magazyn części, diagnostykę zdalną
+              i dokumentację każdej zaprojektowanej przez nas instalacji.
             </p>
 
             {/* The 90% claim — visually highlighted */}
@@ -867,7 +866,7 @@ function ServiceLayer() {
             </div>
 
             <div className="mt-10 grid grid-cols-2 gap-6">
-              <ServiceStat value="AFSDA" label="Status fabryczny" />
+              <ServiceStat value="AFSDA" label="Autoryzowany Fabryczny Serwis Daikin Altherma" />
               <ServiceStat value="24 h" label="Reakcja serwisu" />
               <ServiceStat value="Własny magazyn" label="Części zamienne" />
               <ServiceStat value="Zdalna diagnostyka" label="Każda instalacja" />
