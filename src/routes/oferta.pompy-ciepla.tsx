@@ -274,9 +274,9 @@ function Manifesto() {
 const BREAK_CARDS = [
   {
     icon: AlertTriangle,
-    title: "Tanie urządzenia z boomu",
+    title: "Urządzenia niskiej jakości",
     body:
-      "Rynek zalały pompy ciepła w cenach nieadekwatnych do jakości komponentów. Słabe sprężarki, słaba sterownia, brak realnego serwisu producenta.",
+      "Na rynku pojawiło się wiele pomp ciepła bez odpowiednich certyfikatów, takich jak HP Keymark, oraz bez realnego zaplecza serwisowego i części zamiennych.",
   },
   {
     icon: Gauge,
@@ -286,27 +286,27 @@ const BREAK_CARDS = [
   },
   {
     icon: Activity,
-    title: "Błędna hydraulika",
+    title: "Błędy hydrauliczne",
     body:
-      "Za małe przepływy, brak bufora, niewłaściwe mieszacze, źle dobrane rozdzielacze. Pompa próbuje grzać układ, który technicznie tego nie przyjmuje.",
+      "Za małe przepływy, źle dobrane średnice rur, brak bufora, za mały zład instalacji, grzejniki o zbyt małej powierzchni wymiany ciepła lub brak odpowiedniej automatyki.",
   },
   {
     icon: Wrench,
     title: "Słaba elektryka i zabezpieczenia",
     body:
-      "Przewody niedostosowane do wymaganej mocy, brak właściwych zabezpieczeń, brak wibroizolatorów pod jednostką zewnętrzną.",
+      "Przewody niedostosowane do wymaganej mocy, brak właściwych zabezpieczeń, nieprzygotowana instalacja pod realne obciążenia pompy ciepła.",
   },
   {
     icon: ShieldCheck,
-    title: "Brak izolacji odpornej na UV",
+    title: "Brak estetyki i dostępu serwisowego",
     body:
-      "Otulina, która rozsypuje się po dwóch sezonach, brak osłon, niezabezpieczone przejścia ścienne. Drobiazgi, które decydują o trwałości.",
+      "Chaotycznie wykonana instalacja utrudnia późniejszy serwis, diagnostykę i rozbudowę systemu. Znaczenie ma nie tylko działanie, ale również kultura wykonania całego układu.",
   },
   {
     icon: Cpu,
-    title: "Brak uruchomienia i serwisu",
+    title: "Brak wsparcia serwisowego",
     body:
-      "Włączenie pompy to nie uruchomienie systemu. Bez nastawienia krzywej grzewczej, parametrów pracy i bez planu serwisowego instalacja po prostu się zużywa.",
+      "Problemy z dostępem do części zamiennych, dokumentacji technicznej i realnego wsparcia serwisowego często pojawiają się dopiero po kilku sezonach pracy urządzenia.",
   },
 ];
 
