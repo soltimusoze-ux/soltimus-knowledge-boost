@@ -252,7 +252,7 @@ function Manifesto() {
           <span className="italic font-light text-black/55">
             nie wynika z samej pompy.
           </span>{" "}
-          Wynika z tanich urządzeń i pospiesznego montażu.
+          Wynika ze słabych urządzeń i złego montażu.
         </motion.h2>
         <p className="mt-8 max-w-3xl text-lg leading-relaxed text-black/65">
           W czasie boomu rynku pomp ciepła wiele instalacji powstawało
