@@ -320,17 +320,17 @@ function WhyPumpsBreak() {
               Dlaczego pompy ciepła mają problemy
             </div>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-              Tanie urządzenie i pospieszny montaż{" "}
+              6 najczęstszych błędów{" "}
               <span className="italic font-light text-black/50">
-                to dwa najczęstsze problemy rynku.
+                z pompami ciepła.
               </span>
             </h2>
           </div>
           <p className="max-w-md text-base leading-relaxed text-black/60">
-            Sześć rzeczy, które widzimy w naszych zgłoszeniach
-            serwisowych prawie co tydzień. Nie krytykujemy ekip — pokazujemy
-            spokojnie, co naprawdę decyduje o tym, czy pompa ciepła pracuje
-            stabilnie przez kilkanaście lat.
+            To rzeczy, które widzimy w zgłoszeniach serwisowych prawie co
+            tydzień. Nie krytykujemy ekip — pokazujemy spokojnie, co
+            naprawdę decyduje o tym, czy pompa ciepła pracuje stabilnie
+            przez kilkanaście lat.
           </p>
         </div>
 
