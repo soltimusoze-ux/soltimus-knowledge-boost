@@ -1047,7 +1047,7 @@ function ShowroomTrust() {
             <div className="mt-3 text-xs uppercase tracking-[0.22em] text-white/45">
               Showroom
             </div>
-            <div className="mt-1 text-base font-medium">{COMPANY.address}</div>
+            <div className="mt-1 text-base font-medium">{ADDRESS_LINE}</div>
           </div>
           <div>
             <Building2 className="h-4 w-4 text-[#F5B800]" />
