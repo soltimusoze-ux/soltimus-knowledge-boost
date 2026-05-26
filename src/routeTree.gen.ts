@@ -29,6 +29,7 @@ import { Route as RealizacjeSlugRouteImport } from './routes/realizacje.$slug'
 import { Route as OfertaTermomodernizacjaRouteImport } from './routes/oferta.termomodernizacja'
 import { Route as OfertaSerwisRouteImport } from './routes/oferta.serwis'
 import { Route as OfertaRekuperacjaRouteImport } from './routes/oferta.rekuperacja'
+import { Route as OfertaPompyCieplaRouteImport } from './routes/oferta.pompy-ciepla'
 import { Route as OfertaEnergiaRouteImport } from './routes/oferta.energia'
 import { Route as OfertaAudytyEnergetyczneRouteImport } from './routes/oferta.audyty-energetyczne'
 import { Route as OfertaServiceRouteImport } from './routes/oferta.$service'
@@ -147,6 +148,11 @@ const OfertaSerwisRoute = OfertaSerwisRouteImport.update({
 const OfertaRekuperacjaRoute = OfertaRekuperacjaRouteImport.update({
   id: '/rekuperacja',
   path: '/rekuperacja',
+  getParentRoute: () => OfertaRoute,
+} as any)
+const OfertaPompyCieplaRoute = OfertaPompyCieplaRouteImport.update({
+  id: '/pompy-ciepla',
+  path: '/pompy-ciepla',
   getParentRoute: () => OfertaRoute,
 } as any)
 const OfertaEnergiaRoute = OfertaEnergiaRouteImport.update({
@@ -280,6 +286,7 @@ export interface FileRoutesByFullPath {
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/audyty-energetyczne': typeof OfertaAudytyEnergetyczneRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRoute
   '/oferta/rekuperacja': typeof OfertaRekuperacjaRoute
   '/oferta/serwis': typeof OfertaSerwisRoute
   '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
@@ -319,6 +326,7 @@ export interface FileRoutesByTo {
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/audyty-energetyczne': typeof OfertaAudytyEnergetyczneRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRoute
   '/oferta/rekuperacja': typeof OfertaRekuperacjaRoute
   '/oferta/serwis': typeof OfertaSerwisRoute
   '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
@@ -361,6 +369,7 @@ export interface FileRoutesById {
   '/oferta/$service': typeof OfertaServiceRoute
   '/oferta/audyty-energetyczne': typeof OfertaAudytyEnergetyczneRoute
   '/oferta/energia': typeof OfertaEnergiaRoute
+  '/oferta/pompy-ciepla': typeof OfertaPompyCieplaRoute
   '/oferta/rekuperacja': typeof OfertaRekuperacjaRoute
   '/oferta/serwis': typeof OfertaSerwisRoute
   '/oferta/termomodernizacja': typeof OfertaTermomodernizacjaRoute
@@ -404,6 +413,7 @@ export interface FileRouteTypes {
     | '/oferta/$service'
     | '/oferta/audyty-energetyczne'
     | '/oferta/energia'
+    | '/oferta/pompy-ciepla'
     | '/oferta/rekuperacja'
     | '/oferta/serwis'
     | '/oferta/termomodernizacja'
@@ -443,6 +453,7 @@ export interface FileRouteTypes {
     | '/oferta/$service'
     | '/oferta/audyty-energetyczne'
     | '/oferta/energia'
+    | '/oferta/pompy-ciepla'
     | '/oferta/rekuperacja'
     | '/oferta/serwis'
     | '/oferta/termomodernizacja'
@@ -484,6 +495,7 @@ export interface FileRouteTypes {
     | '/oferta/$service'
     | '/oferta/audyty-energetyczne'
     | '/oferta/energia'
+    | '/oferta/pompy-ciepla'
     | '/oferta/rekuperacja'
     | '/oferta/serwis'
     | '/oferta/termomodernizacja'
@@ -669,6 +681,13 @@ declare module '@tanstack/react-router' {
       path: '/rekuperacja'
       fullPath: '/oferta/rekuperacja'
       preLoaderRoute: typeof OfertaRekuperacjaRouteImport
+      parentRoute: typeof OfertaRoute
+    }
+    '/oferta/pompy-ciepla': {
+      id: '/oferta/pompy-ciepla'
+      path: '/pompy-ciepla'
+      fullPath: '/oferta/pompy-ciepla'
+      preLoaderRoute: typeof OfertaPompyCieplaRouteImport
       parentRoute: typeof OfertaRoute
     }
     '/oferta/energia': {
@@ -901,6 +920,7 @@ interface OfertaRouteChildren {
   OfertaServiceRoute: typeof OfertaServiceRoute
   OfertaAudytyEnergetyczneRoute: typeof OfertaAudytyEnergetyczneRoute
   OfertaEnergiaRoute: typeof OfertaEnergiaRoute
+  OfertaPompyCieplaRoute: typeof OfertaPompyCieplaRoute
   OfertaRekuperacjaRoute: typeof OfertaRekuperacjaRoute
   OfertaSerwisRoute: typeof OfertaSerwisRoute
   OfertaTermomodernizacjaRoute: typeof OfertaTermomodernizacjaRoute
@@ -911,6 +931,7 @@ const OfertaRouteChildren: OfertaRouteChildren = {
   OfertaServiceRoute: OfertaServiceRoute,
   OfertaAudytyEnergetyczneRoute: OfertaAudytyEnergetyczneRoute,
   OfertaEnergiaRoute: OfertaEnergiaRoute,
+  OfertaPompyCieplaRoute: OfertaPompyCieplaRoute,
   OfertaRekuperacjaRoute: OfertaRekuperacjaRoute,
   OfertaSerwisRoute: OfertaSerwisRoute,
   OfertaTermomodernizacjaRoute: OfertaTermomodernizacjaRoute,
