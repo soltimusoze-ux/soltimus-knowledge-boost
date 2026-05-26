@@ -27,7 +27,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { buildMeta } from "@/config/seo";
 import { breadcrumbSchema, faqSchema } from "@/lib/jsonld";
 import { SITE } from "@/config/site";
-import { COMPANY } from "@/lib/company";
+import { COMPANY, ADDRESS_LINE } from "@/lib/company";
 
 import heroImg from "@/assets/pompy-ciepla/pc-hero.jpg";
 import badInstallImg from "@/assets/pompy-ciepla/pc-bad-install.jpg";
