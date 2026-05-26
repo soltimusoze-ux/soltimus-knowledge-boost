@@ -204,8 +204,11 @@ function Hero() {
             transition={{ duration: 1, delay: 0.6 }}
             className="mt-16 grid max-w-3xl grid-cols-3 gap-6 border-t border-white/10 pt-8 text-white/70"
           >
-            <Stat label="Pierwsza wizyta serwisowa" value="90%" />
-            <Stat label="Autoryzowany Fabryczny Serwis" value="AFSDA" />
+            <Stat
+              label="zgłoszeń serwisowych rozwiązujemy podczas pierwszej wizyty"
+              value="90%"
+            />
+            <Stat label="Autoryzowany Fabryczny Serwis Daikin Altherma" value="AFSDA" />
             <Stat label="Reakcja serwisu" value="24 h" />
           </motion.div>
         </div>
@@ -249,7 +252,7 @@ function Manifesto() {
           <span className="italic font-light text-black/55">
             nie wynika z samej pompy.
           </span>{" "}
-          Wynika z tanich urządzeń i pospiesznego montażu.
+          Wynika ze słabych urządzeń i złego montażu.
         </motion.h2>
         <p className="mt-8 max-w-3xl text-lg leading-relaxed text-black/65">
           W czasie boomu rynku pomp ciepła wiele instalacji powstawało
@@ -271,9 +274,9 @@ function Manifesto() {
 const BREAK_CARDS = [
   {
     icon: AlertTriangle,
-    title: "Tanie urządzenia z boomu",
+    title: "Urządzenia niskiej jakości",
     body:
-      "Rynek zalały pompy ciepła w cenach nieadekwatnych do jakości komponentów. Słabe sprężarki, słaba sterownia, brak realnego serwisu producenta.",
+      "Na rynku pojawiło się wiele pomp ciepła bez odpowiednich certyfikatów, takich jak HP Keymark, oraz bez realnego zaplecza serwisowego i części zamiennych.",
   },
   {
     icon: Gauge,
@@ -283,27 +286,27 @@ const BREAK_CARDS = [
   },
   {
     icon: Activity,
-    title: "Błędna hydraulika",
+    title: "Błędy hydrauliczne",
     body:
-      "Za małe przepływy, brak bufora, niewłaściwe mieszacze, źle dobrane rozdzielacze. Pompa próbuje grzać układ, który technicznie tego nie przyjmuje.",
+      "Za małe przepływy, źle dobrane średnice rur, brak bufora, za mały zład instalacji, grzejniki o zbyt małej powierzchni wymiany ciepła lub brak odpowiedniej automatyki.",
   },
   {
     icon: Wrench,
     title: "Słaba elektryka i zabezpieczenia",
     body:
-      "Przewody niedostosowane do wymaganej mocy, brak właściwych zabezpieczeń, brak wibroizolatorów pod jednostką zewnętrzną.",
+      "Przewody niedostosowane do wymaganej mocy, brak właściwych zabezpieczeń, nieprzygotowana instalacja pod realne obciążenia pompy ciepła.",
   },
   {
     icon: ShieldCheck,
-    title: "Brak izolacji odpornej na UV",
+    title: "Brak estetyki i dostępu serwisowego",
     body:
-      "Otulina, która rozsypuje się po dwóch sezonach, brak osłon, niezabezpieczone przejścia ścienne. Drobiazgi, które decydują o trwałości.",
+      "Chaotycznie wykonana instalacja utrudnia późniejszy serwis, diagnostykę i rozbudowę systemu. Znaczenie ma nie tylko działanie, ale również kultura wykonania całego układu.",
   },
   {
     icon: Cpu,
-    title: "Brak uruchomienia i serwisu",
+    title: "Brak wsparcia serwisowego",
     body:
-      "Włączenie pompy to nie uruchomienie systemu. Bez nastawienia krzywej grzewczej, parametrów pracy i bez planu serwisowego instalacja po prostu się zużywa.",
+      "Problemy z dostępem do części zamiennych, dokumentacji technicznej i realnego wsparcia serwisowego często pojawiają się dopiero po kilku sezonach pracy urządzenia.",
   },
 ];
 
@@ -317,17 +320,17 @@ function WhyPumpsBreak() {
               Dlaczego pompy ciepła mają problemy
             </div>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-              Tanie urządzenie i pospieszny montaż{" "}
+              6 najczęstszych błędów{" "}
               <span className="italic font-light text-black/50">
-                to dwa najczęstsze problemy rynku.
+                z pompami ciepła.
               </span>
             </h2>
           </div>
           <p className="max-w-md text-base leading-relaxed text-black/60">
-            Sześć rzeczy, które widzimy w naszych zgłoszeniach
-            serwisowych prawie co tydzień. Nie krytykujemy ekip — pokazujemy
-            spokojnie, co naprawdę decyduje o tym, czy pompa ciepła pracuje
-            stabilnie przez kilkanaście lat.
+            To rzeczy, które widzimy w zgłoszeniach serwisowych prawie co
+            tydzień. Nie krytykujemy ekip — pokazujemy spokojnie, co
+            naprawdę decyduje o tym, czy pompa ciepła pracuje stabilnie
+            przez kilkanaście lat.
           </p>
         </div>
 
@@ -823,22 +826,21 @@ function ServiceLayer() {
         <div className="grid items-start gap-12 md:grid-cols-2">
           <div>
             <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
-              Autoryzowany Fabryczny Serwis Daikin Altherma
+              AFSDA · Autoryzowany Fabryczny Serwis Daikin Altherma
             </div>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-              Pompa ciepła pracuje 15 lat.{" "}
+              Nawet najlepsza pompa ciepła{" "}
               <span className="italic font-light text-black/50">
-                Serwis decyduje, jak.
+                może kiedyś wymagać serwisu.
               </span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-              Soltimus jest{" "}
-              <strong className="font-semibold text-black">
-                Autoryzowanym Fabrycznym Serwisem Daikin Altherma (AFSDA)
-              </strong>
-              . Mamy własne ekipy serwisowe, własny magazyn części,
-              diagnostykę zdalną i dokumentację każdej zaprojektowanej
-              przez nas instalacji.
+              Dlatego warto mieć pewność, że w środku zimy ktoś odbierze
+              telefon i realnie pomoże. Soltimus jest{" "}
+              <strong className="font-semibold text-black">AFSDA</strong> —
+              Autoryzowanym Fabrycznym Serwisem Daikin Altherma. Mamy własne
+              ekipy serwisowe, własny magazyn części, diagnostykę zdalną
+              i dokumentację każdej zaprojektowanej przez nas instalacji.
             </p>
 
             {/* The 90% claim — visually highlighted */}
@@ -864,7 +866,7 @@ function ServiceLayer() {
             </div>
 
             <div className="mt-10 grid grid-cols-2 gap-6">
-              <ServiceStat value="AFSDA" label="Status fabryczny" />
+              <ServiceStat value="AFSDA" label="Autoryzowany Fabryczny Serwis Daikin Altherma" />
               <ServiceStat value="24 h" label="Reakcja serwisu" />
               <ServiceStat value="Własny magazyn" label="Części zamienne" />
               <ServiceStat value="Zdalna diagnostyka" label="Każda instalacja" />
@@ -903,28 +905,22 @@ function ServiceStat({ value, label }: { value: string; label: string }) {
 
 const COST_ROWS = [
   {
-    profile: "Dom WT2021 · 150 m²",
-    sub: "Podłogówka, dobra izolacja",
-    range: "1 800 – 3 500 zł / rok",
-    note: "SCOP ~4,2 · taryfa G12 lub dynamiczna",
+    profile: "Nowy dom 140–180 m²",
+    sub: "Dobra izolacja, podłogówka, świeży projekt",
+    range: "250 – 450 zł / miesiąc",
+    note: "Ogrzewanie + ciepła woda · taryfa G12 lub dynamiczna",
   },
   {
-    profile: "Dom modernizowany · 180 m²",
-    sub: "Podłogówka + grzejniki, izolacja po termomodernizacji",
-    range: "3 500 – 5 500 zł / rok",
-    note: "SCOP ~3,6 · zalecany bufor 200 l",
+    profile: "Dom po termomodernizacji",
+    sub: "Docieplenie, wymiana okien, niskoparametrowe emitery",
+    range: "400 – 700 zł / miesiąc",
+    note: "Ogrzewanie + ciepła woda · realny SCOP ~3,6",
   },
   {
-    profile: "Dom z lat 90. · 160 m²",
-    sub: "Grzejniki niskoparametrowe, częściowa modernizacja",
-    range: "4 500 – 8 000 zł / rok",
-    note: "SCOP ~3,2 · warto rozważyć hybrydę",
-  },
-  {
-    profile: "Hybryda: pompa + kominek",
-    sub: "Świadomy backup, ECH2O / bufor",
-    range: "2 500 – 4 500 zł / rok",
-    note: "Ogień jako rezerwa, pompa jako baza",
+    profile: "Starszy dom bez modernizacji",
+    sub: "Słaba izolacja, wysokie parametry zasilania",
+    range: "Koszty wyraźnie wyższe",
+    note: "Najczęściej wymaga wcześniejszej modernizacji budynku lub instalacji",
   },
 ];
 
@@ -937,13 +933,13 @@ function RealCosts() {
             Rzeczywiste koszty eksploatacji
           </div>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-            Bez obietnic. Tylko realne zakresy.
+            Bez obietnic. Realne scenariusze.
           </h2>
           <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-            Marketing pomp ciepła obiecuje „rachunek 80 zł miesięcznie”.
-            W praktyce koszt zależy od izolacji, emiterów, taryfy
-            i nawyków użytkowania. Poniżej — szczere widełki z naszych
-            własnych instalacji w monitoringu.
+            Koszt pracy pompy ciepła zależy przede wszystkim od stanu
+            budynku, emiterów, taryfy i nawyków użytkowania. Poniżej —
+            typowe scenariusze, które widzimy w naszych instalacjach
+            w monitoringu.
           </p>
         </div>
 
@@ -973,9 +969,9 @@ function RealCosts() {
           ))}
         </div>
         <p className="mt-6 text-xs leading-relaxed text-black/45">
-          Zakresy roczne (ogrzewanie + CWU), ceny 2026, taryfa G12 lub
-          dynamiczna PSTRYK. Dokładny wynik daje audyt OZC i symulacja
-          z realnym profilem energetycznym domu.
+          Dane uśrednione z naszych instalacji w monitoringu (2025/2026).
+          Dokładny wynik daje audyt OZC i symulacja z realnym profilem
+          energetycznym domu.
         </p>
       </div>
     </section>
