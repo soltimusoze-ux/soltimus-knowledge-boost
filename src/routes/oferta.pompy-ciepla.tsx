@@ -204,8 +204,11 @@ function Hero() {
             transition={{ duration: 1, delay: 0.6 }}
             className="mt-16 grid max-w-3xl grid-cols-3 gap-6 border-t border-white/10 pt-8 text-white/70"
           >
-            <Stat label="Pierwsza wizyta serwisowa" value="90%" />
-            <Stat label="Autoryzowany Fabryczny Serwis" value="AFSDA" />
+            <Stat
+              label="zgłoszeń serwisowych rozwiązujemy podczas pierwszej wizyty"
+              value="90%"
+            />
+            <Stat label="Autoryzowany Fabryczny Serwis Daikin Altherma" value="AFSDA" />
             <Stat label="Reakcja serwisu" value="24 h" />
           </motion.div>
         </div>
