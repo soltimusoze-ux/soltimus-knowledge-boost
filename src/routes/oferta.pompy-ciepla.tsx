@@ -30,7 +30,8 @@ import { SITE } from "@/config/site";
 import { COMPANY, ADDRESS_LINE } from "@/lib/company";
 
 import heroImg from "@/assets/pompy-ciepla/pc-hero.jpg";
-import badInstallImg from "@/assets/pompy-ciepla/pc-bad-install.jpg";
+import realBeforeImg from "@/assets/pompy-ciepla/pc-real-before.jpg";
+import realAfterImg from "@/assets/pompy-ciepla/pc-real-after.jpg";
 import comfortImg from "@/assets/pompy-ciepla/pc-comfort.jpg";
 import houseWinterImg from "@/assets/pompy-ciepla/pc-house-winter.jpg";
 import hybridImg from "@/assets/pompy-ciepla/pc-hybrid.jpg";
@@ -104,13 +105,14 @@ function PompyCieplaPage() {
       <Manifesto />
       <WhyPumpsBreak />
       <CaseRepair />
+      <VideoCaseStudy />
       <SystemThinking />
       <WhenNotIdea />
       <Effortless />
       <ServiceLayer />
+      <CalculatorReadiness />
       <RealCosts />
       <Hybrid />
-      <CalculatorReadiness />
       <LabIntegration />
       <ShowroomTrust />
       <RealCases />
@@ -147,7 +149,7 @@ function Hero() {
             className="flex items-center gap-3 text-[10px] uppercase tracking-[0.32em] text-[#F5B800]"
           >
             <span className="inline-block h-px w-8 bg-[#F5B800]" />
-            Pompy ciepła · Engineering & long-term service
+            Pompy ciepła · Dobór · Montaż · Serwis
           </motion.div>
 
           <motion.h1
@@ -156,9 +158,9 @@ function Hero() {
             transition={{ duration: 0.9, delay: 0.1 }}
             className="mt-7 max-w-5xl text-[clamp(2.2rem,5.8vw,5.2rem)] font-semibold leading-[1.02] tracking-tight"
           >
-            Pompa ciepła to tylko część systemu.{" "}
+            Dobra pompa ciepła{" "}
             <span className="italic font-light text-white/65">
-              Reszta decyduje, czy zadziała.
+              to nie przypadek.
             </span>
           </motion.h1>
 
@@ -168,10 +170,10 @@ function Hero() {
             transition={{ duration: 0.9, delay: 0.25 }}
             className="mt-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
           >
-            Projektujemy kompletne systemy ogrzewania i energii, które mają
-            działać bezpiecznie, oszczędnie i bezproblemowo przez
-            kilkanaście lat. Nie sprzedajemy urządzeń — projektujemy
-            infrastrukturę cieplną domu.
+            Dobrze działająca pompa ciepła to połączenie dobrego
+            urządzenia, dobrego doboru, sprawdzonego montażu i odpowiedzialnego
+            serwisu. Robimy wszystkie cztery rzeczy — pod jednym dachem,
+            z własnym zespołem i własnym serwisem fabrycznym Daikin.
           </motion.p>
 
           <motion.div
@@ -202,9 +204,9 @@ function Hero() {
             transition={{ duration: 1, delay: 0.6 }}
             className="mt-16 grid max-w-3xl grid-cols-3 gap-6 border-t border-white/10 pt-8 text-white/70"
           >
-            <Stat label="Lat doświadczenia" value="10+" />
-            <Stat label="Status Daikin AFS" value="Affiliated Service" />
-            <Stat label="Reakcja serwisu" value="24h" />
+            <Stat label="Pierwsza wizyta serwisowa" value="90%" />
+            <Stat label="Autoryzowany Fabryczny Serwis" value="AFSDA" />
+            <Stat label="Reakcja serwisu" value="24 h" />
           </motion.div>
         </div>
       </div>
@@ -234,7 +236,7 @@ function Manifesto() {
     <section className="relative bg-[#FBFAF6] px-5 py-28 md:px-10 md:py-36">
       <div className="mx-auto max-w-5xl">
         <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
-          Pozycja inżynierska
+          Praktyka, nie marketing
         </div>
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
@@ -247,15 +249,15 @@ function Manifesto() {
           <span className="italic font-light text-black/55">
             nie wynika z samej pompy.
           </span>{" "}
-          Tylko ze źle zaprojektowanego systemu.
+          Wynika z tanich urządzeń i pospiesznego montażu.
         </motion.h2>
         <p className="mt-8 max-w-3xl text-lg leading-relaxed text-black/65">
-          Po boomie 2022 roku polski rynek przyjął tysiące pomp ciepła
-          dobranych „na oko”, montowanych bez OZC, podłączanych do
-          hydrauliki sprzed dekady. Dziś te same domy wracają do nas —
-          z taktowaniem, awariami sprężarek, fakturami za prąd, których
-          nikt nie zapowiadał. To, czego naprawdę brakuje, to nie lepsze
-          urządzenie. To projekt.
+          W czasie boomu rynku pomp ciepła wiele instalacji powstawało
+          zbyt szybko — często na tanich urządzeniach i bez odpowiedniego
+          doświadczenia wykonawców. Dziś te same domy wracają do nas
+          z taktowaniem, awariami sprężarek i rachunkami, których nikt
+          nie zapowiadał. Naprawiamy to spokojnie: dobrym doborem,
+          uporządkowaną hydrauliką i odpowiedzialnym serwisem.
         </p>
       </div>
     </section>
@@ -268,40 +270,40 @@ function Manifesto() {
 
 const BREAK_CARDS = [
   {
-    icon: Gauge,
-    title: "Przewymiarowanie",
+    icon: AlertTriangle,
+    title: "Tanie urządzenia z boomu",
     body:
-      "Pompa dobrana „z zapasem” pracuje krótkimi cyklami (taktowanie). Sprężarka się zużywa, prąd rośnie, komfort spada.",
+      "Rynek zalały pompy ciepła w cenach nieadekwatnych do jakości komponentów. Słabe sprężarki, słaba sterownia, brak realnego serwisu producenta.",
   },
   {
-    icon: AlertTriangle,
-    title: "Brak audytu OZC",
+    icon: Gauge,
+    title: "Źle dobrana moc",
     body:
-      "Bez obliczenia obciążenia cieplnego dobór mocy jest zgadywaniem. Każdy projekt zaczynamy od OZC — nigdy od katalogu.",
+      "Pompa dobrana „na oko” bez OZC — najczęściej przewymiarowana. Pracuje krótkimi cyklami (taktowanie), sprężarka się zużywa, prąd rośnie.",
   },
   {
     icon: Activity,
-    title: "Zła hydraulika",
+    title: "Błędna hydraulika",
     body:
-      "Za małe przepływy, brak bufora, niewłaściwe mieszacze. Pompa próbuje grzać dom, który technicznie tego nie przyjmuje.",
+      "Za małe przepływy, brak bufora, niewłaściwe mieszacze, źle dobrane rozdzielacze. Pompa próbuje grzać układ, który technicznie tego nie przyjmuje.",
   },
   {
     icon: Wrench,
-    title: "Błędny montaż",
+    title: "Słaba elektryka i zabezpieczenia",
     body:
-      "Nieizolowane rury, źle dobrane zabezpieczenia, brak filtra magnetycznego. Mała oszczędność na ekipie — duża faktura za naprawy.",
+      "Przewody niedostosowane do wymaganej mocy, brak właściwych zabezpieczeń, brak wibroizolatorów pod jednostką zewnętrzną.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Brak izolacji odpornej na UV",
+    body:
+      "Otulina, która rozsypuje się po dwóch sezonach, brak osłon, niezabezpieczone przejścia ścienne. Drobiazgi, które decydują o trwałości.",
   },
   {
     icon: Cpu,
-    title: "Brak commissioningu",
+    title: "Brak uruchomienia i serwisu",
     body:
-      "Włączenie urządzenia to nie uruchomienie systemu. Krzywa grzewcza, parametry pracy, bilans — wszystko musi być nastawione i udokumentowane.",
-  },
-  {
-    icon: Layers,
-    title: "Boom 2022 — masówka",
-    body:
-      "Ekipy „pomp-ciepłowe” powstałe w pół roku zostawiły rynek z tysiącami problematycznych instalacji. Większość naszych serwisów to dziś naprawa cudzych projektów.",
+      "Włączenie pompy to nie uruchomienie systemu. Bez nastawienia krzywej grzewczej, parametrów pracy i bez planu serwisowego instalacja po prostu się zużywa.",
   },
 ];
 
@@ -312,19 +314,20 @@ function WhyPumpsBreak() {
         <div className="grid items-end gap-10 md:grid-cols-[1.2fr_1fr]">
           <div>
             <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
-              Dlaczego pompy ciepła się psują
+              Dlaczego pompy ciepła mają problemy
             </div>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-              Problemem często nie jest urządzenie.{" "}
+              Tanie urządzenie i pospieszny montaż{" "}
               <span className="italic font-light text-black/50">
-                Problemem jest projekt.
+                to dwa najczęstsze problemy rynku.
               </span>
             </h2>
           </div>
           <p className="max-w-md text-base leading-relaxed text-black/60">
-            Sześć powtarzalnych błędów, które widzimy w serwisach co
-            tydzień. Nie krytykujemy rynku — pokazujemy, co konkretnie
-            decyduje o tym, czy pompa ciepła ma 15 lat życia, czy 4.
+            Sześć rzeczy, które widzimy w naszych zgłoszeniach
+            serwisowych prawie co tydzień. Nie krytykujemy ekip — pokazujemy
+            spokojnie, co naprawdę decyduje o tym, czy pompa ciepła pracuje
+            stabilnie przez kilkanaście lat.
           </p>
         </div>
 
@@ -350,52 +353,127 @@ function WhyPumpsBreak() {
 }
 
 /* ============================================================
-   CASE — REPAIR
+   CASE — REAL BEFORE / AFTER (real Soltimus photos)
 ============================================================ */
+
+const REBUILD_ITEMS = [
+  "Wymiana źle dobranej pompy ciepła na jednostkę Daikin Altherma właściwej mocy",
+  "Pełna przebudowa hydrauliki — nowe rozdzielacze, mieszacze, bufor, pompy obiegowe",
+  "Wymiana przewodów elektrycznych dostosowanych do realnego poboru mocy",
+  "Nowe zabezpieczenia elektryczne zgodne z aktualnymi normami",
+  "Izolacja rurociągów odporna na UV — z myślą o trwałości na lata",
+  "Montaż wibroizolatorów pod jednostką zewnętrzną",
+  "Poprawa dostępu serwisowego — wszystkie elementy w zasięgu inżyniera",
+  "Uporządkowanie kabli sterujących i czujników",
+  "Pełne uruchomienie systemu z dokumentacją parametrów pracy",
+];
 
 function CaseRepair() {
   return (
     <section className="relative overflow-hidden bg-[#0E0E10] px-5 py-28 text-white md:px-10 md:py-36">
-      <div className="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="relative aspect-[4/5] overflow-hidden rounded-3xl"
-        >
-          <img
-            src={badInstallImg}
-            alt="Źle wykonana instalacja pompy ciepła przed naprawą"
-            className="h-full w-full object-cover"
-            loading="lazy"
-            width={1600}
-            height={2000}
-          />
-        </motion.div>
-
-        <div>
+      <div className="mx-auto max-w-7xl">
+        <div className="max-w-3xl">
           <div className="text-[10px] uppercase tracking-[0.3em] text-[#F5B800]">
-            Case · Naprawa instalacji
+            Realizacja · Przebudowa instalacji
           </div>
-          <h2 className="mt-5 text-[clamp(1.9rem,4vw,3.2rem)] font-semibold leading-[1.05] tracking-tight">
-            Naprawiamy błędy rynku pomp ciepła.
+          <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
+            Tej instalacji nie dało się{" "}
+            <span className="italic font-light text-white/55">
+              już naprawić częściowo.
+            </span>
           </h2>
           <p className="mt-6 text-base leading-relaxed text-white/65 md:text-lg">
-            Dom z 2000 r., pompa przewymiarowana o 60%, spalona sprężarka,
-            instalacja elektryczna niezgodna z normą, faktury 1 800 zł
-            miesięcznie. Audyt OZC, redesign hydrauliki, wymiana na
-            dobraną jednostkę Daikin, nowe zabezpieczenia, commissioning.
+            Dom z pompą ciepła zamontowaną w czasie boomu rynku. Po kilku
+            sezonach problem nie był pojedynczy — to był sposób wykonania
+            całego układu. Źle dobrana jednostka, chaotyczna hydraulika,
+            elektryka niedostosowana do mocy, brak zabezpieczeń, brak
+            wibroizolatorów, brak praktycznego dostępu serwisowego.
+            Postanowiliśmy przebudować system od podstaw.
           </p>
-          <div className="mt-8 grid grid-cols-3 gap-6 border-t border-white/10 pt-8">
-            <CaseStat value="−58%" label="Koszt ogrzewania" />
-            <CaseStat value="0" label="Awarii w 12 mies." />
-            <CaseStat value="OZC + redesign" label="Punkt wyjścia" />
+        </div>
+
+        {/* Before / After — real photos */}
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div>
+            <div className="mb-3 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-white/55">
+              <span className="inline-block h-px w-6 bg-white/40" />
+              Przed
+            </div>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-black/40">
+              <img
+                src={realBeforeImg}
+                alt="Stan przed przebudową: chaotyczna hydraulika, brak izolacji, źle dobrana pompa ciepła"
+                className="h-full w-full object-cover"
+                loading="lazy"
+                width={1600}
+                height={2000}
+              />
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-white/55">
+              Plątanina rur, brak porządku, brak izolacji odpornej na UV,
+              brak praktycznego dostępu do serwisu. Instalacja, której
+              żaden serwisant nie jest w stanie zdiagnozować szybko.
+            </p>
           </div>
+          <div>
+            <div className="mb-3 flex items-center gap-3 text-[10px] uppercase tracking-[0.3em] text-[#F5B800]">
+              <span className="inline-block h-px w-6 bg-[#F5B800]" />
+              Po przebudowie
+            </div>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-black/40">
+              <img
+                src={realAfterImg}
+                alt="Stan po przebudowie: Daikin Altherma, uporządkowana hydraulika, izolowane rurociągi"
+                className="h-full w-full object-cover"
+                loading="lazy"
+                width={1600}
+                height={2000}
+              />
+            </div>
+            <p className="mt-4 text-sm leading-relaxed text-white/55">
+              Daikin Altherma dobrana do realnego zapotrzebowania, czysta
+              hydraulika, oznaczone obiegi, izolacja klasy technicznej,
+              pełen dostęp serwisowy. Instalacja, którą można szybko
+              zdiagnozować i bezpiecznie obsługiwać przez kilkanaście lat.
+            </p>
+          </div>
+        </div>
+
+        {/* Co wymagało przebudowy */}
+        <div className="mt-16 grid items-start gap-10 md:grid-cols-[1fr_1.4fr]">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-white/45">
+              Co poprawiliśmy
+            </div>
+            <h3 className="mt-4 text-2xl font-semibold leading-tight tracking-tight md:text-3xl">
+              Dziewięć rzeczy, które zmieniliśmy.
+            </h3>
+            <p className="mt-5 text-sm leading-relaxed text-white/60">
+              Spokojny, techniczny przegląd tego, co naprawdę wymagało
+              ingerencji. Bez emocji wobec wcześniejszej ekipy — z pełną
+              odpowiedzialnością za to, co zostawiamy klientowi.
+            </p>
+          </div>
+          <ul className="grid gap-3 md:grid-cols-1">
+            {REBUILD_ITEMS.map((item, i) => (
+              <li
+                key={item}
+                className="flex gap-4 rounded-xl border border-white/10 bg-white/[0.03] px-5 py-4 text-sm leading-relaxed text-white/80"
+              >
+                <span className="shrink-0 text-[11px] font-semibold tabular-nums text-[#F5B800]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mt-14 flex flex-wrap items-center gap-3">
           <Link
             to="/realizacje/$slug"
             params={{ slug: "dom-2000-naprawa-instalacji-daikin" }}
-            className="group mt-10 inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium hover:bg-white/5"
+            className="group inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium hover:bg-white/5"
           >
             Zobacz pełne case study
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -406,16 +484,107 @@ function CaseRepair() {
   );
 }
 
-function CaseStat({ value, label }: { value: string; label: string }) {
+/* ============================================================
+   VIDEO CASE STUDY — documentary placeholder players
+============================================================ */
+
+const VIDEO_REELS = [
+  {
+    label: "Analiza błędów",
+    title: "Co znaleźliśmy w starej instalacji",
+    note: "Źle dobrana pompa, chaotyczna hydraulika, brak izolacji UV.",
+  },
+  {
+    label: "Przebudowa",
+    title: "Demontaż i nowy układ hydrauliki",
+    note: "Wymiana rozdzielaczy, mieszaczy, pomp obiegowych i bufora.",
+  },
+  {
+    label: "Uruchomienie",
+    title: "Nastawienie parametrów i pomiary",
+    note: "Krzywa grzewcza, balans przepływów, kontrola pracy sprężarki.",
+  },
+];
+
+function VideoCaseStudy() {
   return (
-    <div>
-      <div className="text-2xl font-semibold text-white md:text-3xl">
-        {value}
+    <section className="bg-[#FBFAF6] px-5 py-28 md:px-10 md:py-36">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid items-end gap-10 md:grid-cols-[1.4fr_1fr]">
+          <div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
+              Zobacz przebudowę tej instalacji
+            </div>
+            <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
+              Trzy krótkie materiały{" "}
+              <span className="italic font-light text-black/50">
+                z prawdziwej przebudowy.
+              </span>
+            </h2>
+          </div>
+          <p className="text-base leading-relaxed text-black/60">
+            Bez efektów, bez muzyki, bez dramatu. Tak naprawdę wygląda
+            uporządkowanie cudzej instalacji pompy ciepła — od diagnozy,
+            przez demontaż, po uruchomienie systemu.
+          </p>
+        </div>
+
+        <div className="mt-14 grid gap-6 md:grid-cols-3">
+          {VIDEO_REELS.map((r) => (
+            <div
+              key={r.title}
+              className="overflow-hidden rounded-3xl border border-black/10 bg-white"
+            >
+              <div className="relative aspect-[9/16] bg-[#0E0E10]">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-white/70">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/30 bg-white/5 backdrop-blur">
+                    <svg
+                      viewBox="0 0 24 24"
+                      className="h-5 w-5 translate-x-[1px]"
+                      fill="currentColor"
+                    >
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-white/45">
+                    Materiał wideo · wkrótce
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#F5B800]">
+                  {r.label}
+                </div>
+                <h3 className="mt-3 text-base font-semibold leading-snug tracking-tight">
+                  {r.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-black/60">
+                  {r.note}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {[
+            "analiza błędów",
+            "przebudowa hydrauliki",
+            "poprawa bezpieczeństwa",
+            "wymiana pompy",
+            "izolacja UV i wibroizolacja",
+            "uruchomienie i pomiary",
+          ].map((t) => (
+            <div
+              key={t}
+              className="rounded-full border border-black/10 bg-white px-5 py-3 text-xs uppercase tracking-[0.22em] text-black/55"
+            >
+              · {t}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className="mt-1 text-[10px] uppercase tracking-[0.22em] text-white/45">
-        {label}
-      </div>
-    </div>
+    </section>
   );
 }
 
@@ -439,16 +608,16 @@ function SystemThinking() {
         <div className="grid items-end gap-10 md:grid-cols-[1fr_1fr]">
           <div>
             <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
-              System thinking
+              Co składa się na dobry system
             </div>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-              Pompa ciepła nie działa sama.
+              Pompa ciepła nie pracuje sama.
             </h2>
           </div>
           <blockquote className="border-l-2 border-[#F5B800] pl-6 text-base leading-relaxed text-black/65 md:text-lg">
-            „Najlepsza pompa ciepła w źle zaprojektowanym domu nadal
-            będzie działała źle. Dlatego nie zaczynamy od urządzenia.
-            Zaczynamy od budynku.”
+            „Najlepsza pompa ciepła w źle przygotowanym domu i tak będzie
+            pracowała źle. Dlatego zaczynamy od budynku i instalacji,
+            a nie od katalogu urządzeń.”
           </blockquote>
         </div>
 
@@ -654,35 +823,57 @@ function ServiceLayer() {
         <div className="grid items-start gap-12 md:grid-cols-2">
           <div>
             <div className="text-[10px] uppercase tracking-[0.3em] text-black/40">
-              Serwis i bezpieczeństwo
+              Autoryzowany Fabryczny Serwis Daikin Altherma
             </div>
             <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-              Pompa ciepła to inwestycja na kilkanaście lat.{" "}
+              Pompa ciepła pracuje 15 lat.{" "}
               <span className="italic font-light text-black/50">
-                Dlatego serwis ma znaczenie.
+                Serwis decyduje, jak.
               </span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
               Soltimus jest{" "}
               <strong className="font-semibold text-black">
-                Affiliated Service Daikin (AFS)
-              </strong>{" "}
-              — z własnym magazynem części, diagnostyką zdalną,
-              dokumentacją commissioningu i reakcją serwisową 24h.
-              Każda instalacja, którą zaprojektowaliśmy, jest w naszej
-              bazie technicznej.
+                Autoryzowanym Fabrycznym Serwisem Daikin Altherma (AFSDA)
+              </strong>
+              . Mamy własne ekipy serwisowe, własny magazyn części,
+              diagnostykę zdalną i dokumentację każdej zaprojektowanej
+              przez nas instalacji.
             </p>
+
+            {/* The 90% claim — visually highlighted */}
+            <div className="mt-10 rounded-3xl border border-black/15 bg-white p-8 md:p-10">
+              <div className="flex items-baseline gap-5">
+                <div className="text-[clamp(3.5rem,7vw,5.5rem)] font-semibold leading-none tracking-tight text-[#0E0E10]">
+                  90<span className="text-[#F5B800]">%</span>
+                </div>
+                <div className="text-sm leading-snug text-black/65 md:text-base">
+                  zgłoszeń serwisowych rozwiązujemy
+                  <br />
+                  <strong className="font-semibold text-black">
+                    podczas pierwszej wizyty.
+                  </strong>
+                </div>
+              </div>
+              <p className="mt-6 text-xs leading-relaxed text-black/50">
+                Mierzymy to wewnętrznie. Dzięki diagnostyce zdalnej i
+                własnemu magazynowi części inżynier przyjeżdża
+                przygotowany — z konkretnym scenariuszem i konkretnym
+                elementem zamiennym, jeśli jest potrzebny.
+              </p>
+            </div>
+
             <div className="mt-10 grid grid-cols-2 gap-6">
-              <ServiceStat value="AFS Daikin" label="Status partnera" />
-              <ServiceStat value="24h" label="Reakcja serwisu" />
+              <ServiceStat value="AFSDA" label="Status fabryczny" />
+              <ServiceStat value="24 h" label="Reakcja serwisu" />
               <ServiceStat value="Własny magazyn" label="Części zamienne" />
-              <ServiceStat value="Zdalna diagnostyka" label="Telemetria" />
+              <ServiceStat value="Zdalna diagnostyka" label="Każda instalacja" />
             </div>
           </div>
           <div className="relative aspect-[4/5] overflow-hidden rounded-3xl">
             <img
               src={serviceImg}
-              alt="Inżynier Soltimus diagnozuje pompę ciepła w trakcie serwisu"
+              alt="Inżynier Soltimus diagnozuje pompę ciepła Daikin Altherma w trakcie serwisu"
               className="h-full w-full object-cover"
               loading="lazy"
               width={1600}
