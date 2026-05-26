@@ -75,9 +75,9 @@ export const Route = createFileRoute("/oferta/pompy-ciepla")({
   head: () =>
     buildMeta({
       title:
-        "Pompy ciepła Daikin — projektowanie systemów ogrzewania | Soltimus",
+        "Pompy ciepła Daikin — dobór, montaż i serwis | Soltimus",
       description:
-        "Nie sprzedajemy pomp ciepła. Projektujemy kompletne systemy ogrzewania, które działają bezpiecznie i oszczędnie przez kilkanaście lat. AFS Daikin, serwis 24h, własny dział inżynieryjny.",
+        "Dobra pompa ciepła to dobre urządzenie, dobry dobór, sprawdzony montaż i odpowiedzialny serwis. Autoryzowany Fabryczny Serwis Daikin Altherma (AFSDA). 90% zgłoszeń rozwiązujemy podczas pierwszej wizyty.",
       path: "/oferta/pompy-ciepla",
       image: heroImg,
       jsonLd: [
