@@ -905,28 +905,22 @@ function ServiceStat({ value, label }: { value: string; label: string }) {
 
 const COST_ROWS = [
   {
-    profile: "Dom WT2021 · 150 m²",
-    sub: "Podłogówka, dobra izolacja",
-    range: "1 800 – 3 500 zł / rok",
-    note: "SCOP ~4,2 · taryfa G12 lub dynamiczna",
+    profile: "Nowy dom 140–180 m²",
+    sub: "Dobra izolacja, podłogówka, świeży projekt",
+    range: "250 – 450 zł / miesiąc",
+    note: "Ogrzewanie + ciepła woda · taryfa G12 lub dynamiczna",
   },
   {
-    profile: "Dom modernizowany · 180 m²",
-    sub: "Podłogówka + grzejniki, izolacja po termomodernizacji",
-    range: "3 500 – 5 500 zł / rok",
-    note: "SCOP ~3,6 · zalecany bufor 200 l",
+    profile: "Dom po termomodernizacji",
+    sub: "Docieplenie, wymiana okien, niskoparametrowe emitery",
+    range: "400 – 700 zł / miesiąc",
+    note: "Ogrzewanie + ciepła woda · realny SCOP ~3,6",
   },
   {
-    profile: "Dom z lat 90. · 160 m²",
-    sub: "Grzejniki niskoparametrowe, częściowa modernizacja",
-    range: "4 500 – 8 000 zł / rok",
-    note: "SCOP ~3,2 · warto rozważyć hybrydę",
-  },
-  {
-    profile: "Hybryda: pompa + kominek",
-    sub: "Świadomy backup, ECH2O / bufor",
-    range: "2 500 – 4 500 zł / rok",
-    note: "Ogień jako rezerwa, pompa jako baza",
+    profile: "Starszy dom bez modernizacji",
+    sub: "Słaba izolacja, wysokie parametry zasilania",
+    range: "Koszty wyraźnie wyższe",
+    note: "Najczęściej wymaga wcześniejszej modernizacji budynku lub instalacji",
   },
 ];
 
@@ -939,13 +933,13 @@ function RealCosts() {
             Rzeczywiste koszty eksploatacji
           </div>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-            Bez obietnic. Tylko realne zakresy.
+            Bez obietnic. Realne scenariusze.
           </h2>
           <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-            Marketing pomp ciepła obiecuje „rachunek 80 zł miesięcznie”.
-            W praktyce koszt zależy od izolacji, emiterów, taryfy
-            i nawyków użytkowania. Poniżej — szczere widełki z naszych
-            własnych instalacji w monitoringu.
+            Koszt pracy pompy ciepła zależy przede wszystkim od stanu
+            budynku, emiterów, taryfy i nawyków użytkowania. Poniżej —
+            typowe scenariusze, które widzimy w naszych instalacjach
+            w monitoringu.
           </p>
         </div>
 
@@ -975,9 +969,9 @@ function RealCosts() {
           ))}
         </div>
         <p className="mt-6 text-xs leading-relaxed text-black/45">
-          Zakresy roczne (ogrzewanie + CWU), ceny 2026, taryfa G12 lub
-          dynamiczna PSTRYK. Dokładny wynik daje audyt OZC i symulacja
-          z realnym profilem energetycznym domu.
+          Dane uśrednione z naszych instalacji w monitoringu (2025/2026).
+          Dokładny wynik daje audyt OZC i symulacja z realnym profilem
+          energetycznym domu.
         </p>
       </div>
     </section>
