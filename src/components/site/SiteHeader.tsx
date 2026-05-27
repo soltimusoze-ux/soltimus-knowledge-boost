@@ -125,7 +125,7 @@ export function SiteHeader({
       {/* Mobile drawer */}
       {open && (
         <div className="fixed inset-0 z-[70] flex flex-col bg-white md:hidden">
-          <div className="flex h-16 items-center justify-between px-5">
+          <div className="flex h-16 shrink-0 items-center justify-between border-b border-black/5 px-5">
             <Link to="/" onClick={() => setOpen(false)} aria-label="Soltimus">
               <img src={logoDark} alt="Soltimus" className="h-8 w-auto" />
             </Link>
@@ -139,46 +139,33 @@ export function SiteHeader({
             </button>
           </div>
 
-          <nav className="flex flex-1 flex-col gap-0 px-5 pt-6">
-            {NAV_ITEMS.map((n, i) => (
+          <nav className="flex flex-col px-5 pt-2">
+            {NAV_ITEMS.map((n) => (
               <Link
                 key={n.to}
                 to={n.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: n.to === "/" }}
-                className="group relative border-b border-black/5 py-4 text-2xl font-light tracking-tight text-black transition-colors"
-                style={{ animationDelay: `${i * 40}ms` }}
+                className="flex items-center gap-3 border-b border-black/5 py-3.5 text-lg font-light tracking-tight text-black"
+                activeProps={{ className: "!font-medium" }}
               >
-                {({ isActive }) => (
-                  <span className="flex items-center gap-3">
-                    <span
-                      className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                        isActive
-                          ? "bg-[#F5B800]"
-                          : "bg-black/10 group-hover:bg-black/30"
-                      }`}
-                      aria-hidden="true"
-                    />
-                    <span className={isActive ? "font-medium" : ""}>
-                      {n.label}
-                    </span>
-                  </span>
-                )}
+                <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-black/20" aria-hidden="true" />
+                {n.label}
               </Link>
             ))}
           </nav>
 
-          <div className="grid grid-cols-2 gap-3 p-5">
+          <div className="mt-auto grid grid-cols-2 gap-3 border-t border-black/5 p-5">
             <a
               href={`tel:${COMPANY.phoneE164}`}
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-black/10 py-3.5 text-sm font-medium text-black transition-colors hover:border-black/25"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-black/15 py-3 text-sm font-medium text-black"
             >
               <Phone className="h-4 w-4" /> Zadzwoń
             </a>
             <Link
               to="/kontakt"
               onClick={() => setOpen(false)}
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F5B800] py-3.5 text-sm font-semibold text-black transition-all hover:bg-[#FFC629]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-[#F5B800] py-3 text-sm font-semibold text-black hover:bg-[#FFC629]"
             >
               Konsultacja
             </Link>
