@@ -852,12 +852,14 @@ function ServiceLayer() {
               </span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-              Dlatego warto mieć pewność, że w środku zimy ktoś odbierze
-              telefon i realnie pomoże. Soltimus jest{" "}
+              Najważniejsza korzyść dla mieszkańca jest prosta: nie musisz
+              martwić się o ogrzewanie. Gdy coś wymaga uwagi, ktoś odbiera
+              telefon — także w środku zimy — i przyjeżdża przygotowany.
+              Soltimus jest{" "}
               <strong className="font-semibold text-black">AFSDA</strong> —
               Autoryzowanym Fabrycznym Serwisem Daikin Altherma. Mamy własne
-              ekipy serwisowe, własny magazyn części, diagnostykę zdalną
-              i dokumentację każdej zaprojektowanej przez nas instalacji.
+              ekipy, własny magazyn części, diagnostykę zdalną i pełną
+              dokumentację każdej zaprojektowanej przez nas instalacji.
             </p>
 
             {/* The 90% claim — visually highlighted */}
