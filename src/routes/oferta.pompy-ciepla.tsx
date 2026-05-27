@@ -257,11 +257,12 @@ function Manifesto() {
         </motion.h2>
         <p className="mt-8 max-w-3xl text-lg leading-relaxed text-black/65">
           W czasie boomu rynku pomp ciepła wiele instalacji powstawało
-          zbyt szybko — często na tanich urządzeniach i bez odpowiedniego
-          doświadczenia wykonawców. Dziś te same domy wracają do nas
-          z taktowaniem, awariami sprężarek i rachunkami, których nikt
-          nie zapowiadał. Naprawiamy to spokojnie: dobrym doborem,
-          uporządkowaną hydrauliką i odpowiedzialnym serwisem.
+          zbyt szybko — na tanich urządzeniach i bez doświadczonych ekip.
+          Skutek dla mieszkańców jest zawsze ten sam: wyższe rachunki,
+          głośniejsza praca, nierówna temperatura w domu i stres,
+          gdy coś się psuje w środku zimy. Naprawiamy to spokojnie —
+          dobrym doborem, uporządkowaną hydrauliką i własnym serwisem,
+          do którego klient nie musi szukać numeru.
         </p>
       </div>
     </section>
