@@ -1087,10 +1087,10 @@ function CalculatorReadiness() {
               </span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-              Krótka, inżynierska ocena gotowości: izolacja, emitery,
-              instalacja elektryczna, wentylacja, profil energetyczny.
-              Wynik to nie oferta — to konsultacja: gdzie jesteś, czego
-              brakuje, co warto zrobić najpierw.
+              Zanim wydasz pierwszą złotówkę — sprawdź, czego naprawdę
+              potrzebuje Twój dom. Krótka, inżynierska ocena pokazuje,
+              co zrobić najpierw, żeby pompa pracowała tanio, cicho i
+              bezawaryjnie. Wynik to konsultacja, nie oferta.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
