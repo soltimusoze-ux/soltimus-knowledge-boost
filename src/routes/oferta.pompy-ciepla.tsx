@@ -277,38 +277,50 @@ const BREAK_CARDS = [
   {
     icon: AlertTriangle,
     title: "Urządzenia niskiej jakości",
+    effect:
+      "Krótsza żywotność, częstsze awarie i problem z częściami po kilku sezonach.",
     body:
-      "Na rynku pojawiło się wiele pomp ciepła bez odpowiednich certyfikatów, takich jak HP Keymark, oraz bez realnego zaplecza serwisowego i części zamiennych.",
+      "Na rynku pojawiło się wiele pomp bez certyfikatów HP Keymark, bez realnego zaplecza serwisowego i bez dostępnych części zamiennych w Polsce.",
   },
   {
     icon: Gauge,
     title: "Źle dobrana moc",
+    effect:
+      "Wyższe rachunki, głośniejsza praca i szybsze zużycie sprężarki — często niezauważone do pierwszej awarii.",
     body:
-      "Pompa dobrana „na oko” bez OZC — najczęściej przewymiarowana. Pracuje krótkimi cyklami (taktowanie), sprężarka się zużywa, prąd rośnie.",
+      "Pompa dobrana „na oko” bez OZC jest najczęściej przewymiarowana. Pracuje krótkimi cyklami (taktowanie), co zużywa sprężarkę i zwiększa pobór prądu.",
   },
   {
     icon: Activity,
     title: "Błędy hydrauliczne",
+    effect:
+      "Nierówna temperatura w pokojach, wahania ciepłej wody i wyższe zużycie prądu.",
     body:
-      "Za małe przepływy, źle dobrane średnice rur, brak bufora, za mały zład instalacji, grzejniki o zbyt małej powierzchni wymiany ciepła lub brak odpowiedniej automatyki.",
+      "Za małe przepływy, źle dobrane średnice rur, brak bufora, za mały zład instalacji, niewłaściwe emitery lub brak właściwej automatyki.",
   },
   {
     icon: Wrench,
     title: "Słaba elektryka i zabezpieczenia",
+    effect:
+      "Realne ryzyko bezpieczeństwa, kosztownych usterek i przerw w ogrzewaniu w środku zimy.",
     body:
-      "Przewody niedostosowane do wymaganej mocy, brak właściwych zabezpieczeń, nieprzygotowana instalacja pod realne obciążenia pompy ciepła.",
+      "Przewody niedostosowane do mocy, brak właściwych zabezpieczeń, instalacja nieprzygotowana na realne obciążenia pompy ciepła.",
   },
   {
     icon: ShieldCheck,
     title: "Brak estetyki i dostępu serwisowego",
+    effect:
+      "Dłuższe i droższe wizyty serwisowe — czasem prosty problem zajmuje pół dnia.",
     body:
-      "Chaotycznie wykonana instalacja utrudnia późniejszy serwis, diagnostykę i rozbudowę systemu. Znaczenie ma nie tylko działanie, ale również kultura wykonania całego układu.",
+      "Chaotyczna instalacja utrudnia diagnostykę, rozbudowę i obsługę. Liczy się nie tylko działanie, ale i kultura wykonania całego układu.",
   },
   {
     icon: Cpu,
     title: "Brak wsparcia serwisowego",
+    effect:
+      "Gdy coś się psuje, nikt nie odbiera telefonu — a Ty zostajesz bez ogrzewania.",
     body:
-      "Problemy z dostępem do części zamiennych, dokumentacji technicznej i realnego wsparcia serwisowego często pojawiają się dopiero po kilku sezonach pracy urządzenia.",
+      "Problemy z dostępem do części, dokumentacji i realnego serwisu pojawiają się zwykle dopiero po kilku sezonach pracy urządzenia.",
   },
 ];
 
