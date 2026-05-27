@@ -1019,12 +1019,12 @@ function Hybrid() {
               </span>
             </h2>
             <p className="mt-7 text-base leading-relaxed text-white/65 md:text-lg">
-              Pompa ciepła + kominek z płaszczem wodnym, bufor ECH2O,
-              magazyn energii, integracja z fotowoltaiką i taryfą
-              dynamiczną. Architektura systemu, w której każdy element
-              robi to, w czym jest najlepszy — i przejmuje pracę, kiedy
-              inny element jest w trybie wakacyjnym, awaryjnym albo po
-              prostu nieopłacalnym.
+              Dla domu oznacza to spokój: ciepło zawsze jest, niezależnie
+              od mrozu, ceny prądu czy chwilowej awarii. Pompa ciepła +
+              kominek z płaszczem wodnym, bufor ECH2O, magazyn energii i
+              integracja z fotowoltaiką — każdy element robi to, w czym
+              jest najlepszy, a sterownik wybiera tańsze źródło bez
+              udziału mieszkańca.
             </p>
             <ul className="mt-10 space-y-4 text-sm leading-relaxed text-white/75">
               <li className="flex gap-3">
