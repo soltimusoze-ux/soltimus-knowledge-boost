@@ -954,13 +954,13 @@ function RealCosts() {
             Rzeczywiste koszty eksploatacji
           </div>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-            Bez obietnic. Realne scenariusze.
+            Rachunek, który nie zaskakuje.
           </h2>
           <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-            Koszt pracy pompy ciepła zależy przede wszystkim od stanu
-            budynku, emiterów, taryfy i nawyków użytkowania. Poniżej —
-            typowe scenariusze, które widzimy w naszych instalacjach
-            w monitoringu.
+            Premium oznacza tu przede wszystkim przewidywalność: wiesz,
+            ile średnio zapłacisz w miesiącu, niezależnie od pogody i
+            nastrojów rynku. Poniżej typowe scenariusze z naszych
+            instalacji w monitoringu — bez obietnic z reklamy.
           </p>
         </div>
 
