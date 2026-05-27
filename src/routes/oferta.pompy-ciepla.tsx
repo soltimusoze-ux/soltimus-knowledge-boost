@@ -341,10 +341,10 @@ function WhyPumpsBreak() {
             </h2>
           </div>
           <p className="max-w-md text-base leading-relaxed text-black/60">
-            To rzeczy, które widzimy w zgłoszeniach serwisowych prawie co
-            tydzień. Nie krytykujemy ekip — pokazujemy spokojnie, co
-            naprawdę decyduje o tym, czy pompa ciepła pracuje stabilnie
-            przez kilkanaście lat.
+            Dla mieszkańca każdy z tych błędów wygląda tak samo: wyższe
+            rachunki, hałas, nierówna temperatura albo telefon do serwisu
+            w środku zimy. Pokazujemy spokojnie, co naprawdę za tym stoi
+            — i jak temu zapobiec już na etapie projektu.
           </p>
         </div>
 
