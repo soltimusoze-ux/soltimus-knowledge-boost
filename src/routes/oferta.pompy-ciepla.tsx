@@ -170,10 +170,11 @@ function Hero() {
             transition={{ duration: 0.9, delay: 0.25 }}
             className="mt-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
           >
-            Dobrze działająca pompa ciepła to połączenie dobrego
-            urządzenia, dobrego doboru, sprawdzonego montażu i odpowiedzialnego
-            serwisu. Robimy wszystkie cztery rzeczy — pod jednym dachem,
-            z własnym zespołem i własnym serwisem fabrycznym Daikin.
+            Dla Ciebie oznacza to spokojny dom: stabilną temperaturę,
+            przewidywalny rachunek i pewność, że ktoś odbierze telefon
+            w środku zimy. Za tym spokojem stoi połączenie dobrego
+            urządzenia, dobrego doboru, sprawdzonego montażu i własnego
+            serwisu fabrycznego Daikin — wszystko pod jednym dachem.
           </motion.p>
 
           <motion.div
