@@ -357,7 +357,10 @@ function WhyPumpsBreak() {
                 <h3 className="mt-6 text-lg font-semibold tracking-tight">
                   {c.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-black/60">
+                <p className="mt-3 text-sm font-medium leading-relaxed text-black/80">
+                  Co to oznacza dla mieszkańca: {c.effect}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-black/55">
                   {c.body}
                 </p>
               </div>
