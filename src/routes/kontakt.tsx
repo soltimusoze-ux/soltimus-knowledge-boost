@@ -59,19 +59,13 @@ function KontaktPage() {
     e.preventDefault();
     setState("sending");
     const form = e.currentTarget;
-    const data = new FormData(form);
+    const formData = new FormData(form);
+    formData.append("sourceUrl", typeof window !== "undefined" ? window.location.href : "");
     try {
-      const res = await fetch("/api/public/contact", {
+      const res = await fetch("https://formspree.io/f/meedveor", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: String(data.get("name") || ""),
-          phone: String(data.get("phone") || ""),
-          email: String(data.get("email") || ""),
-          topic: String(data.get("topic") || ""),
-          message: String(data.get("message") || ""),
-          sourceUrl: typeof window !== "undefined" ? window.location.href : "",
-        }),
+        body: formData,
+        headers: { Accept: "application/json" },
       });
       if (!res.ok) throw new Error("send failed");
       setState("ok");
@@ -245,9 +239,8 @@ function KontaktPage() {
               {state === "ok" ? (
                 <div className="mt-8 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-900">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0" />
-                  <div className="text-sm leading-relaxed">
-                    Dziękujemy za wiadomość. Zespół Soltimus skontaktuje się
-                    z Tobą możliwie szybko.
+                <div className="text-sm leading-relaxed">
+                    Dziękujemy. Skontaktujemy się z Tobą.
                   </div>
                 </div>
               ) : (

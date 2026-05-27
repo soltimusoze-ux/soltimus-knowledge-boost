@@ -182,8 +182,14 @@ function CalculatorPage() {
     }
     setSending(true);
     try {
-      await submitLead({
-        data: {
+      const res = await fetch("https://formspree.io/f/meedveor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "Kalkulator pompy ciepła - nowy lead",
           buildingStandard: calcInput.buildingStandard,
           customValue: calcInput.customValue ?? null,
           customUnit: calcInput.customUnit ?? null,
@@ -203,11 +209,12 @@ function CalculatorPage() {
           notes: lead.notes || null,
           rodoConsent: true,
           sourceUrl: typeof window !== "undefined" ? window.location.href : null,
-        },
+        }),
       });
+      if (!res.ok) throw new Error("send failed");
       saveRecommendedProduct(result.primary.product.id);
       setSubmitted(true);
-      toast.success("Wysłano! Skontaktujemy się w 24h.");
+      toast.success("Dziękujemy. Skontaktujemy się z Tobą.");
     } catch (err) {
       console.error(err);
       toast.error("Nie udało się wysłać. Zadzwoń bezpośrednio.");
@@ -396,7 +403,7 @@ function CalculatorPage() {
                   <CheckCircle2 className="mx-auto h-10 w-10 text-black" />
                   <h4 className="mt-3 text-lg font-semibold">Dziękujemy.</h4>
                   <p className="mt-1 text-sm text-black/60">
-                    Zespół Soltimus odezwie się w ciągu 24h z pełną wyceną dopasowaną do Twojego budynku.
+                    Skontaktujemy się z Tobą.
                   </p>
                 </div>
               ) : (
