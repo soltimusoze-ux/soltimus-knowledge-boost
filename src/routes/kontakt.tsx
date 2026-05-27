@@ -239,9 +239,8 @@ function KontaktPage() {
               {state === "ok" ? (
                 <div className="mt-8 flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-emerald-900">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0" />
-                  <div className="text-sm leading-relaxed">
-                    Dziękujemy za wiadomość. Zespół Soltimus skontaktuje się
-                    z Tobą możliwie szybko.
+                <div className="text-sm leading-relaxed">
+                    Dziękujemy. Skontaktujemy się z Tobą.
                   </div>
                 </div>
               ) : (
