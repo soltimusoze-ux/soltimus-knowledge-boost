@@ -877,10 +877,12 @@ function ServiceLayer() {
                 </div>
               </div>
               <p className="mt-6 text-xs leading-relaxed text-black/50">
-                Mierzymy to wewnętrznie. Dzięki diagnostyce zdalnej i
-                własnemu magazynowi części inżynier przyjeżdża
-                przygotowany — z konkretnym scenariuszem i konkretnym
-                elementem zamiennym, jeśli jest potrzebny.
+                Dla Ciebie oznacza to mniej stresu i mniej telefonów: w
+                większości przypadków sprawa kończy się jedną wizytą,
+                a nie tygodniami oczekiwania na część. Diagnostyka zdalna
+                i własny magazyn pozwalają inżynierowi przyjechać
+                przygotowanym — z konkretnym scenariuszem i częścią
+                zamienną, jeśli jest potrzebna.
               </p>
             </div>
 
