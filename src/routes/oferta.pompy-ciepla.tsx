@@ -170,10 +170,11 @@ function Hero() {
             transition={{ duration: 0.9, delay: 0.25 }}
             className="mt-8 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg"
           >
-            Dobrze działająca pompa ciepła to połączenie dobrego
-            urządzenia, dobrego doboru, sprawdzonego montażu i odpowiedzialnego
-            serwisu. Robimy wszystkie cztery rzeczy — pod jednym dachem,
-            z własnym zespołem i własnym serwisem fabrycznym Daikin.
+            Dla Ciebie oznacza to spokojny dom: stabilną temperaturę,
+            przewidywalny rachunek i pewność, że ktoś odbierze telefon
+            w środku zimy. Za tym spokojem stoi połączenie dobrego
+            urządzenia, dobrego doboru, sprawdzonego montażu i własnego
+            serwisu fabrycznego Daikin — wszystko pod jednym dachem.
           </motion.p>
 
           <motion.div
@@ -256,11 +257,12 @@ function Manifesto() {
         </motion.h2>
         <p className="mt-8 max-w-3xl text-lg leading-relaxed text-black/65">
           W czasie boomu rynku pomp ciepła wiele instalacji powstawało
-          zbyt szybko — często na tanich urządzeniach i bez odpowiedniego
-          doświadczenia wykonawców. Dziś te same domy wracają do nas
-          z taktowaniem, awariami sprężarek i rachunkami, których nikt
-          nie zapowiadał. Naprawiamy to spokojnie: dobrym doborem,
-          uporządkowaną hydrauliką i odpowiedzialnym serwisem.
+          zbyt szybko — na tanich urządzeniach i bez doświadczonych ekip.
+          Skutek dla mieszkańców jest zawsze ten sam: wyższe rachunki,
+          głośniejsza praca, nierówna temperatura w domu i stres,
+          gdy coś się psuje w środku zimy. Naprawiamy to spokojnie —
+          dobrym doborem, uporządkowaną hydrauliką i własnym serwisem,
+          do którego klient nie musi szukać numeru.
         </p>
       </div>
     </section>
@@ -275,38 +277,50 @@ const BREAK_CARDS = [
   {
     icon: AlertTriangle,
     title: "Urządzenia niskiej jakości",
+    effect:
+      "Krótsza żywotność, częstsze awarie i problem z częściami po kilku sezonach.",
     body:
-      "Na rynku pojawiło się wiele pomp ciepła bez odpowiednich certyfikatów, takich jak HP Keymark, oraz bez realnego zaplecza serwisowego i części zamiennych.",
+      "Na rynku pojawiło się wiele pomp bez certyfikatów HP Keymark, bez realnego zaplecza serwisowego i bez dostępnych części zamiennych w Polsce.",
   },
   {
     icon: Gauge,
     title: "Źle dobrana moc",
+    effect:
+      "Wyższe rachunki, głośniejsza praca i szybsze zużycie sprężarki — często niezauważone do pierwszej awarii.",
     body:
-      "Pompa dobrana „na oko” bez OZC — najczęściej przewymiarowana. Pracuje krótkimi cyklami (taktowanie), sprężarka się zużywa, prąd rośnie.",
+      "Pompa dobrana „na oko” bez OZC jest najczęściej przewymiarowana. Pracuje krótkimi cyklami (taktowanie), co zużywa sprężarkę i zwiększa pobór prądu.",
   },
   {
     icon: Activity,
     title: "Błędy hydrauliczne",
+    effect:
+      "Nierówna temperatura w pokojach, wahania ciepłej wody i wyższe zużycie prądu.",
     body:
-      "Za małe przepływy, źle dobrane średnice rur, brak bufora, za mały zład instalacji, grzejniki o zbyt małej powierzchni wymiany ciepła lub brak odpowiedniej automatyki.",
+      "Za małe przepływy, źle dobrane średnice rur, brak bufora, za mały zład instalacji, niewłaściwe emitery lub brak właściwej automatyki.",
   },
   {
     icon: Wrench,
     title: "Słaba elektryka i zabezpieczenia",
+    effect:
+      "Realne ryzyko bezpieczeństwa, kosztownych usterek i przerw w ogrzewaniu w środku zimy.",
     body:
-      "Przewody niedostosowane do wymaganej mocy, brak właściwych zabezpieczeń, nieprzygotowana instalacja pod realne obciążenia pompy ciepła.",
+      "Przewody niedostosowane do mocy, brak właściwych zabezpieczeń, instalacja nieprzygotowana na realne obciążenia pompy ciepła.",
   },
   {
     icon: ShieldCheck,
     title: "Brak estetyki i dostępu serwisowego",
+    effect:
+      "Dłuższe i droższe wizyty serwisowe — czasem prosty problem zajmuje pół dnia.",
     body:
-      "Chaotycznie wykonana instalacja utrudnia późniejszy serwis, diagnostykę i rozbudowę systemu. Znaczenie ma nie tylko działanie, ale również kultura wykonania całego układu.",
+      "Chaotyczna instalacja utrudnia diagnostykę, rozbudowę i obsługę. Liczy się nie tylko działanie, ale i kultura wykonania całego układu.",
   },
   {
     icon: Cpu,
     title: "Brak wsparcia serwisowego",
+    effect:
+      "Gdy coś się psuje, nikt nie odbiera telefonu — a Ty zostajesz bez ogrzewania.",
     body:
-      "Problemy z dostępem do części zamiennych, dokumentacji technicznej i realnego wsparcia serwisowego często pojawiają się dopiero po kilku sezonach pracy urządzenia.",
+      "Problemy z dostępem do części, dokumentacji i realnego serwisu pojawiają się zwykle dopiero po kilku sezonach pracy urządzenia.",
   },
 ];
 
@@ -327,10 +341,10 @@ function WhyPumpsBreak() {
             </h2>
           </div>
           <p className="max-w-md text-base leading-relaxed text-black/60">
-            To rzeczy, które widzimy w zgłoszeniach serwisowych prawie co
-            tydzień. Nie krytykujemy ekip — pokazujemy spokojnie, co
-            naprawdę decyduje o tym, czy pompa ciepła pracuje stabilnie
-            przez kilkanaście lat.
+            Dla mieszkańca każdy z tych błędów wygląda tak samo: wyższe
+            rachunki, hałas, nierówna temperatura albo telefon do serwisu
+            w środku zimy. Pokazujemy spokojnie, co naprawdę za tym stoi
+            — i jak temu zapobiec już na etapie projektu.
           </p>
         </div>
 
@@ -343,7 +357,10 @@ function WhyPumpsBreak() {
                 <h3 className="mt-6 text-lg font-semibold tracking-tight">
                   {c.title}
                 </h3>
-                <p className="mt-3 text-sm leading-relaxed text-black/60">
+                <p className="mt-3 text-sm font-medium leading-relaxed text-black/80">
+                  Co to oznacza dla mieszkańca: {c.effect}
+                </p>
+                <p className="mt-3 text-sm leading-relaxed text-black/55">
                   {c.body}
                 </p>
               </div>
@@ -835,12 +852,14 @@ function ServiceLayer() {
               </span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-              Dlatego warto mieć pewność, że w środku zimy ktoś odbierze
-              telefon i realnie pomoże. Soltimus jest{" "}
+              Najważniejsza korzyść dla mieszkańca jest prosta: nie musisz
+              martwić się o ogrzewanie. Gdy coś wymaga uwagi, ktoś odbiera
+              telefon — także w środku zimy — i przyjeżdża przygotowany.
+              Soltimus jest{" "}
               <strong className="font-semibold text-black">AFSDA</strong> —
               Autoryzowanym Fabrycznym Serwisem Daikin Altherma. Mamy własne
-              ekipy serwisowe, własny magazyn części, diagnostykę zdalną
-              i dokumentację każdej zaprojektowanej przez nas instalacji.
+              ekipy, własny magazyn części, diagnostykę zdalną i pełną
+              dokumentację każdej zaprojektowanej przez nas instalacji.
             </p>
 
             {/* The 90% claim — visually highlighted */}
@@ -858,10 +877,12 @@ function ServiceLayer() {
                 </div>
               </div>
               <p className="mt-6 text-xs leading-relaxed text-black/50">
-                Mierzymy to wewnętrznie. Dzięki diagnostyce zdalnej i
-                własnemu magazynowi części inżynier przyjeżdża
-                przygotowany — z konkretnym scenariuszem i konkretnym
-                elementem zamiennym, jeśli jest potrzebny.
+                Dla Ciebie oznacza to mniej stresu i mniej telefonów: w
+                większości przypadków sprawa kończy się jedną wizytą,
+                a nie tygodniami oczekiwania na część. Diagnostyka zdalna
+                i własny magazyn pozwalają inżynierowi przyjechać
+                przygotowanym — z konkretnym scenariuszem i częścią
+                zamienną, jeśli jest potrzebna.
               </p>
             </div>
 
@@ -933,13 +954,13 @@ function RealCosts() {
             Rzeczywiste koszty eksploatacji
           </div>
           <h2 className="mt-5 text-[clamp(2rem,4.4vw,3.6rem)] font-semibold leading-[1.05] tracking-tight">
-            Bez obietnic. Realne scenariusze.
+            Rachunek, który nie zaskakuje.
           </h2>
           <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-            Koszt pracy pompy ciepła zależy przede wszystkim od stanu
-            budynku, emiterów, taryfy i nawyków użytkowania. Poniżej —
-            typowe scenariusze, które widzimy w naszych instalacjach
-            w monitoringu.
+            Premium oznacza tu przede wszystkim przewidywalność: wiesz,
+            ile średnio zapłacisz w miesiącu, niezależnie od pogody i
+            nastrojów rynku. Poniżej typowe scenariusze z naszych
+            instalacji w monitoringu — bez obietnic z reklamy.
           </p>
         </div>
 
@@ -998,12 +1019,12 @@ function Hybrid() {
               </span>
             </h2>
             <p className="mt-7 text-base leading-relaxed text-white/65 md:text-lg">
-              Pompa ciepła + kominek z płaszczem wodnym, bufor ECH2O,
-              magazyn energii, integracja z fotowoltaiką i taryfą
-              dynamiczną. Architektura systemu, w której każdy element
-              robi to, w czym jest najlepszy — i przejmuje pracę, kiedy
-              inny element jest w trybie wakacyjnym, awaryjnym albo po
-              prostu nieopłacalnym.
+              Dla domu oznacza to spokój: ciepło zawsze jest, niezależnie
+              od mrozu, ceny prądu czy chwilowej awarii. Pompa ciepła +
+              kominek z płaszczem wodnym, bufor ECH2O, magazyn energii i
+              integracja z fotowoltaiką — każdy element robi to, w czym
+              jest najlepszy, a sterownik wybiera tańsze źródło bez
+              udziału mieszkańca.
             </p>
             <ul className="mt-10 space-y-4 text-sm leading-relaxed text-white/75">
               <li className="flex gap-3">
@@ -1066,10 +1087,10 @@ function CalculatorReadiness() {
               </span>
             </h2>
             <p className="mt-6 text-base leading-relaxed text-black/60 md:text-lg">
-              Krótka, inżynierska ocena gotowości: izolacja, emitery,
-              instalacja elektryczna, wentylacja, profil energetyczny.
-              Wynik to nie oferta — to konsultacja: gdzie jesteś, czego
-              brakuje, co warto zrobić najpierw.
+              Zanim wydasz pierwszą złotówkę — sprawdź, czego naprawdę
+              potrzebuje Twój dom. Krótka, inżynierska ocena pokazuje,
+              co zrobić najpierw, żeby pompa pracowała tanio, cicho i
+              bezawaryjnie. Wynik to konsultacja, nie oferta.
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               <Link
