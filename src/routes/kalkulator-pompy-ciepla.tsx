@@ -182,8 +182,14 @@ function CalculatorPage() {
     }
     setSending(true);
     try {
-      await submitLead({
-        data: {
+      const res = await fetch("https://formspree.io/f/meedveor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: "Kalkulator pompy ciepła - nowy lead",
           buildingStandard: calcInput.buildingStandard,
           customValue: calcInput.customValue ?? null,
           customUnit: calcInput.customUnit ?? null,
@@ -203,11 +209,12 @@ function CalculatorPage() {
           notes: lead.notes || null,
           rodoConsent: true,
           sourceUrl: typeof window !== "undefined" ? window.location.href : null,
-        },
+        }),
       });
+      if (!res.ok) throw new Error("send failed");
       saveRecommendedProduct(result.primary.product.id);
       setSubmitted(true);
-      toast.success("Wysłano! Skontaktujemy się w 24h.");
+      toast.success("Dziękujemy. Skontaktujemy się z Tobą.");
     } catch (err) {
       console.error(err);
       toast.error("Nie udało się wysłać. Zadzwoń bezpośrednio.");
